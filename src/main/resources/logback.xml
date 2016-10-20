@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/catlina.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <appender name="APPLICATION-LOG-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/getPUK2.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="MIS-LOG-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/getPUK2mis.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- additivity=false ensures analytics data only goes to the analytics log -->
+    <logger name="application_log" level="DEBUG" additivity="false">
+        <appender-ref ref="APPLICATION-LOG-FILE"/>
+    </logger>
+
+    <!-- additivity=false ensures analytics data only goes to the analytics log -->
+    <logger name="mis_log" level="DEBUG" additivity="false">
+        <appender-ref ref="MIS-LOG-FILE"/>
+    </logger>
+
+    <root>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
