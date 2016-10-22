@@ -7,34 +7,34 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.stereotype.Component;
 
 @Aspect
-@Component
 public class PukLogger {
 	private final Log log = LogFactory.getLog("application_log");
 	private final Log mis_log = LogFactory.getLog("mis_log");
 	
     public PukLogger () {}
     
-    /*@AfterReturning("execution(* uk.co.o2.*.*.*(..))")
-    public void logMethodAccessAfter(JoinPoint joinPoint) {
-        log.info("***** Completed: " + joinPoint.getSignature().getName() + " *****");
-    }*/
+    
     @Before("execution(* uk.co.o2.utility.Validator.validate(..))")
     public void logMethodAccessBeforeValidator(JoinPoint joinPoint) {
     	//("GetPUKManagerImpl,validate,Entered method with: " + userInputMPN));    	
-    	log.debug(joinPoint.getSignature().getName()+ ",Entered method with: "+joinPoint.getArgs()[0].toString());
+    	log.debug(joinPoint.getSignature().getName()+ 
+    			",validating <"+joinPoint.getArgs()[0].toString()+"> MPN");
     }
-    @Before("execution(* uk.co.o2.*.*.*(..))")
+
+    @Before("execution(* uk.co.o2.resources.*.*(..))")
     public void logMethodAccessBefore(JoinPoint joinPoint) {
-    	//("GetPUKManagerImpl,validate,Entered method with: " + userInputMPN));
-    	
-    	log.debug(joinPoint.getSignature()+"," + joinPoint.getSignature().getName() + ",Entered method with: "+joinPoint.getArgs());
+    	log.debug(joinPoint.getSignature());
     }
     
-    @AfterThrowing(pointcut="execution(* uk.co.o2.*.*.*(..))",throwing="excep")
+    @AfterReturning(pointcut="execution(* uk.co.o2.*.*.*(..))",returning="returnVal")
+    public void logMethodAccessAfter(JoinPoint joinPoint, String returnVal) {
+    	mis_log.debug("*** "+joinPoint.getArgs()[0].toString()+"\tis ");
+    }
+    
+    @AfterThrowing(pointcut="execution(* uk.co.o2.facade.*.*(..))",throwing="excep")
     public void logMethodAccessAfterThrowing(JoinPoint joinPoint, Throwable excep)throws Throwable {
-    		log.info(joinPoint.getSignature().getName()+ ", "+excep);
+    		log.info("Exception Thrown "+joinPoint.getSignature()+ ", "+excep);
     }
 }
