@@ -3,6 +3,7 @@ package uk.co.o2.resources;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,10 +23,14 @@ import uk.co.o2.utility.SOAException;
 @RequestMapping("/puk")
 public class PUKController {
 	@Autowired
+	Environment env;
+
+
+	@Autowired
 	ModelAndViewFacade modelAndView;
 	@Autowired
 	PUKFacade facade;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index() {    	
 		return modelAndView.forWelcomePage();
@@ -44,6 +49,6 @@ public class PUKController {
 		} catch (SOAException e) {
 			return modelAndView.forErrorPage(Arrays.asList(e.getMessage().toString()));
 		}
-		return modelAndView.forSuccessPage(result);
+		return modelAndView.forSuccessPage(result,mpn);
 	}   
 }

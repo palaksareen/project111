@@ -14,9 +14,10 @@ public class ModelAndViewFacade {
 		return mav;
 	}
 
-	public ModelAndView forSuccessPage(String pukCode) {
+	public ModelAndView forSuccessPage(String pukCode,String mpn) {
 		ModelAndView mav=new ModelAndView(successPage);
 		mav.addObject("puk", pukCode);
+		mav.addObject("mpn", mpn);
 		return mav;
 	}
 	

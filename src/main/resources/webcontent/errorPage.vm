@@ -1,6 +1,9 @@
-Error
-<table>
+Error Page
+<div>
 #foreach( $error in $errors )
-    <tr><td>$foreach.count</td><td>$error</td></tr>
+    <div>
+    	<div>$error.message</div>
+    	<div>$error.description</div>
+    </div>
 #end
-</table>
+</div>

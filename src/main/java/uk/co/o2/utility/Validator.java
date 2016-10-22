@@ -7,17 +7,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Validator {
 	public void validate(String userInputMPN) throws InvalidMPNException {
-        ArrayList<String> errors = new ArrayList<String>();
+        ArrayList<ErrorCode> errors = new ArrayList<ErrorCode>();
         if (userInputMPN != null) {
             int mpnLength = userInputMPN.length();
             if (mpnLength == 0) {
-                errors.add("MPN_NULL");
+                errors.add(ErrorCode.INVALID_MPN_EMPTY);
                 throw new InvalidMPNException("Invalid MPN-MPN is null", userInputMPN, errors);
             }
             userInputMPN = userInputMPN.replaceFirst("\\+", "");
             userInputMPN = userInputMPN.replaceAll("\\-", "");
             if (!userInputMPN.matches("\\d+")) {
-                errors.add("MPN_NOT_NUMERIC");
+                errors.add(ErrorCode.INVALID_MPN);
                 throw new InvalidMPNException("Invalid MPN-MPN is not numeric", userInputMPN, errors);
             }
             if (mpnLength > 10 && GetPUKUtility.specialCharacterCheck((String)userInputMPN)) {
@@ -25,15 +25,15 @@ public class Validator {
                     if (userInputMPN.startsWith("07") && userInputMPN.length() == 11 || userInputMPN.startsWith("447") && userInputMPN.length() == 12) {
                         return;
                     }
-                    errors.add("MPN_INVALID_LENGTH");
+                    errors.add(ErrorCode.INVALID_MPN_LONG);
                 } else {
-                    errors.add("MPN_INVALID_PREFIX");
+                    errors.add(ErrorCode.INVALID_MPN_PREFIX);
                 }
             } else {
-                errors.add("MPN_TOO_SHORT");
+                errors.add(ErrorCode.INVALID_MPN_SHORT);
             }
         } else {
-            errors.add("MPN_NULL");
+            errors.add(ErrorCode.INVALID_MPN_EMPTY);
         }
         throw new InvalidMPNException("Invalid MPN", userInputMPN, errors);
     }

@@ -43,7 +43,7 @@ public class PUKControllerTest {
 		ModelAndView mav=new ModelAndView();
 		
 		when(facade.getPuk("some mpn")).thenReturn(result);
-		when(modelAndView.forSuccessPage(result)).thenReturn(mav);
+		when(modelAndView.forSuccessPage(result,"some mpn")).thenReturn(mav);
 		
 
 		ModelAndView actual=pukController.getPUK("some mpn");
