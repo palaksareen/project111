@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 import uk.co.o2.service.PUKService;
 import uk.co.o2.utility.GetPUKConstants;
 import uk.co.o2.utility.GetPUKUtility;
-import uk.co.o2.utility.InvalidMPNException;
-import uk.co.o2.utility.NotO2CustomerException;
-import uk.co.o2.utility.PUKNotFoundException;
-import uk.co.o2.utility.SOAException;
 import uk.co.o2.utility.Validator;
+import uk.co.o2.utility.exception.InvalidMPNException;
+import uk.co.o2.utility.exception.NotO2CustomerException;
+import uk.co.o2.utility.exception.PUKNotFoundException;
+import uk.co.o2.utility.exception.SOAException;
 
 @Service
 public class PUKFacade {
@@ -27,8 +27,6 @@ public class PUKFacade {
 		String internationalFormat=GetPUKUtility.convertMPN2InternationalFormat(MPN);
 		// Call to SOA Service
 		uk.co.o2.utility.PUKCode pukResult = service.getPUKCode(internationalFormat);
-		
-		
 		return pukResult.getPukCode();
 	}
 }

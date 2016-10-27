@@ -1,4 +1,4 @@
-package uk.co.o2.utility;
+package uk.co.o2.utility.exception;
 
 
 public class PUKNotFoundException

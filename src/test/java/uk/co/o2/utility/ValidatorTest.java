@@ -13,8 +13,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import uk.co.o2.utility.InvalidMPNException;
 import uk.co.o2.utility.Validator;
+import uk.co.o2.utility.exception.InvalidMPNException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Validator.class)
 @WebAppConfiguration

@@ -16,18 +16,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.sun.xml.ws.api.message.Headers;
+import com.sun.xml.ws.client.BindingProviderProperties;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
+import uk.co.o2.service.SoaService;
 import uk.co.o2.soa.subscriberdata_2.SubscriberProfileType;
 import uk.co.o2.soa.subscriberservice_2.GetSubscriberProfileFault;
 import uk.co.o2.soa.subscriberservice_2.SubscriberPort;
 import uk.co.o2.soa.subscriberservice_2.SubscriberService;
-import uk.co.o2.utility.NotO2CustomerException;
-import uk.co.o2.utility.PUKNotFoundException;
-import uk.co.o2.utility.SOAException;
+import uk.co.o2.utility.exception.NotO2CustomerException;
+import uk.co.o2.utility.exception.PUKNotFoundException;
+import uk.co.o2.utility.exception.SOAException;
 
 @Component
-public class SoaService {
+public class SoaServiceImpl implements SoaService {
 
 	private final Log log = LogFactory.getLog("application_log");
 
@@ -40,7 +42,15 @@ public class SoaService {
 
 	@Value("${service_end_point}")
 	String service_end_point;
-	public SoaService() {
+
+	@Value("${connectTimeout}")
+	private int connectTimeout;
+
+	@Value("${requestTimeout}")
+	private int requestTimeout;
+	
+	
+	public SoaServiceImpl() {
 		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
@@ -68,8 +78,6 @@ public class SoaService {
 			}
 		}catch (SOAPException | GetSubscriberProfileFault e) {
 			throw new SOAException(e.getMessage());
-		}catch (Exception e) {
-			throw new SOAException(e.getMessage());
 		}
 		return puk;
 	}
@@ -82,6 +90,9 @@ public class SoaService {
 	private void setHeaders(SubscriberPort port,String soaTranId) throws SOAPException {
 		WSBindingProvider provider = (WSBindingProvider)port;
 
+		provider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT, connectTimeout * 1000);
+		provider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, requestTimeout * 1000);
+		
 		provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, service_end_point);
 
 		SOAPElement security,soaTransactionId=null;

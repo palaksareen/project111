@@ -14,12 +14,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import uk.co.o2.service.PUKService;
-import uk.co.o2.utility.InvalidMPNException;
-import uk.co.o2.utility.NotO2CustomerException;
 import uk.co.o2.utility.PUKCode;
-import uk.co.o2.utility.PUKNotFoundException;
-import uk.co.o2.utility.SOAException;
 import uk.co.o2.utility.Validator;
+import uk.co.o2.utility.exception.InvalidMPNException;
+import uk.co.o2.utility.exception.NotO2CustomerException;
+import uk.co.o2.utility.exception.PUKNotFoundException;
+import uk.co.o2.utility.exception.SOAException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Validator.class)

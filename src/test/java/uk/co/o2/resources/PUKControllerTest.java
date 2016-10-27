@@ -25,10 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import uk.co.o2.facade.ModelAndViewFacade;
 import uk.co.o2.facade.PUKFacade;
-import uk.co.o2.utility.InvalidMPNException;
-import uk.co.o2.utility.PUKNotFoundException;
-import uk.co.o2.utility.SOAException;
 import uk.co.o2.utility.Validator;
+import uk.co.o2.utility.exception.InvalidMPNException;
+import uk.co.o2.utility.exception.PUKNotFoundException;
+import uk.co.o2.utility.exception.SOAException;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

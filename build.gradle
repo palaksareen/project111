@@ -39,22 +39,16 @@ configurations {
 }
 def tomcatHome="/home/cts1/Softwares/apache-tomcat-8.5.5/"
 task deployToTomcat(type: Copy) {
-	println tomcatHome
     from war.archivePath
     into tomcatHome+"webapps"
 }
 
 task copyToTomcat(type: Copy) {
-
-	// Using a relative path
-	File configFile = file('src/main/resources/application.properties')
-	// Using an absolute path
+	File configFile = file('src/main/resources/getpuk.properties')
 	configFile = file(configFile.absolutePath)
 
-	println configFile
 	from configFile
     into tomcatHome+"appdata"
-	
 }
 
 

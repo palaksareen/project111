@@ -5,7 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
@@ -16,10 +15,8 @@ public class PukLogger {
 	
     public PukLogger () {}
     
-    
     @Before("execution(* uk.co.o2.utility.Validator.validate(..))")
     public void logMethodAccessBeforeValidator(JoinPoint joinPoint) {
-    	//("GetPUKManagerImpl,validate,Entered method with: " + userInputMPN));    	
     	log.debug(joinPoint.getSignature().getName()+ 
     			",validating <"+joinPoint.getArgs()[0].toString()+"> MPN");
     }
@@ -38,6 +35,5 @@ public class PukLogger {
     public void logMethodAccessAfterThrowing(JoinPoint joinPoint, Throwable excep)throws Throwable {
     		log.info("Exception Thrown "+joinPoint.getSignature()+ ", "+excep);
     }
-    
     
 }

@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import uk.co.o2.utility.exception.InvalidMPNException;
+
 /*
  * Exception performing whole class analysis ignored.
  */

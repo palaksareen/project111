@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.context.annotation.Configuration;
 
+import uk.co.o2.utility.exception.InvalidMPNException;
+
 @Configuration
 public class Validator {
 	public void validate(String userInputMPN) throws InvalidMPNException {

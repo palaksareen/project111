@@ -15,42 +15,22 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Basic Controller which is called for unhandled errors
- */
 @Controller
 public class AppErrorController implements ErrorController{
 
-    /**
-     * Error Attributes in the Application
-     */
     private ErrorAttributes errorAttributes;
 
     private final static String ERROR_PATH = "/error";
 
-    /**
-     * Controller for the Error Controller
-     * @param errorAttributes
-     */
     public AppErrorController(ErrorAttributes errorAttributes) {
         this.errorAttributes = errorAttributes;
     }
 
-    /**
-     * Supports the HTML Error View
-     * @param request
-     * @return
-     */
     @RequestMapping(value = ERROR_PATH, produces = "text/html")
     public ModelAndView errorHtml(HttpServletRequest request) {
         return new ModelAndView("/webcontent/errorPage", getErrorAttributes(request, false));
     }
 
-    /**
-     * Supports other formats like JSON, XML
-     * @param request
-     * @return
-     */
     @RequestMapping(value = ERROR_PATH)
     @ResponseBody
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
@@ -59,16 +39,10 @@ public class AppErrorController implements ErrorController{
         return new ResponseEntity<Map<String, Object>>(body, status);
     }
 
-    /**
-     * Returns the path of the error page.
-     *
-     * @return the error path
-     */
     @Override
     public String getErrorPath() {
         return ERROR_PATH;
     }
-
 
     private boolean getTraceParameter(HttpServletRequest request) {
         String parameter = request.getParameter("trace");
