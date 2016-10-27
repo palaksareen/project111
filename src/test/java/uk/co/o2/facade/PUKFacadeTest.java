@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import uk.co.o2.service.PUKService;
 import uk.co.o2.utility.InvalidMPNException;
+import uk.co.o2.utility.NotO2CustomerException;
 import uk.co.o2.utility.PUKCode;
 import uk.co.o2.utility.PUKNotFoundException;
 import uk.co.o2.utility.SOAException;
@@ -32,7 +33,7 @@ public class PUKFacadeTest {
 	PUKService mockService;
 
 	@Test
-	public void testGetPukFunctionality() throws InvalidMPNException, PUKNotFoundException, SOAException{
+	public void testGetPukFunctionality() throws InvalidMPNException, PUKNotFoundException, SOAException, NotO2CustomerException{
 		MockitoAnnotations.initMocks(this);
 		PUKFacade facade=new PUKFacade();		
 		facade.validator  = mockValidator;

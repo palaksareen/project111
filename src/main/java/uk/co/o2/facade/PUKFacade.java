@@ -7,6 +7,7 @@ import uk.co.o2.service.PUKService;
 import uk.co.o2.utility.GetPUKConstants;
 import uk.co.o2.utility.GetPUKUtility;
 import uk.co.o2.utility.InvalidMPNException;
+import uk.co.o2.utility.NotO2CustomerException;
 import uk.co.o2.utility.PUKNotFoundException;
 import uk.co.o2.utility.SOAException;
 import uk.co.o2.utility.Validator;
@@ -18,7 +19,7 @@ public class PUKFacade {
 	@Autowired
 	PUKService service;
 	
-	public String getPuk(String mpn) throws InvalidMPNException, PUKNotFoundException, SOAException{
+	public String getPuk(String mpn) throws InvalidMPNException, PUKNotFoundException,NotO2CustomerException, SOAException{
 		// Validate MPN
 		validator.validate(mpn);
 		// Convert MPN to SOA accepted format

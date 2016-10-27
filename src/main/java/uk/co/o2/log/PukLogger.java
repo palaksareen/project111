@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
@@ -30,11 +31,13 @@ public class PukLogger {
     
     @AfterReturning(pointcut="execution(* uk.co.o2.*.*.*(..))",returning="returnVal")
     public void logMethodAccessAfter(JoinPoint joinPoint, String returnVal) {
-    	mis_log.debug("*** "+joinPoint.getArgs()[0].toString()+"\tis ");
+    	mis_log.debug("*** "+joinPoint.getArgs()[0].toString()+"\tis "+returnVal);
     }
     
     @AfterThrowing(pointcut="execution(* uk.co.o2.facade.*.*(..))",throwing="excep")
     public void logMethodAccessAfterThrowing(JoinPoint joinPoint, Throwable excep)throws Throwable {
     		log.info("Exception Thrown "+joinPoint.getSignature()+ ", "+excep);
     }
+    
+    
 }

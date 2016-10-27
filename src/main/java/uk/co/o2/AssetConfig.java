@@ -1,17 +1,20 @@
 package uk.co.o2;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 import uk.co.o2.log.PukLogger;
 @Configuration
 @EnableAspectJAutoProxy
+@EnableAutoConfiguration
 @ComponentScan(basePackages = {"uk.co.o2.utility"})
-@PropertySources(value = {@PropertySource(value="file://${CATALINA_BASE}/appdata/getpuk.properties",ignoreResourceNotFound=true)})
+@ImportResource("classpath:config.xml")
 public class AssetConfig {
 	@Bean   
 	public PukLogger myLogger(){

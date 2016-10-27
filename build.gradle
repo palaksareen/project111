@@ -9,15 +9,17 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		//providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 	}
+}
+
+configurations {
+    jaxb
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
-
 war {
 	baseName = 'puk'
 	version = '0.0.1-SNAPSHOT'
@@ -35,22 +37,57 @@ repositories {
 configurations {
 	providedRuntime
 }
+def tomcatHome="/home/cts1/Softwares/apache-tomcat-8.5.5/"
+task deployToTomcat(type: Copy) {
+	println tomcatHome
+    from war.archivePath
+    into tomcatHome+"webapps"
+}
+
+task copyToTomcat(type: Copy) {
+
+	// Using a relative path
+	File configFile = file('src/main/resources/application.properties')
+	// Using an absolute path
+	configFile = file(configFile.absolutePath)
+
+	println configFile
+	from configFile
+    into tomcatHome+"appdata"
+	
+}
+
+
+def genWsdl(wsdlPackage, wsdlFile) {
+    def wsdlFileLocation = projectDir.absolutePath + '/src/main/resources' + wsdlPackage
+    def genSrc = projectDir.absolutePath + '/src/main/java'
+    def JAVA_HOME = System.env.'JAVA_HOME'
+    exec {
+        commandLine(JAVA_HOME + '/bin/wsimport', wsdlFileLocation + wsdlFile, '-keep', '-XadditionalHeaders','-Xnocompile', '-s', genSrc, '-wsdllocation', wsdlFile)
+    }
+}
+task genWC {
+    doLast {
+        genWsdl('/wsdl/', 'subscriberservice_2_0.wsdl')
+    }
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-aop')
 	compile('org.springframework.boot:spring-boot-starter-velocity')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-	//compile("ch.qos.logback:logback-classic:1.0.13")
-    //compile("org.aspectj:aspectjweaver:1.8.8")
 	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.7'
-	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	// TODO remove this release full
-	//compile group: 'org.powermock', name: 'powermock-mockito-release-full', version: '1.5.4'
-	
+	jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"
 	compile("org.slf4j:slf4j-api:1.6.6")
-    //compile("ch.qos.logback:logback-classic:1.0.13")
     compile("org.aspectj:aspectjweaver:1.8.8")
+    
     testCompile("org.mockito:mockito-core:1.10.19")
+    
+    compile group: 'com.sun.xml.ws', name: 'jaxws-rt', version: '2.2.10'
+    
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.4'
+    compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.2'
+    
 }

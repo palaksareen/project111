@@ -19,7 +19,6 @@ public class PukApplication {
 	 public AppErrorController appErrorController(){return new AppErrorController(errorAttributes);}
 
 	public static void main(String[] args) {
-		
 		SpringApplication.run(PukApplication.class, args);
 		
 	}
