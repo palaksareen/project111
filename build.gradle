@@ -90,4 +90,16 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.4'
     compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.2'
     
+    
+    compile "joda-time:joda-time:2.2"
+    testCompile "junit:junit:4.12"
+
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '2.53.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version: '2.53.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '2.53.0'
+    
+    compile group: 'org.testng', name: 'testng', version: '6.9.10'
+    
+    
 }
