@@ -2,44 +2,61 @@ package src.test.java.uk.co.o2;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.AfterClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 public class PUKFunctionalTest {
 
+	private static final String siteUrl = "http://localhost:8080/puk-0.0.1-SNAPSHOT/puk";
 	WebDriver driver=new FirefoxDriver();
 
 	public PUKFunctionalTest() {
 	}
+	
 	@AfterSuite
 	public void closeBroweser(){
 		System.out.println("Closign brower.....");
 		driver.quit();
 	}
 
-
 	@Test
-	public void happyPath() {
-		driver.get("http://localhost:8080/puk-0.0.1-SNAPSHOT/puk");    
+	public void happyPath() throws InterruptedException {
+		driver.get(siteUrl);    
 
 		driver.findElement(By.id("MPN")).sendKeys("447704610259");
-		driver.findElement(By.id("btnSubmit")).click();
-		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		
+		WebElement iframeSwitch = driver.findElement(By.xpath("/html/body/div/fieldset/form/div/div/div/iframe"));
+	    driver.switchTo().frame(iframeSwitch);
+	    driver.findElement(By.cssSelector("div[class=recaptcha-checkbox-checkmark]")).click();
+	    driver.switchTo().parentFrame();
+	    TimeUnit.SECONDS.sleep(3);
+
+	    driver.findElement(By.id("btnSubmit")).click();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		
+		
 		String msg=driver.findElement(By.id("dvPuk")).getText();
 		Assert.assertEquals(msg, "The PUK code for mobile number 447704610259 is : 1234");
 	}
 
 	@Test
-	public void checkNonO2MPN() {
-		driver.get("http://localhost:8080/puk-0.0.1-SNAPSHOT/puk");    
+	public void checkNonO2MPN() throws InterruptedException {
+		driver.get(siteUrl);    
 
 		driver.findElement(By.id("MPN")).sendKeys("447704610200");
+		
+		WebElement iframeSwitch = driver.findElement(By.xpath("/html/body/div/fieldset/form/div/div/div/iframe"));
+	    driver.switchTo().frame(iframeSwitch);
+	    driver.findElement(By.cssSelector("div[class=recaptcha-checkbox-checkmark]")).click();
+	    driver.switchTo().parentFrame();
+	    TimeUnit.SECONDS.sleep(3);
+
+		
 		driver.findElement(By.id("btnSubmit")).click();
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		String msg=driver.findElement(By.id("dvMsg")).getText();
@@ -47,10 +64,17 @@ public class PUKFunctionalTest {
 	}
 
 	@Test
-	public void checkInvalidMPN() {
-		driver.get("http://localhost:8080/puk-0.0.1-SNAPSHOT/puk");    
+	public void checkInvalidMPN() throws InterruptedException {
+		driver.get(siteUrl);    
 
 		driver.findElement(By.id("MPN")).sendKeys("44770461020");
+
+		WebElement iframeSwitch = driver.findElement(By.xpath("/html/body/div/fieldset/form/div/div/div/iframe"));
+	    driver.switchTo().frame(iframeSwitch);
+	    driver.findElement(By.cssSelector("div[class=recaptcha-checkbox-checkmark]")).click();
+	    driver.switchTo().parentFrame();
+	    TimeUnit.SECONDS.sleep(3);
+
 		driver.findElement(By.id("btnSubmit")).click();
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		String msg=driver.findElement(By.id("dvMsg")).getText();

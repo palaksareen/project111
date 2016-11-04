@@ -16,7 +16,7 @@ public class PUKService {
 	SoaService soaService;
 	
 	public uk.co.o2.utility.PUKCode getPUKCode(String mpn) throws PUKNotFoundException, NotO2CustomerException,SOAException{
-		String p = soaService.getPuk(mpn);
-		return new PUKCode(p);
+		String puk =soaService.getPuk(mpn);
+		return new PUKCode(puk);
 	}
 }

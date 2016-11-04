@@ -1,6 +1,30 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+
+task copyToServer(type: Copy) {
+	File configFile = file('getpuk.properties')
+	configFile = file(configFile.absolutePath)
+
+	from configFile
+    into tomcatHome+"appdata"
+}
+
+
+test {
+	doFirst {
+		println "Copying to server"
+	     copyToServer.execute()
+/*	     deployToTomcat.execute();
+	    println "Stopping to server"
+	     stopTom.execute()
+	     println "Starting to server"
+	     startTom.execute()
+  */
+    }
+    useTestNG() {}
+ }
+
 clean.doFirst {
     delete "${rootDir}/build/"
 }
@@ -8,6 +32,8 @@ clean.doFirst {
 repositories { 
     mavenCentral() 
 }
+
+
 
 jar {
     baseName = 'puktest'
@@ -30,6 +56,3 @@ dependencies {
     
 }
 
-test {
-    useTestNG() {}
- }

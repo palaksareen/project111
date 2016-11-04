@@ -9,8 +9,16 @@ public class ModelAndViewFacade {
 	private final String welcomePage="webcontent/welcomePage";
 	private final String successPage="webcontent/successPage";
 	private final String errorPage="webcontent/errorPage";
-	public ModelAndView forWelcomePage(){
+	public ModelAndView forWelcomePage(String sitekey,Boolean flag){
+		System.out.println("\n\nsitekey"+sitekey);
 		ModelAndView mav=new ModelAndView(welcomePage);
+		mav.addObject("sitekey",sitekey);
+		String style=null;
+		if(flag)
+			style="show";
+		else
+			style="hidden";
+		mav.addObject("showCaptcha",style);
 		return mav;
 	}
 

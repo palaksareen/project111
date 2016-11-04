@@ -13,6 +13,7 @@ import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import com.sun.xml.ws.api.message.Headers;
@@ -39,15 +40,14 @@ public class SoaServiceImpl implements SoaService {
 	@Value("${soaPassword}")
 	String soaPassword;
 
-
 	@Value("${service_end_point}")
 	String service_end_point;
 
 	@Value("${connectTimeout}")
-	private int connectTimeout;
+	Integer connectTimeout;
 
 	@Value("${requestTimeout}")
-	private int requestTimeout;
+	Integer requestTimeout;
 	
 	
 	public SoaServiceImpl() {
@@ -59,6 +59,8 @@ public class SoaServiceImpl implements SoaService {
 
 	public String getPukWithId(String mpn,String soaTranId)throws PUKNotFoundException,NotO2CustomerException, SOAException{
 		String puk =null;
+		System.out.println("\n.............."+service_end_point);
+
 		URL baseUrl = SubscriberService.class.getResource("../../../../../wsdl/subscriberservice_2_0.wsdl");
 		SubscriberService ss=new SubscriberService(baseUrl,
 				new QName("http://soa.o2.co.uk/subscriberservice_2","SubscriberService"));
@@ -70,7 +72,6 @@ public class SoaServiceImpl implements SoaService {
 			if(subscriberProfile.getOperator().equals("nonO2")){
 				throw new NotO2CustomerException("Not a O2 Customer");
 			}
-			System.out.println("------------");
 			log.debug(soaTranId+ " Calling soa service for "+mpn);
 			puk = subscriberProfile.getPuk();
 			if(puk == null || puk.isEmpty()){
@@ -82,7 +83,7 @@ public class SoaServiceImpl implements SoaService {
 		return puk;
 	}
 
-
+	@Cacheable(cacheNames="pukCache")
 	public String getPuk(String mpn) throws PUKNotFoundException,NotO2CustomerException, SOAException{
 		return getPukWithId(mpn,UUID.randomUUID().toString()+":"+"puk");
 	}

@@ -9,6 +9,8 @@ public enum ErrorCode {
 	INVALID_MPN_SHORT("The phone number entered is too short.","Please enter your full 11 digit phone number without hyphens or spaces"), 
 	PUKNOTFOUND("Sorry We are unable to find the PUK","Please try after some time."),
 	NOTO2CUSTOMER("Not a O2 customer",""),
+	INVALID_CAPTCHA("Invalid Captacha",""),
+	GOOGLE_SERVICE_DOWN("Some Internal Service is down","Please try after some time."),
 	SOAFAULT("Something went wrong","Please try after some time.");
 	 private final String message;
      private final String description;

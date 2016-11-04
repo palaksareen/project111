@@ -20,6 +20,15 @@ apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
+
+ext.tomcatHome="/home/cts1/Softwares/apache-tomcat-8.5.5/"
+
+task deployToTomcat(type: Copy) {
+	println war.archivePath
+    from war.archivePath
+    into tomcatHome+"webapps"
+}
+
 war {
 	baseName = 'puk'
 	version = '0.0.1-SNAPSHOT'
@@ -37,11 +46,7 @@ repositories {
 configurations {
 	providedRuntime
 }
-def tomcatHome="/home/cts1/Softwares/apache-tomcat-8.5.5/"
-task deployToTomcat(type: Copy) {
-    from war.archivePath
-    into tomcatHome+"webapps"
-}
+
 
 task copyToTomcat(type: Copy) {
 	File configFile = file('src/main/resources/getpuk.properties')
@@ -83,7 +88,7 @@ dependencies {
     
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.4'
     compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.2'
-    
+	compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.8.0'
     
     compile "joda-time:joda-time:2.2"
     testCompile "junit:junit:4.12"
@@ -94,6 +99,11 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '2.53.0'
     
     compile group: 'org.testng', name: 'testng', version: '6.9.10'
+    
+    compile("org.apache.cxf:cxf-rt-rs-client:3.0.1")
+    compile("org.codehaus.jackson:jackson-jaxrs:1.9.13")
+    
+    compile group: 'commons-configuration', name: 'commons-configuration', version: '1.6'
     
     
 }
