@@ -57,7 +57,7 @@ public class PUKController {
 		if(request != null )
 			if(DynamicProperties.getBooleanProperty("googlecaptcha.enabled")){
 //				facade.varifyCaptcha( request.getLocalAddr(), grecaptcha);
-				facade.varifyCaptcha1( grecaptcha);
+				facade.varifyCaptcha( grecaptcha);
 			}
 
 			result=facade.getPuk(mpn);

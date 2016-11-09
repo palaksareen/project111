@@ -50,19 +50,19 @@ public class PUKFacade {
 		return pukResult.getPukCode();
 	}
 
-	// Code which directly connects to google recaptcha service
+	// Code which directly connects to google recaptcha service uses Core Java classes.
 	public void varifyCaptcha(String userip, String reCaptchaResponse) throws NotValidCaptcha, GoogleServiceException {
 		if(!captchaService.isVarifiedCaptcha(userip, reCaptchaResponse))
 			throw new NotValidCaptcha("Captcha is not valid","");
 	}
 	
-	// Recaptcha Code :: eShop Version
+	// Recaptcha Code :: Webtopup Version uses apache HTTPClient
 	public void varifyCaptcha( String reCaptchaResponse) throws NotValidCaptcha, GoogleServiceException {
 		if(! capcha.validateCaptcha(new CaptchaRequest(reCaptchaResponse)).isSuccess())
 			throw new NotValidCaptcha("Captcha is not valid","");
 	}
 	
-	// Recaptcha Code :: Webtopup Version
+	// Recaptcha Code :: eShop Version apache CXF
 	public void varifyCaptcha1( String reCaptchaResponse) throws NotValidCaptcha, GoogleServiceException {
 		if(! reCaptchaService.verifyCaptchaResponse(reCaptchaResponse))
 			throw new NotValidCaptcha("Captcha is not valid","");
