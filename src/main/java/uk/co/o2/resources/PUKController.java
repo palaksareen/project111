@@ -55,8 +55,11 @@ public class PUKController {
 		String result="no puk found";
 		try {
 		if(request != null )
-			if(DynamicProperties.getBooleanProperty("googlecaptcha.enabled"))
-				facade.varifyCaptcha( request.getLocalAddr(), grecaptcha);
+			if(DynamicProperties.getBooleanProperty("googlecaptcha.enabled")){
+//				facade.varifyCaptcha( request.getLocalAddr(), grecaptcha);
+				facade.varifyCaptcha1( grecaptcha);
+			}
+
 			result=facade.getPuk(mpn);
 		} catch (InvalidMPNException e) {
 			return modelAndView.forErrorPage(e.getErrorList());
