@@ -15,11 +15,4 @@ public enum ReCaptchaErrorCode {
 		this.code = code;
 		this.description = description;
 	}
-
-	/*static String getErrorDescription(String code) {
-		def errorCode = values().find {
-			it.code == code
-		}
-		errorCode ? errorCode.description : UNKNOWN.description
-	}*/
 }

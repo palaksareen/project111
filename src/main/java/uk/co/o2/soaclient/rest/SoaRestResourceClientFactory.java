@@ -4,20 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -78,12 +74,8 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
         addHeaders(httpClient, headers);
         setTimeouts(httpClient);
         setInterceptors(httpClient);
-
-     /* Guess Its not needed  
-      * if(soaConfig.certificateEnabled) {
-            configureSSL(httpClient);
-        }
-*/
+        configureSSL(httpClient);
+     
         return JAXRSClientFactory.fromClient(httpClient, resourceClass, true);
     }
 
@@ -93,7 +85,7 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
         KeyStore keyStore;
 		try {
-			keyStore = KeyStore.getInstance("PKCS12");
+			keyStore = KeyStore.getInstance("JKS");
 		
         keyStore.load(readCertificate(certificateLocation), certificatePassword.toCharArray());
         KeyManagerFactory  factory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
@@ -111,6 +103,7 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
         httpConduit.setTlsClientParameters(tlsClientParameters);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("\n\n\n1111 Exception occured");
 			e.printStackTrace();
 		}
     }
@@ -143,21 +136,17 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
     }
 
     private void addHeaders(WebClient client, HashMap headers) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-    	String  soaUsername = soaConfig.username;
-    	String  soaPassword =soaConfig.password;//decryptPassword(soaConfig.password).toString();
-        client.header("Authorization" , "Basic " + new String(Base64.encodeBase64((soaUsername+":"+soaPassword).getBytes()), Charset.forName("US-ASCII")));
-        //headers?.each {key, value -> client.header("${key}","${value}")}
+    	
+    	String header = soaConfig.username+":"+ soaConfig.password;
+        byte[] unencodedByteArray = header.getBytes();
+        byte[] encodedByteArray = Base64.encodeBase64(unencodedByteArray);
+        String encodedString = new String(encodedByteArray);
+        client.header("Authorization" , "Basic " + " " + encodedString);
+        client.header("SOAConsumerTransactionID" , "1234566");
+
         if(headers != null)
         	headers.forEach((k,v) -> client.header(String.valueOf(k),v));
 
        
-    }
-
-    private byte[] decryptPassword(String encryptedPassword) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-    	byte[] keyBytes = {-5, -6, 68, 78, -24, -118, 20, 101, 60, -75, 28, 67, -62, 96, 22, 120};
-        SecretKeySpec secretKey = new SecretKeySpec(keyBytes,"AES");
-         Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
-        return cipher.doFinal(Base64.decodeBase64(encryptedPassword));
     }
 }

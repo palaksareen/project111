@@ -1,5 +1,6 @@
 package uk.co.o2.service;
 
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -19,16 +20,13 @@ import uk.co.o2.soaclient.rest.SoaRestResourceClientFactory;
 public class ReCaptchaService {
 
     private final CaptchaValidationResource captchaValidationResource;
-
     
     @Autowired
-    public ReCaptchaService(SoaRestResourceClientFactory soaRestResourceClientFactory) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-    	System.out.println("in service "+soaRestResourceClientFactory);
+    public ReCaptchaService(SoaRestResourceClientFactory soaRestResourceClientFactory) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
     	this.captchaValidationResource =  soaRestResourceClientFactory.createCaptchaValidationResource();
     }
 
     public boolean verifyCaptchaResponse(String reCaptchaResponse){
-
         ReCaptchaResponse verifiedReCaptchaResponse = captchaValidationResource.validateReCaptcha(new ReCaptchaToken(reCaptchaResponse));
         return verifiedReCaptchaResponse.success;
     }

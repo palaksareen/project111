@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,8 +55,7 @@ public class PUKController {
 		try {
 		if(request != null )
 			if(DynamicProperties.getBooleanProperty("googlecaptcha.enabled")){
-//				facade.varifyCaptcha( request.getLocalAddr(), grecaptcha);
-				facade.varifyCaptcha( grecaptcha);
+				facade.varifyCaptcha1( grecaptcha);
 			}
 
 			result=facade.getPuk(mpn);

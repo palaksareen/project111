@@ -59,8 +59,6 @@ public class SoaServiceImpl implements SoaService {
 
 	public String getPukWithId(String mpn,String soaTranId)throws PUKNotFoundException,NotO2CustomerException, SOAException{
 		String puk =null;
-		System.out.println("\n.............."+service_end_point);
-
 		URL baseUrl = SubscriberService.class.getResource("../../../../../wsdl/subscriberservice_2_0.wsdl");
 		SubscriberService ss=new SubscriberService(baseUrl,
 				new QName("http://soa.o2.co.uk/subscriberservice_2","SubscriberService"));
@@ -78,6 +76,12 @@ public class SoaServiceImpl implements SoaService {
 				throw new PUKNotFoundException("Sorry We are unable to find the PUK, Please try later");
 			}
 		}catch (SOAPException | GetSubscriberProfileFault e) {
+			if(e instanceof GetSubscriberProfileFault){
+				GetSubscriberProfileFault e1=(GetSubscriberProfileFault) e;
+				
+				log.debug(e1.getFaultInfo().getSOATransactionID()+"\t"+e1.getFaultInfo().getFaultDescription());	
+			}
+			
 			throw new SOAException(e.getMessage());
 		}
 		return puk;

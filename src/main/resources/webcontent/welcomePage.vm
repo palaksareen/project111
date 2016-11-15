@@ -10,7 +10,7 @@
 <form name="PUKForm" method="post" >
 
 	<label for="MPN">Enter your mobile number</label>
-	<input type="text" name="mpn" id="MPN" class="mobilenumberField" maxlength="20" value=""/>
+	<input type="text" name="mpn" id="MPN" class="mobilenumberField" maxlength="20" value="" required/>
 	<input type="submit" id="btnSubmit" alt="Go" value="Go" title="Go" class="srchGoBtnContent"/>
 	<input type="hidden" name="viewmode" value="getPuk"/>
 	<div style="visibility: ${showCaptcha};" class="g-recaptcha" data-sitekey=${sitekey}></div>

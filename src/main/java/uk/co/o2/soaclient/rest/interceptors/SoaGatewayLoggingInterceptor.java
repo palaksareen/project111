@@ -18,7 +18,7 @@ public class SoaGatewayLoggingInterceptor extends LoggingInInterceptor {
     	String requestedURI = (String) message.getExchange().get(Message.REQUEST_URI);
 		String responseTime = String.valueOf( System.currentTimeMillis() - Long.parseLong(MDC.get(SoaGatewayRequestDataExtractorInterceptor.SOA_GW_TIMESTAMP_KEY)));
 		String requestMethod = MDC.get(SoaGatewayRequestDataExtractorInterceptor.SOA_GW_REQUEST_METHOD);
-		String responsStatus = (String) message.get(Message.RESPONSE_CODE);
+		String responsStatus = String.valueOf( message.get(Message.RESPONSE_CODE));
 
         SOAGW_LOG.info("${requestedURI} ${requestMethod} ${responseStatus} ${transactionId} ${responseTime}");
     }

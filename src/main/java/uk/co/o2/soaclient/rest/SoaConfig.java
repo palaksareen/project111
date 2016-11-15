@@ -7,15 +7,17 @@ import org.springframework.stereotype.Service;
 public class SoaConfig {
 	
 	@Value("${soaKeyStoreCertificateLocation}")
+	public
 	String certificateLocation;
 	
 	@Value("${soaKeyStorePassword}")
+	public
 	String keyStorePassword;
 	
-	@Value("${googlecaptcha.username}")
+	@Value("${soaUsername}")
 	String username;
 	
-	@Value("${googlecaptcha.password}")
+	@Value("${soaPassword}")
 	String password;
 	
 	@Value("${certificateEnabled}")

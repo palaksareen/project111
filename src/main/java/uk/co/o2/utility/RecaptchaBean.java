@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RecaptchaBean {
 	boolean success;
-	String challenge_ts;// timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
+	//String challenge_ts;// timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
 	String hostname;         // the hostname of the site where the reCAPTCHA was solved
 	List<String> errorCodes;
 	public boolean isSuccess() {
@@ -16,12 +16,12 @@ public class RecaptchaBean {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public String getChallenge_ts() {
+	/*public String getChallenge_ts() {
 		return challenge_ts;
 	}
 	public void setChallenge_ts(String challenge_ts) {
 		this.challenge_ts = challenge_ts;
-	}
+	}*/
 	public String getHostname() {
 		return hostname;
 	}
@@ -36,7 +36,7 @@ public class RecaptchaBean {
 	}
 	@Override
 	public String toString() {
-		return "RecaptchaBean [success=" + success + ", challenge_ts=" + challenge_ts + ", hostname=" + hostname
+		return "RecaptchaBean [success=" + success +  ", hostname=" + hostname
 				+ ", errorCodes=" + errorCodes + "]";
 	}
 		
