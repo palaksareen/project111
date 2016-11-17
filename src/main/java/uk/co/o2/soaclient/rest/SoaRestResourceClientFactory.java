@@ -53,10 +53,6 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
     public SoaRestResourceClientFactory() {
     	jacksonJsonProvider = new JacksonJsonProvider();
-    	System.out.println("\n\n\n\n\nSoaRestResourceClientFactory-----------------------------");
-    	
-    	System.out.println("\n ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"+this);
-
     }
 
     
@@ -101,6 +97,12 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
         ClientConfiguration clientConfiguration = WebClient.getConfig(client);
         HTTPConduit httpConduit = clientConfiguration.getHttpConduit();
         httpConduit.setTlsClientParameters(tlsClientParameters);
+        
+        HTTPClientPolicy policy = httpConduit.getClient();
+
+        // set time to wait for response in milliseconds. zero means unlimited
+
+        policy.setReceiveTimeout(4);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("\n\n\n1111 Exception occured");

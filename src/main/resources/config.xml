@@ -13,12 +13,12 @@
  
 	<bean id="mailProperties"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="file://${CATALINA_BASE}/appdata/getpuk.properties" />
+		<property name="location" value="file:///${CATALINA_BASE}/appdata/getpuk.properties" />
 	</bean>
 
 	<bean id="prop"
 		class="uk.co.o2.DynamicProperties">
-		<constructor-arg value="file://${CATALINA_BASE}/appdata/getpuk.properties"/>
+		<constructor-arg value="file:///${CATALINA_BASE}/appdata/getpuk.properties"/>
 	</bean>
 
   </beans>

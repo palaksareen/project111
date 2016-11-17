@@ -59,7 +59,7 @@ public class SslCertBean implements InitializingBean{
 
         KeyStore keyStore;
 		try {
-			keyStore = KeyStore.getInstance("PKCS12");
+			keyStore = KeyStore.getInstance("JKS");
 		
         keyStore.load(readCertificate(certificateLocation), certificatePassword.toCharArray());
         KeyManagerFactory  factory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());

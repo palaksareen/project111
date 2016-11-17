@@ -65,7 +65,7 @@ def genWsdl(wsdlPackage, wsdlFile) {
         commandLine(JAVA_HOME + '/bin/wsimport', wsdlFileLocation + wsdlFile, '-keep', '-XadditionalHeaders','-Xnocompile', '-s', genSrc, '-wsdllocation', wsdlFile)
     }
 }
-task genWC {
+task gwsgen {
     doLast {
         genWsdl('/wsdl/', 'subscriberservice_2_0.wsdl')
     }

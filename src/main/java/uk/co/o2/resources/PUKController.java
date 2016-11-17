@@ -2,8 +2,6 @@ package uk.co.o2.resources;
 
 import java.util.Arrays;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -29,35 +27,33 @@ import uk.co.o2.utility.exception.SOAException;
 @Service
 @RequestMapping("/puk")
 public class PUKController {
-	
+
 	@Autowired
 	ModelAndViewFacade modelAndView;
-	
+
 	@Autowired
 	PUKFacade facade;
- 
-	@Autowired 
-	private HttpServletRequest request;
-	
+
+	/*@Autowired 
+	private HttpServletRequest request;*/
+
 	@Value("${sitekey}")
 	String sitekey;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index() {
 		return modelAndView.forWelcomePage(sitekey,DynamicProperties.getBooleanProperty("googlecaptcha.enabled"));
 	}
-	
-	
+
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView getPUK(@RequestParam("mpn") String mpn, @RequestParam("g-recaptcha-response") String grecaptcha
 			) {
 		String result="no puk found";
 		try {
-		if(request != null )
 			if(DynamicProperties.getBooleanProperty("googlecaptcha.enabled")){
 				facade.varifyCaptcha1( grecaptcha);
 			}
-
 			result=facade.getPuk(mpn);
 		} catch (InvalidMPNException e) {
 			return modelAndView.forErrorPage(e.getErrorList());

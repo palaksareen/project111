@@ -8,6 +8,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import org.apache.cxf.interceptor.Fault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,9 @@ public class ReCaptchaService {
     	this.captchaValidationResource =  soaRestResourceClientFactory.createCaptchaValidationResource();
     }
 
-    public boolean verifyCaptchaResponse(String reCaptchaResponse){
-        ReCaptchaResponse verifiedReCaptchaResponse = captchaValidationResource.validateReCaptcha(new ReCaptchaToken(reCaptchaResponse));
+    public boolean verifyCaptchaResponse(String reCaptchaResponse) throws Fault{
+    	ReCaptchaResponse verifiedReCaptchaResponse = captchaValidationResource.validateReCaptcha(new ReCaptchaToken(reCaptchaResponse));
         return verifiedReCaptchaResponse.success;
     }
-
     
 }

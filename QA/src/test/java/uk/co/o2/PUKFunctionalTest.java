@@ -20,7 +20,6 @@ public class PUKFunctionalTest {
 	
 	@AfterSuite
 	public void closeBroweser(){
-		System.out.println("Closign brower.....");
 		driver.quit();
 	}
 

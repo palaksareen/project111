@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <configuration>
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>${CATALINA_BASE}/logs/catlina.log</file>
+		<file>${CATALINA_BASE}/logs/catalina.out</file>
 		<append>true</append>
 		<encoder>
 			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n
@@ -10,15 +10,6 @@
 	</appender>
 	<appender name="APPLICATION-LOG-FILE" class="ch.qos.logback.core.FileAppender">
 		<file>${CATALINA_BASE}/logs/getPUK2.log</file>
-		<append>true</append>
-		<encoder>
-			<pattern>%-4relative %d{"yyyy-MM-dd'T'HH:mm:ss,SSS"} - %msg %n
-			</pattern>
-		</encoder>
-	</appender>
-	
-	<appender name="errorLog" class="ch.qos.logback.core.FileAppender">
-		<file>${CATALINA_BASE}/logs/soa_rest_errrr.log</file>
 		<append>true</append>
 		<encoder>
 			<pattern>%-4relative %d{"yyyy-MM-dd'T'HH:mm:ss,SSS"} - %msg %n
@@ -36,15 +27,6 @@
 	</appender>
 
 
-<appender name="SOA_REST-LOG-FILE" class="ch.qos.logback.core.FileAppender">
-		<file>${CATALINA_BASE}/logs/soarest.log</file>
-		<append>true</append>
-		<encoder>
-			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n
-			</pattern>
-		</encoder>
-	</appender>
-
 	<!-- additivity=false ensures analytics data only goes to the analytics 
 		log -->
 	<logger name="application_log" level="DEBUG" additivity="false">
@@ -55,14 +37,6 @@
 		log -->
 	<logger name="mis_log" level="DEBUG" additivity="false">
 		<appender-ref ref="MIS-LOG-FILE" />
-	</logger>
-
-	<logger name="soa-rest" level="DEBUG" additivity="false">
-		<appender-ref ref="SOA_REST-LOG-FILE" />
-	</logger>
-	
-	<logger name="errorLog" level="DEBUG" additivity="false">
-		<appender-ref ref="errorLog" />
 	</logger>
 
 	<root>

@@ -12,14 +12,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import uk.co.o2.service.CaptchaService;
 import uk.co.o2.service.PUKService;
 import uk.co.o2.utility.PUKCode;
 import uk.co.o2.utility.Validator;
-import uk.co.o2.utility.exception.GoogleServiceException;
 import uk.co.o2.utility.exception.InvalidMPNException;
 import uk.co.o2.utility.exception.NotO2CustomerException;
-import uk.co.o2.utility.exception.NotValidCaptcha;
 import uk.co.o2.utility.exception.PUKNotFoundException;
 import uk.co.o2.utility.exception.SOAException;
 
@@ -48,14 +45,4 @@ public class PUKFacadeTest {
 		assertEquals("MPN are not equal", code.getPukCode(), actual);
 	}
 
-	@Mock
-	CaptchaService mockCaptchaService;
-	@Test(expected=NotValidCaptcha.class)
-	public void testVarifyCaptcha() throws NotValidCaptcha, GoogleServiceException{
-		MockitoAnnotations.initMocks(this);
-		PUKFacade facade=new PUKFacade();
-		facade.captchaService=mockCaptchaService;
-		when(mockCaptchaService.isVarifiedCaptcha("some ip", "some code")).thenReturn(false);
-		facade.varifyCaptcha("some ip", "some code");
-	}
 }

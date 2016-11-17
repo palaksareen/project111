@@ -1,5 +1,6 @@
 package uk.co.o2.facade;
 
+import org.apache.cxf.interceptor.Fault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,11 @@ public class PUKFacade {
 	
 	// Recaptcha Code :: eShop Version apache CXF
 	public void varifyCaptcha1( String reCaptchaResponse) throws NotValidCaptcha, GoogleServiceException {
-		if(! reCaptchaService.verifyCaptchaResponse(reCaptchaResponse))
-			throw new NotValidCaptcha("Captcha is not valid","");
+		try {
+			if(! reCaptchaService.verifyCaptchaResponse(reCaptchaResponse))
+				throw new NotValidCaptcha("Captcha is not valid","");
+		} catch (Fault e) {
+			throw new GoogleServiceException("Unable to connect Google Service..");
+		}
 	}
 }
