@@ -19,6 +19,8 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.jaxrs.client.ClientConfiguration;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
@@ -27,7 +29,6 @@ import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import uk.co.o2.soaclient.rest.interceptors.SoaGateWayInFaultInterceptor;
@@ -36,30 +37,21 @@ import uk.co.o2.soaclient.rest.interceptors.SoaGatewayRequestDataExtractorInterc
 
 @Service
 public class SoaRestResourceClientFactory implements ResourceClientFactory  {
-	@Value("${soa.readTimeoutMS}")
-    private Integer readTimeout;
-    
-    @Value("${soa.connectionTimeoutMS}")
-    private Integer connectionTimeout;
-    
-    
-    private final JacksonJsonProvider jacksonJsonProvider;
-    
-	@Value("${reCaptchaServiceUrl}")
-    private String reCaptchaServiceUrl;
 	
-	@Autowired
+	private final Log log = LogFactory.getLog("application_log");
+
+    private final JacksonJsonProvider jacksonJsonProvider;
+
+    @Autowired
     private SoaConfig soaConfig;
 
     public SoaRestResourceClientFactory() {
     	jacksonJsonProvider = new JacksonJsonProvider();
     }
-
     
     @Override
     public CaptchaValidationResource createCaptchaValidationResource() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-    	//headers are null
-        return createResource(this.reCaptchaServiceUrl, CaptchaValidationResource.class,null);
+        return createResource(soaConfig.getReCaptchaServiceUrl(), CaptchaValidationResource.class,null);
     }
 
     private <T> T createResource(String baseUrl, Class<T> resourceClass, HashMap headers) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
@@ -76,8 +68,8 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
     }
 
     private void configureSSL(WebClient client) {
-        String certificateLocation = soaConfig.certificateLocation;
-        String certificatePassword = soaConfig.keyStorePassword;
+        String certificateLocation = soaConfig.getSoaKeyStoreCertificateLocation();
+        String certificatePassword = soaConfig.getSoaKeyStorePassword();
 
         KeyStore keyStore;
 		try {
@@ -102,10 +94,9 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
         // set time to wait for response in milliseconds. zero means unlimited
 
-        policy.setReceiveTimeout(4);
+        policy.setReceiveTimeout(0);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("\n\n\n1111 Exception occured");
+			log.debug("Exception occured during Storing certificate for soa rest call."+e.getMessage());
 			e.printStackTrace();
 		}
     }
@@ -128,8 +119,8 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
     private void setTimeouts(WebClient client) {
         HTTPClientPolicy policy = new HTTPClientPolicy();
-        policy.setConnectionTimeout(this.connectionTimeout);
-        policy.setReceiveTimeout(this.readTimeout);
+        policy.setConnectionTimeout(soaConfig.getConnectionTimeout());
+        policy.setReceiveTimeout(soaConfig.getReadTimeout());
         policy.setConnection(org.apache.cxf.transports.http.configuration.ConnectionType.CLOSE);
 
         ClientConfiguration config = WebClient.getConfig(client);
@@ -148,7 +139,5 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
         if(headers != null)
         	headers.forEach((k,v) -> client.header(String.valueOf(k),v));
-
-       
     }
 }

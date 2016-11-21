@@ -2,6 +2,8 @@ package uk.co.o2.resources;
 
 import java.util.Arrays;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import uk.co.o2.utility.ErrorCode;
 import uk.co.o2.utility.exception.GoogleServiceException;
 import uk.co.o2.utility.exception.InvalidMPNException;
 import uk.co.o2.utility.exception.NotO2CustomerException;
-import uk.co.o2.utility.exception.NotValidCaptcha;
+import uk.co.o2.utility.exception.InValidCaptcha;
 import uk.co.o2.utility.exception.PUKNotFoundException;
 import uk.co.o2.utility.exception.SOAException;
 
@@ -27,6 +29,7 @@ import uk.co.o2.utility.exception.SOAException;
 @Service
 @RequestMapping("/puk")
 public class PUKController {
+	private final Log log = LogFactory.getLog("application_log");
 
 	@Autowired
 	ModelAndViewFacade modelAndView;
@@ -60,14 +63,13 @@ public class PUKController {
 		} catch (PUKNotFoundException e) {
 			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.PUKNOTFOUND));
 		}catch (NotO2CustomerException e) {
-			System.out.println("\n\nIn NotO2Customer\n");
 			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.NOTO2CUSTOMER));
 		} catch (SOAException e) {
 			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.SOAFAULT));
-		} catch (NotValidCaptcha e) {
+		} catch (InValidCaptcha e) {
 			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.INVALID_CAPTCHA));
 		} catch (GoogleServiceException e) {
-			// TODO Do nothing ....
+			log.debug("Google ReCAPTCHA Service is down.");
 			e.printStackTrace();
 		}
 		return modelAndView.forSuccessPage(result,mpn);

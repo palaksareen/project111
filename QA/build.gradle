@@ -2,7 +2,13 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 
+task copyToServer(type: Copy) {
+	File configFile = file('getpuk.properties')
+	configFile = file(configFile.absolutePath)
 
+	from configFile
+    into tomcatHome+"appdata"
+}
 
 test {
     useTestNG() {}

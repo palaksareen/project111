@@ -7,6 +7,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReCaptchaResponse {
+	@Override
+	public String toString() {
+		return "ReCaptchaResponse [success=" + success + ", errorCodes=" + errorCodes + "]";
+	}
 	@JsonProperty("success")
 	public Boolean success;
 	
@@ -25,7 +29,5 @@ public class ReCaptchaResponse {
 	public void setErrorCodes(List<String> errorCodes) {
 		this.errorCodes = errorCodes;
 	}
-    
-    
 
 }

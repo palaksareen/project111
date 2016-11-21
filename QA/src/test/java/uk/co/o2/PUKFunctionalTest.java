@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 public class PUKFunctionalTest {
 
-	private static final String siteUrl = "http://localhost:8080/puk-0.0.1-SNAPSHOT/puk";
+	private static final String siteUrl = "http://localhost.ref.o2.co.uk:8080/puk/puk";
 	WebDriver driver=new FirefoxDriver();
 
 	public PUKFunctionalTest() {

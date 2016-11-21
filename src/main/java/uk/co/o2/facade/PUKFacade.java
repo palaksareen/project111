@@ -1,18 +1,16 @@
 package uk.co.o2.facade;
 
-import org.apache.cxf.interceptor.Fault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uk.co.o2.service.PUKService;
-import uk.co.o2.service.ReCaptchaService;
 import uk.co.o2.utility.GetPUKConstants;
 import uk.co.o2.utility.GetPUKUtility;
 import uk.co.o2.utility.Validator;
 import uk.co.o2.utility.exception.GoogleServiceException;
 import uk.co.o2.utility.exception.InvalidMPNException;
 import uk.co.o2.utility.exception.NotO2CustomerException;
-import uk.co.o2.utility.exception.NotValidCaptcha;
+import uk.co.o2.utility.exception.InValidCaptcha;
 import uk.co.o2.utility.exception.PUKNotFoundException;
 import uk.co.o2.utility.exception.SOAException;
 
@@ -25,8 +23,6 @@ public class PUKFacade {
 	@Autowired
 	PUKService service;
 	
-	@Autowired
-	private ReCaptchaService reCaptchaService;
 	
 	
 	public String getPuk(String mpn) throws InvalidMPNException, PUKNotFoundException,NotO2CustomerException, SOAException{
@@ -42,12 +38,7 @@ public class PUKFacade {
 
 	
 	// Recaptcha Code :: eShop Version apache CXF
-	public void varifyCaptcha1( String reCaptchaResponse) throws NotValidCaptcha, GoogleServiceException {
-		try {
-			if(! reCaptchaService.verifyCaptchaResponse(reCaptchaResponse))
-				throw new NotValidCaptcha("Captcha is not valid","");
-		} catch (Fault e) {
-			throw new GoogleServiceException("Unable to connect Google Service..");
-		}
+	public void varifyCaptcha1( String reCaptchaResponse) throws InValidCaptcha, GoogleServiceException {
+		service.varifyCaptcha1(reCaptchaResponse);
 	}
 }
