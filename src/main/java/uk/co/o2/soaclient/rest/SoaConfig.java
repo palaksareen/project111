@@ -1,54 +1,54 @@
 package uk.co.o2.soaclient.rest;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import uk.co.o2.DynamicProperties;
 
 @Service
 public class SoaConfig {
-	@Value("${reCaptchaServiceUrl}")
-    private String reCaptchaServiceUrl;
+//	@Value("${reCaptchaServiceUrl}")
+    private String reCaptchaServiceUrl=DynamicProperties.getProperty("reCaptchaServiceUrl");
 	
-	@Value("${soa.readTimeoutMS}")
-    private Integer readTimeout;
+    private Integer readTimeout=DynamicProperties.getIntegerProperty("soa.readTimeoutMS");;
     
-    @Value("${soa.connectionTimeoutMS}")
-    private Integer connectionTimeout;
+    private Integer connectionTimeout=DynamicProperties.getIntegerProperty("soa.connectionTimeoutMS");;
 
     
-	
+	private String serviceEndPoint=DynamicProperties.getProperty("service_end_point");;
     // key store
-	@Value("${soaKeyStorePassword}")
 	public
-	String keyStorePassword;
+	String keyStorePassword=DynamicProperties.getProperty("soaKeyStorePassword");;
 	
-	@Value("${soaUsername}")
-	String username;
+	String username=DynamicProperties.getProperty("soaUsername");;
 	
-	@Value("${soaPassword}")
-	String password;
+	String password=DynamicProperties.getProperty("soaPassword");;
 	
-	@Value("${certificateEnabled}")
-	boolean certificateEnabled;
+	boolean certificateEnabled=DynamicProperties.getBooleanProperty("certificateEnabled");;
     
 	
-	@Value("${soaEnableCertificate}")
-	String soaEnableCertificate;
+	String soaEnableCertificate=DynamicProperties.getProperty("soaEnableCertificate");;
 
 	// Trust store
-	@Value("${soaTrustedStoreCertificateLocation}")
-	String soaTrustedStoreCertificateLocation;
+	String soaTrustedStoreCertificateLocation=DynamicProperties.getProperty("soaTrustedStoreCertificateLocation");;
 
-	@Value("${soaTrustedStorePassword}")
-	String soaTrustedStorePassword;
+	String soaTrustedStorePassword=DynamicProperties.getProperty("soaTrustedStorePassword");;
 
-	@Value("${soaKeyStoreCertificateLocation}")
-	String soaKeyStoreCertificateLocation;
+	String soaKeyStoreCertificateLocation=DynamicProperties.getProperty("soaKeyStoreCertificateLocation");;
 
-	@Value("${soaKeyStorePassword}")
-	String soaKeyStorePassword;
+	String soaKeyStorePassword=DynamicProperties.getProperty("soaKeyStorePassword");;
 
 	SoaConfig() {
     }
+
+
+	public String getServiceEndPoint() {
+		return serviceEndPoint;
+	}
+
+
+	public void setServiceEndPoint(String serviceEndPoint) {
+		this.serviceEndPoint = serviceEndPoint;
+	}
 
 
 	public Integer getReadTimeout() {

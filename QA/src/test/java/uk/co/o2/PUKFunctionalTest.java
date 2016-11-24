@@ -23,24 +23,25 @@ public class PUKFunctionalTest {
 		driver.quit();
 	}
 
-	@Test
-	public void happyPath() throws InterruptedException {
-		driver.get(siteUrl);    
-
-		driver.findElement(By.id("MPN")).sendKeys("447704610259");
-		
+	private void recaptchaCall() throws InterruptedException {
 		WebElement iframeSwitch = driver.findElement(By.xpath("/html/body/div/fieldset/form/div/div/div/iframe"));
 	    driver.switchTo().frame(iframeSwitch);
 	    driver.findElement(By.cssSelector("div[class=recaptcha-checkbox-checkmark]")).click();
 	    driver.switchTo().parentFrame();
 	    TimeUnit.SECONDS.sleep(3);
+	}
+	@Test
+	public void happyPath() throws InterruptedException {
+		driver.get(siteUrl);    
 
+		driver.findElement(By.id("MPN")).sendKeys("447704610259");
+		recaptchaCall();
 	    driver.findElement(By.id("btnSubmit")).click();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		
 		
 		String msg=driver.findElement(By.id("dvPuk")).getText();
-		Assert.assertEquals(msg, "The PUK code for mobile number 447704610259 is : 1234");
+		Assert.assertEquals(msg, "The PUK code for mobile number 447704610259 is : 9989");
 	}
 
 	@Test
@@ -49,11 +50,7 @@ public class PUKFunctionalTest {
 
 		driver.findElement(By.id("MPN")).sendKeys("447704610200");
 		
-		WebElement iframeSwitch = driver.findElement(By.xpath("/html/body/div/fieldset/form/div/div/div/iframe"));
-	    driver.switchTo().frame(iframeSwitch);
-	    driver.findElement(By.cssSelector("div[class=recaptcha-checkbox-checkmark]")).click();
-	    driver.switchTo().parentFrame();
-	    TimeUnit.SECONDS.sleep(3);
+		recaptchaCall();
 
 		
 		driver.findElement(By.id("btnSubmit")).click();
@@ -62,17 +59,15 @@ public class PUKFunctionalTest {
 		Assert.assertEquals(msg, "Not a O2 customer");
 	}
 
+	
+
 	@Test
 	public void checkInvalidMPN() throws InterruptedException {
 		driver.get(siteUrl);    
 
 		driver.findElement(By.id("MPN")).sendKeys("44770461020");
 
-		WebElement iframeSwitch = driver.findElement(By.xpath("/html/body/div/fieldset/form/div/div/div/iframe"));
-	    driver.switchTo().frame(iframeSwitch);
-	    driver.findElement(By.cssSelector("div[class=recaptcha-checkbox-checkmark]")).click();
-	    driver.switchTo().parentFrame();
-	    TimeUnit.SECONDS.sleep(3);
+		recaptchaCall();
 
 		driver.findElement(By.id("btnSubmit")).click();
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -81,4 +76,5 @@ public class PUKFunctionalTest {
 		Assert.assertEquals(msg, "The phone number entered has too many digits.");
 		Assert.assertEquals(desc, "Please enter your full 11 digit phone number without hyphens or spaces.");
 	}
+
 }

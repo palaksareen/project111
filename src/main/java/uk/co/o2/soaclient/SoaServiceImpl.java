@@ -12,19 +12,23 @@ import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sun.xml.ws.api.message.Headers;
 import com.sun.xml.ws.client.BindingProviderProperties;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
+import uk.co.o2.DynamicProperties;
 import uk.co.o2.service.SoaService;
 import uk.co.o2.soa.subscriberdata_2.SubscriberProfileType;
 import uk.co.o2.soa.subscriberservice_2.GetSubscriberProfileFault;
 import uk.co.o2.soa.subscriberservice_2.SubscriberPort;
 import uk.co.o2.soa.subscriberservice_2.SubscriberService;
+import uk.co.o2.soaclient.rest.SoaConfig;
 import uk.co.o2.utility.exception.NotO2CustomerException;
 import uk.co.o2.utility.exception.PUKNotFoundException;
 import uk.co.o2.utility.exception.SOAException;
@@ -34,23 +38,16 @@ public class SoaServiceImpl implements SoaService {
 
 	private final Log log = LogFactory.getLog("application_log");
 
-	@Value("${soaUsername}")
-	String soaUsername;
-
-	@Value("${soaPassword}")
-	String soaPassword;
-
-	@Value("${service_end_point}")
-	String service_end_point;
-
-	@Value("${connectTimeout}")
-	Integer connectTimeout;
-
-	@Value("${requestTimeout}")
-	Integer requestTimeout;
-	
+	Cache cache;
+	@Autowired
+	SoaConfig soaConfig;
 	
 	public SoaServiceImpl() {
+		CacheManager cm = CacheManager.getInstance();
+		//3. Get a cache called "cache1"
+		this.cache = cm.getCache("pukCache");
+		System.out.println("\n\n\n\n\n---------------------------"+cache);
+		
 		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
@@ -87,18 +84,31 @@ public class SoaServiceImpl implements SoaService {
 		return puk;
 	}
 
-	@Cacheable(cacheNames="pukCache")
+	//@Cacheable(cacheNames="pukCache")
 	public String getPuk(String mpn) throws PUKNotFoundException,NotO2CustomerException, SOAException{
-		return getPukWithId(mpn,UUID.randomUUID().toString()+":"+"puk");
+		String puk="";
+		
+		if(!DynamicProperties.getBooleanProperty("cache.enabled"))
+			return getPukWithId(mpn,UUID.randomUUID().toString()+":"+"puk");
+		
+		if(!cache.isKeyInCache(mpn)){
+			log.debug("Cache missed for "+mpn+" reading from soa call");
+			puk = getPukWithId(mpn,UUID.randomUUID().toString()+":"+"puk");
+			cache.put(new Element(mpn, puk));
+		}else{
+			log.debug("Cache entry found for "+mpn+" reading from cache");
+			puk= (cache.get(mpn) == null ? null : cache.get(mpn).getObjectValue().toString());
+		}
+		return puk;
 	}
 
 	private void setHeaders(SubscriberPort port,String soaTranId) throws SOAPException {
 		WSBindingProvider provider = (WSBindingProvider)port;
 
-		provider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT, connectTimeout * 1000);
-		provider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, requestTimeout * 1000);
+		provider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT, soaConfig.getConnectionTimeout() * 1000);
+		provider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, soaConfig.getReadTimeout()* 1000);
 		
-		provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, service_end_point);
+		provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, soaConfig.getServiceEndPoint());
 
 		SOAPElement security,soaTransactionId=null;
 
@@ -109,10 +119,10 @@ public class SoaServiceImpl implements SoaService {
 		SOAPElement usernameToken = security.addChildElement("UsernameToken", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 		usernameToken.addAttribute(new QName("xmlns:wsu"), "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
 		SOAPElement usernameElement = usernameToken.addChildElement("Username", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
-		usernameElement.addTextNode(soaUsername);
+		usernameElement.addTextNode(soaConfig.getUsername());
 		SOAPElement passwordElement = usernameToken.addChildElement("Password", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 		passwordElement.setAttribute("Type", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
-		passwordElement.addTextNode(soaPassword);
+		passwordElement.addTextNode(soaConfig.getPassword());
 		provider.setOutboundHeaders(Arrays.asList(Headers.create(soaTransactionId),Headers.create(security)));
 	}
 }

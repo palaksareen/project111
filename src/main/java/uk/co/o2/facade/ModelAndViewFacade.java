@@ -10,7 +10,6 @@ public class ModelAndViewFacade {
 	private final String successPage="webcontent/successPage";
 	private final String errorPage="webcontent/errorPage";
 	public ModelAndView forWelcomePage(String sitekey,Boolean flag){
-		System.out.println("\n\nsitekey"+sitekey);
 		ModelAndView mav=new ModelAndView(welcomePage);
 		mav.addObject("sitekey",sitekey);
 		String style=null;

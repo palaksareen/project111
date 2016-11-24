@@ -37,11 +37,7 @@ public class PUKController {
 	@Autowired
 	PUKFacade facade;
 
-	/*@Autowired 
-	private HttpServletRequest request;*/
-
-	@Value("${sitekey}")
-	String sitekey;
+	String sitekey=DynamicProperties.getProperty("sitekey");
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index() {
