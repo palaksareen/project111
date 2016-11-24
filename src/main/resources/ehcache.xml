@@ -4,7 +4,7 @@
 
 	<!-- <diskStore path="java.io.tmpdir" /> -->
 
-	<diskStore path="/home/cts1/" />
+	<diskStore path="java.io.tmpdir" />
 
 	<!-- Sample cache named cache1
     This cache contains a maximum in memory of 10000 elements, and will expire
