@@ -44,10 +44,7 @@ public class SoaServiceImpl implements SoaService {
 	
 	public SoaServiceImpl() {
 		CacheManager cm = CacheManager.getInstance();
-		//3. Get a cache called "cache1"
 		this.cache = cm.getCache("pukCache");
-		System.out.println("\n\n\n\n\n---------------------------"+cache);
-		
 		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
