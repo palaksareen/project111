@@ -101,25 +101,34 @@ public class SoaServiceImpl implements SoaService {
 
 	private void setHeaders(SubscriberPort port,String soaTranId) throws SOAPException {
 		WSBindingProvider provider = (WSBindingProvider)port;
-
 		provider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT, soaConfig.getConnectionTimeout() * 1000);
 		provider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, soaConfig.getReadTimeout()* 1000);
-		
 		provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, soaConfig.getServiceEndPoint());
-
 		SOAPElement security,soaTransactionId=null;
+		soaTransactionId = getSoaTransationIDHeader(soaTranId);
+		security = getSecurityHeader();
+		provider.setOutboundHeaders(Arrays.asList(Headers.create(soaTransactionId),Headers.create(security)));
+	}
 
-		soaTransactionId = SOAPFactory.newInstance().createElement("SOAConsumerTransactionID", "cor", "http://soa.o2.co.uk/coredata_1.xsd");
-		soaTransactionId.addTextNode(soaTranId);
-
+	public SOAPElement getSecurityHeader() throws SOAPException {
+		
+		SOAPElement security;
 		security = SOAPFactory.newInstance().createElement("Security", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 		SOAPElement usernameToken = security.addChildElement("UsernameToken", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 		usernameToken.addAttribute(new QName("xmlns:wsu"), "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
 		SOAPElement usernameElement = usernameToken.addChildElement("Username", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 		usernameElement.addTextNode(soaConfig.getUsername());
+		
 		SOAPElement passwordElement = usernameToken.addChildElement("Password", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 		passwordElement.setAttribute("Type", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");
 		passwordElement.addTextNode(soaConfig.getPassword());
-		provider.setOutboundHeaders(Arrays.asList(Headers.create(soaTransactionId),Headers.create(security)));
+		return security;
+	}
+
+	public SOAPElement getSoaTransationIDHeader(String soaTranId) throws SOAPException {
+		SOAPElement soaTransactionId;
+		soaTransactionId = SOAPFactory.newInstance().createElement("SOAConsumerTransactionID", "cor", "http://soa.o2.co.uk/coredata_1.xsd");
+		soaTransactionId.addTextNode(soaTranId);
+		return soaTransactionId;
 	}
 }

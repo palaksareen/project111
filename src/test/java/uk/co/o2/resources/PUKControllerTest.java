@@ -16,12 +16,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.env.Environment;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.servlet.ModelAndView;
 
+import uk.co.o2.DynamicProperties;
 import uk.co.o2.facade.ModelAndViewFacade;
 import uk.co.o2.facade.PUKFacade;
 import uk.co.o2.utility.ErrorCode;
@@ -32,26 +35,39 @@ import uk.co.o2.utility.exception.PUKNotFoundException;
 import uk.co.o2.utility.exception.SOAException;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(PowerMockRunner.class)
 @SpringApplicationConfiguration(classes = Validator.class)
 @WebAppConfiguration
+@PrepareForTest(DynamicProperties.class) 
 public class PUKControllerTest {
 	@Mock
 	ModelAndViewFacade modelAndView;
+
 	@Mock
 	PUKFacade facade;
 
 	@Mock
 	Environment env;
+	
 	@Mock
 	HttpServletRequest mockHttpServletRequest;
+	
 	@Mock
 	Request request;
+	
 	@Mock
 	Content content;
+	
+	@Mock
+	DynamicProperties mockDynamicProperty;
 	@Test
 	public void getPUKTest() throws InvalidMPNException, PUKNotFoundException, SOAException, ClientProtocolException, IOException, NotO2CustomerException {
 		MockitoAnnotations.initMocks(this);
+
+		
+		PowerMockito.mockStatic(DynamicProperties.class);
+		when( DynamicProperties.getProperty("sitekey")).thenReturn("some key");
+		
 		PUKController pukController =new PUKController();
 		pukController.facade=facade;
 		pukController.modelAndView=modelAndView;

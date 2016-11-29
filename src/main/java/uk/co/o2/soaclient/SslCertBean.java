@@ -14,7 +14,6 @@ public class SslCertBean implements InitializingBean{
 
 	private void setSSLProperties() throws Exception {
 		try{
-			System.out.println("Storing Certificate\nKeystor :: "+soaConfig.getSoaKeyStoreCertificateLocation()+"\nTrust ::"+soaConfig.getSoaTrustedStoreCertificateLocation());
 			System.setProperty("javax.net.debug","ssl");
 
 			System.setProperty("javax.net.ssl.keyStore", soaConfig.getSoaKeyStoreCertificateLocation());

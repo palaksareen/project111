@@ -104,5 +104,8 @@ dependencies {
     
     compile group: 'commons-configuration', name: 'commons-configuration', version: '1.6'
     
+	compile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.6.6'
+    compile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.6'
+    compile group: 'org.easymock', name: 'easymock', version: '3.4'
     
 }

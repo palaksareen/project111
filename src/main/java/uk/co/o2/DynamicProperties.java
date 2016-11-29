@@ -25,6 +25,7 @@ import uk.co.o2.utility.exception.MissingPropertyException;
 public class DynamicProperties extends PropertyResourceConfigurer{
 	private static PropertiesConfiguration configuration = null;
 
+	
 	public DynamicProperties() {
 		super();
 	}
@@ -75,7 +76,6 @@ public class DynamicProperties extends PropertyResourceConfigurer{
 				// Compare both files
 				List<String> ex = getKeys(externalPropFile);
 				List<String> in = getKeys(internalPropFile);
-
 				if(! ex.containsAll(in)){
 					in.removeAll(ex);
 					throw new MissingPropertyException("Extenal property file has follwing missing properties."+in);
@@ -90,6 +90,7 @@ public class DynamicProperties extends PropertyResourceConfigurer{
 			configuration.setReloadingStrategy(new FileChangedReloadingStrategy());
 		} catch (Exception e) {
 			StringBuilder msg=new StringBuilder("Reading from property fails.");
+			e.printStackTrace();
 			if(e instanceof MissingPropertyException)
 				msg.append(e.getMessage());
 			BeanInitializationException exception=new BeanInitializationException(msg.toString());
@@ -99,14 +100,22 @@ public class DynamicProperties extends PropertyResourceConfigurer{
 	}
 	private final Log log = LogFactory.getLog("application_log");
 
-	private List<String> getKeys(File externalPropFile) throws IOException {
+	public List<String> getKeys(File file) throws IOException {
 		Function<String, String> extract=(content)-> {
 			if(content != null && !content.isEmpty()&& content.contains("=") && !content.contains("#"))
 				return 	content.substring(0,content.indexOf("="));
 			return "";
 		};
 
-		return FileUtils.readLines(externalPropFile, "UTF-8").stream().map(extract).collect(Collectors.toList());
+		return FileUtils.readLines(file, "UTF-8").stream().map(extract).collect(Collectors.toList());
+	}
+
+	public static PropertiesConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	public static void setConfiguration(PropertiesConfiguration configuration) {
+		DynamicProperties.configuration = configuration;
 	}
 
 }

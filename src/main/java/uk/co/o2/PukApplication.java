@@ -22,6 +22,5 @@ public class PukApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PukApplication.class, args);
-		
 	}
 }
