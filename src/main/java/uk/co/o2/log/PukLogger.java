@@ -40,7 +40,7 @@ public class PukLogger {
     @AfterReturning(pointcut="execution(* uk.co.o2.*.*.*(..))",returning="returnVal")
     public void logMethodAccessAfter(JoinPoint joinPoint, String returnVal) {
     	if(joinPoint !=null && joinPoint.getArgs() != null && joinPoint.getArgs()[0] != null){ //change it by good code
-    		mis_log.info("*** "+joinPoint.getArgs()[0].toString()+"\tis "+returnVal);
+    		mis_log.info("Puk for the mpn is "+joinPoint.getArgs()[0].toString()+"\tserved successfully");
     	}
     }
     

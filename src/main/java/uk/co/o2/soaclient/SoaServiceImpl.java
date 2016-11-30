@@ -36,6 +36,8 @@ import uk.co.o2.utility.exception.SOAException;
 @Component
 public class SoaServiceImpl implements SoaService {
 
+	private static final String WSDL_LOCATION = "../../../../../wsdl/subscriberservice_2_0.wsdl";
+
 	private final Log log = LogFactory.getLog("application_log");
 
 	Cache cache;
@@ -53,7 +55,7 @@ public class SoaServiceImpl implements SoaService {
 
 	public String getPukWithId(String mpn,String soaTranId)throws PUKNotFoundException,NotO2CustomerException, SOAException{
 		String puk =null;
-		URL baseUrl = SubscriberService.class.getResource("../../../../../wsdl/subscriberservice_2_0.wsdl");
+		URL baseUrl = SubscriberService.class.getResource(WSDL_LOCATION);
 		SubscriberService ss=new SubscriberService(baseUrl,
 				new QName("http://soa.o2.co.uk/subscriberservice_2","SubscriberService"));
 		try{
@@ -64,7 +66,7 @@ public class SoaServiceImpl implements SoaService {
 			if(subscriberProfile.getOperator().equals("nonO2")){
 				throw new NotO2CustomerException("Not a O2 Customer");
 			}
-			log.debug(soaTranId+ " Calling soa service for "+mpn);
+			log.info(soaTranId+ " Calling soa service for "+mpn);
 			puk = subscriberProfile.getPuk();
 			if(puk == null || puk.isEmpty()){
 				throw new PUKNotFoundException("Sorry We are unable to find the PUK, Please try later");
@@ -72,7 +74,6 @@ public class SoaServiceImpl implements SoaService {
 		}catch (SOAPException | GetSubscriberProfileFault e) {
 			if(e instanceof GetSubscriberProfileFault){
 				GetSubscriberProfileFault e1=(GetSubscriberProfileFault) e;
-				
 				log.debug(e1.getFaultInfo().getSOATransactionID()+"\t"+e1.getFaultInfo().getFaultDescription());	
 			}
 			

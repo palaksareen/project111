@@ -7,20 +7,9 @@
       http://www.springframework.org/schema/context 
       http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-	 
-<!-- 	<context:property-placeholder location="file://${CATALINA_BASE}/appdata/getpuk.properties" 
-		ignore-resource-not-found="true"/>
- -->
-	<!-- <bean id="mailProperties" 
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
-		
-			<property name="location" value="file:///${CATALINA_BASE}/appdata/getpuk.properties" 
-		/> </bean> -->
-
 	<bean id="crius" name="external-path" class="java.lang.String">
-		<constructor-arg value="file:///${CATALINA_BASE}/appdata/getpuk.properties" />
+		<constructor-arg value="file:///${CATALINA_HOME}/appdata/getpuk/getpuk.properties" />
 	</bean>
-
 
 	<bean id="prop" class="uk.co.o2.DynamicProperties" >
 		<property name="location" ref="crius" />	<!-- Provided by spring to set the external location -->

@@ -31,5 +31,4 @@ public class ReCaptchaService {
     	ReCaptchaResponse verifiedReCaptchaResponse = captchaValidationResource.validateReCaptcha(new ReCaptchaToken(reCaptchaResponse));
     	return verifiedReCaptchaResponse.success;
     }
-    
 }

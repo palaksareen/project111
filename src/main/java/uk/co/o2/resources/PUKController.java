@@ -5,7 +5,6 @@ import java.util.Arrays;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,9 +17,9 @@ import uk.co.o2.facade.ModelAndViewFacade;
 import uk.co.o2.facade.PUKFacade;
 import uk.co.o2.utility.ErrorCode;
 import uk.co.o2.utility.exception.GoogleServiceException;
+import uk.co.o2.utility.exception.InValidCaptcha;
 import uk.co.o2.utility.exception.InvalidMPNException;
 import uk.co.o2.utility.exception.NotO2CustomerException;
-import uk.co.o2.utility.exception.InValidCaptcha;
 import uk.co.o2.utility.exception.PUKNotFoundException;
 import uk.co.o2.utility.exception.SOAException;
 
