@@ -18,28 +18,30 @@ public class PukLogger {
     
     @Before("execution(* uk.co.o2.soaclient.SslCertBean.setSSLProperties(..))")
     public void SSLCertBeanLog(JoinPoint joinPoint) {
-    	log.debug("Before Storing the Certificate");
+    	log.info("Before Storing the Certificate");
     }
     
     @AfterReturning("execution(* uk.co.o2.soaclient.SslCertBean.setSSLProperties(..))")
     public void SSLCertBeanLogAfter(JoinPoint joinPoint) {
-    	log.debug("Certificate Storing is sucessful");
+    	log.info("Certificate Storing is sucessful");
     }
     
     @Before("execution(* uk.co.o2.utility.Validator.validate(..))")
     public void logMethodAccessBeforeValidator(JoinPoint joinPoint) {
-    	log.debug(joinPoint.getSignature().getName()+ 
+    	log.info(joinPoint.getSignature().getName()+ 
     			",validating <"+joinPoint.getArgs()[0].toString()+"> MPN");
     }
 
     @Before("execution(* uk.co.o2.resources.*.*(..))")
     public void logMethodAccessBefore(JoinPoint joinPoint) {
-    	log.debug(joinPoint.getSignature());
+    	log.info(joinPoint.getSignature());
     }
     
     @AfterReturning(pointcut="execution(* uk.co.o2.*.*.*(..))",returning="returnVal")
     public void logMethodAccessAfter(JoinPoint joinPoint, String returnVal) {
-    	mis_log.debug("*** "+joinPoint.getArgs()[0].toString()+"\tis "+returnVal);
+    	if(joinPoint !=null && joinPoint.getArgs() != null && joinPoint.getArgs()[0] != null){ //change it by good code
+    		mis_log.info("*** "+joinPoint.getArgs()[0].toString()+"\tis "+returnVal);
+    	}
     }
     
     @AfterThrowing(pointcut="execution(* uk.co.o2.facade.*.*(..))",throwing="excep")
