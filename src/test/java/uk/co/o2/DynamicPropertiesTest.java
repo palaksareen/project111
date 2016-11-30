@@ -34,7 +34,6 @@ public class DynamicPropertiesTest {
 	public void readProperityFile(){
 		MockitoAnnotations.initMocks(this);
 
-		System.out.println("");
 		ConfigurableListableBeanFactory beanFactory =mock(ConfigurableListableBeanFactory.class);
 		File mockExternalFile =mock(File.class);
 		try {
