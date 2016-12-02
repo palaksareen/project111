@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>puk</name>
-	<comment></comment>
+	<name>Online_PUK</name>
+	<comment/>
 	<projects/>
 	<natures>
 		<nature>org.eclipse.jdt.groovy.core.groovyNature</nature>
