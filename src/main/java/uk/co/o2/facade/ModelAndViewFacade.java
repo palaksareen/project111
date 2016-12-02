@@ -4,20 +4,16 @@ import java.util.List;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ModelAndView;
+
+import uk.co.o2.utility.CaptchaModel;
 @Configuration
 public class ModelAndViewFacade {
 	private final String welcomePage="webcontent/welcomePage";
 	private final String successPage="webcontent/successPage";
 	private final String errorPage="webcontent/errorPage";
-	public ModelAndView forWelcomePage(String sitekey,Boolean flag){
+	public ModelAndView forWelcomePage(){
 		ModelAndView mav=new ModelAndView(welcomePage);
-		mav.addObject("sitekey",sitekey);
-		String style=null;
-		if(flag)
-			style="show";
-		else
-			style="hidden";
-		mav.addObject("showCaptcha",style);
+		showCaptcha(mav);
 		return mav;
 	}
 
@@ -33,5 +29,25 @@ public class ModelAndViewFacade {
 		mav.addObject("errors", errorList);
 		return mav;
 	}
+	
+	public ModelAndView forWelcomePagewithErorr(List<?> errorList) {
+		ModelAndView mav=new ModelAndView(welcomePage);
+		mav.addObject("errors", errorList);
+		showCaptcha(mav);
+		return mav;
+		
+	}
+
+	private void showCaptcha(ModelAndView mav) {
+		String style=null;
+		if(CaptchaModel.showCaptcha()){
+			style="show";
+			mav.addObject("sitekey",CaptchaModel.siteKey());
+		}
+		else
+			style="hidden";
+		mav.addObject("showCaptcha",style);
+	}
+	
 }
 	
