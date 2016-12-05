@@ -82,13 +82,13 @@ public class PUKControllerTest {
 		
 		InvalidMPNException exception=new InvalidMPNException("Invalid MPN-MPN is null",null,Arrays.asList("MPN_NULL"));
 		doThrow(exception).when(facade).getPuk("some mpn");
-		when(modelAndView.forErrorPage(exception.getErrorList())).thenReturn(mav);
+		when(modelAndView.forWelcomePagewithErorr(exception.getErrorList())).thenReturn(mav);
 		actual=pukController.getPUK("some mpn","some captch");
 		assertEquals(mav, actual);
 		
 		PUKNotFoundException pukNotFoundException=new PUKNotFoundException("PUK Not found");
 		doThrow(pukNotFoundException).when(facade).getPuk("some mpn");
-		when(modelAndView.forErrorPage(Arrays.asList(ErrorCode.PUKNOTFOUND))).thenReturn(mav);
+		when(modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.PUKNOTFOUND))).thenReturn(mav);
 		actual=pukController.getPUK("some mpn",null);
 		assertEquals(mav, actual);
 		
