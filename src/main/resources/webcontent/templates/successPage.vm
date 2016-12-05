@@ -1,0 +1,16 @@
+<html>
+<body>
+<div>
+<div id="dvPuk">
+The PUK code for mobile number $mpn is : $puk
+</div>
+<div>
+To unlock your mobile enter your PUK code using the instructions detailed in your mobile phone user guide.
+Customers using Motorola handsets should key **05* then wait until prompted before entering your PUK code.
+For Panasonic handsets you must follow the PUK code with #.
+Please note, incorrectly entering the PUK code more than 10 times will disable your SIM and you will require a replacement.
+If you experience difficulty with your PUK code or require further assistance please contact Customer Services.
+</div>
+</div>
+</body>
+</html>

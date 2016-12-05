@@ -26,7 +26,7 @@ import uk.co.o2.utility.exception.SOAException;
 
 @RestController
 @Service
-@RequestMapping("/puk")
+@RequestMapping("/")
 public class PUKController {
 	private final Log log = LogFactory.getLog("application_log");
 
@@ -55,19 +55,19 @@ public class PUKController {
 			result=facade.getPuk(mpn);
 		} catch (InvalidMPNException e) {
 			log.debug("MPN is not valid.");
-			return modelAndView.forErrorPage(e.getErrorList());
+			return modelAndView.forWelcomePagewithErorr(e.getErrorList());
 		} catch (PUKNotFoundException e) {
 			log.debug("Unable to found the puk for given mpn.");
-			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.PUKNOTFOUND));
+			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.PUKNOTFOUND));
 		}catch (NotO2CustomerException e) {
 			log.debug("Not an O2 Customer");
-			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.NOTO2CUSTOMER));
+			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.NOTO2CUSTOMER));
 		} catch (SOAException e) {
 			log.debug("SOA service is down.");
 			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.SOAFAULT));
 		} catch (InValidCaptcha e) {
 			log.debug("Invalid captch exception");
-			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.INVALID_CAPTCHA));
+			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.INVALID_CAPTCHA));
 		} catch (GoogleServiceException e) {
 			log.debug("Google ReCAPTCHA Service is down.");
 			e.printStackTrace();

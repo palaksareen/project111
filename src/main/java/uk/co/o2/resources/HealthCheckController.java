@@ -13,7 +13,7 @@ public class HealthCheckController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index() {
 		System.out.println("....In Get PUK healthCheck...");
-		return new ModelAndView("webcontent/hc");
+		return new ModelAndView("hc");
 	}
 
 }
