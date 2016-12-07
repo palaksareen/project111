@@ -2,8 +2,8 @@
 
 <head>
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<link rel="stylesheet" type="text/css" href="/webcontent/css/mystyle.css">
-<script src="/webcontent/js/puk.js"></script>
+<link rel="stylesheet" type="text/css" href="webcontent/css/mystyle.css">
+<script src="webcontent/js/puk.js"></script>
 </head>
 <body>
 <div class="module19Box">
@@ -17,9 +17,7 @@
 #end
 </div>
 
-
 <fieldset>
-
 <form name="PUKForm" method="post" >
 
 	<label for="MPN">Enter your mobile number</label>
@@ -30,10 +28,6 @@
 </form>
 </fieldset>
 
-<img src="/webcontent/img/1.jpg" alt="Test Image" >  
+<img src="webcontent/img/1.jpg" alt="Test Image" >  
 </body>
 </html>
-
-	               
- 
-
