@@ -8,9 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 import uk.co.o2.utility.CaptchaModel;
 @Configuration
 public class ModelAndViewFacade {
-	private final String welcomePage="templates/welcomePage";
-	private final String successPage="templates/successPage";
-	private final String errorPage="templates/errorPage";
+	private final String welcomePage="welcomePage";
+	private final String successPage="successPage";
+	private final String errorPage="errorPage";
 	public ModelAndView forWelcomePage(){
 		ModelAndView mav=new ModelAndView(welcomePage);
 		showCaptcha(mav);
