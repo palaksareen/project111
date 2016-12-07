@@ -25,11 +25,17 @@ public class AssetConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	
-	@Value("${spring.velocity.resourceLoaderPath}")
+	@Value("${application.asset.shared}")
 	private String exStaticContentPath;
+	
+	@Value("${application.asset}")	
+	private String 	asset;
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/webcontent/**").addResourceLocations(exStaticContentPath);
+		registry.addResourceHandler("/shared/**").addResourceLocations(exStaticContentPath);
+		registry.addResourceHandler("/_asset/**").addResourceLocations(asset);
+
+		registry.addResourceHandler("/**").addResourceLocations(exStaticContentPath);
 		 super.addResourceHandlers(registry);
 	}
 	
