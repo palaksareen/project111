@@ -6,5 +6,10 @@
 </head>
 <body>
 O2 GetPuk
+
+<div id ="outputQA">
+Status: $status
+</div>
+
 </body>
 </html>

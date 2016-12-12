@@ -8,12 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @Service
-@RequestMapping("/hc")
+@RequestMapping("/healthcheck")
 public class HealthCheckController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index() {
 		System.out.println("....In Get PUK healthCheck...");
-		return new ModelAndView("hc");
+		ModelAndView mv = new ModelAndView("hc");
+		mv.addObject("status", "up");
+		
+		return mv;
 	}
 
 }
