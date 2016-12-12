@@ -2,15 +2,19 @@ package uk.co.o2.facade;
 
 import java.util.List;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import uk.co.o2.DynamicProperties;
 import uk.co.o2.utility.CaptchaModel;
-@Configuration
+@Service
 public class ModelAndViewFacade {
-	private final String welcomePage="welcomePage";
-	private final String successPage="successPage";
-	private final String errorPage="errorPage";
+	String pukPagesPath=DynamicProperties.getProperty("pukPagesPath");
+	
+	
+	private final String welcomePage=pukPagesPath+"/welcomePage";
+	private final String successPage=pukPagesPath+"/successPage";
+	private final String errorPage=pukPagesPath+"/errorPage";
 	public ModelAndView forWelcomePage(){
 		ModelAndView mav=new ModelAndView(welcomePage);
 		showCaptcha(mav);

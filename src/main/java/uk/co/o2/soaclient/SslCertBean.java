@@ -14,7 +14,7 @@ public class SslCertBean implements InitializingBean{
 
 	private void setSSLProperties() throws Exception {
 		try{
-			System.setProperty("javax.net.debug","ssl");
+			System.setProperty("javax.net.debug","all");
 
 			System.setProperty("javax.net.ssl.keyStore", soaConfig.getSoaKeyStoreCertificateLocation());
 			System.setProperty("javax.net.ssl.keyStorePassword", soaConfig.getKeyStorePassword());
@@ -23,14 +23,14 @@ public class SslCertBean implements InitializingBean{
 			System.setProperty("javax.net.ssl.trustStore", soaConfig.getSoaTrustedStoreCertificateLocation());
 			System.setProperty("javax.net.ssl.trustStorePassword", soaConfig.getSoaTrustedStorePassword());
 
-			System.setProperty("https.protocols", "TLSv1");
+			System.setProperty("https.protocols", soaConfig.getHttps_protocols());
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception();
 		}
-		System.out.println("Storing Certificate completed....");
 	}
 
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		setSSLProperties();

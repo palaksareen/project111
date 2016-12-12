@@ -15,12 +15,16 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import uk.co.o2.DynamicProperties;
+
 @Controller
 public class AppErrorController implements ErrorController{
 
     private ErrorAttributes errorAttributes;
 
     private final static String ERROR_PATH = "/error";
+    
+    private final static String errorPage=DynamicProperties.getProperty("pukPagesPath")+"/errorPage";
 
     public AppErrorController(ErrorAttributes errorAttributes) {
         this.errorAttributes = errorAttributes;
@@ -28,7 +32,7 @@ public class AppErrorController implements ErrorController{
 
     @RequestMapping(value = ERROR_PATH, produces = "text/html")
     public ModelAndView errorHtml(HttpServletRequest request) {
-        return new ModelAndView("/webcontent/errorPage", getErrorAttributes(request, false));
+        return new ModelAndView(errorPage, getErrorAttributes(request, false));
     }
 
     @RequestMapping(value = ERROR_PATH)

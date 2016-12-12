@@ -8,12 +8,24 @@ import uk.co.o2.DynamicProperties;
 public class SoaConfig {
 //	@Value("${reCaptchaServiceUrl}")
     private String reCaptchaServiceUrl=DynamicProperties.getProperty("reCaptchaServiceUrl");
+    
+    private String https_protocols=DynamicProperties.getProperty("https.protocols");
 	
     private Integer readTimeout=DynamicProperties.getIntegerProperty("soa.readTimeoutMS");;
     
     private Integer connectionTimeout=DynamicProperties.getIntegerProperty("soa.connectionTimeoutMS");;
 
     
+	public String getHttps_protocols() {
+		return https_protocols;
+	}
+
+
+	public void setHttps_protocols(String https_protocols) {
+		this.https_protocols = https_protocols;
+	}
+
+
 	private String serviceEndPoint=DynamicProperties.getProperty("service_end_point");;
     // key store
 	public

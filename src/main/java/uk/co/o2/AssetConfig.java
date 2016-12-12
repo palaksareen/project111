@@ -1,6 +1,9 @@
 package uk.co.o2;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.WeakHashMap;
+
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,23 +27,28 @@ public class AssetConfig extends WebMvcConfigurerAdapter {
 		return new PukLogger();
 	}
 	
-	
-	@Value("${application.asset.shared}")
-	private String exStaticContentPath;
-	
-	@Value("${application.asset}")	
-	private String 	asset;
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/shared/**").addResourceLocations(exStaticContentPath);
-		registry.addResourceHandler("/_asset/**").addResourceLocations(asset);
-
-		registry.addResourceHandler("/**").addResourceLocations(exStaticContentPath);
+		for(Entry<String, String> entry:retriveMap(DynamicProperties.getProperty("application.asset.paths")).entrySet()){
+			registry.addResourceHandler(entry.getKey()+"**").addResourceLocations(entry.getValue());
+		}
 		 super.addResourceHandlers(registry);
 	}
-	
-	 @Override
-	  public void addInterceptors(InterceptorRegistry registry) {
-		 registry.addInterceptor(new PukInterceptor());
-	 }
+		
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new PukInterceptor());
+	}
+
+	public Map<String,String> retriveMap(String input){
+		Map<String, String> map=new WeakHashMap<>(input.length());
+		String[] rawExternalPaths=input.split(";");
+
+		String a="";
+		for(String path:rawExternalPaths){
+			a=path.substring(path.lastIndexOf("/",(path.lastIndexOf("/")-1)));
+			map.put(a, path);
+		}
+		return map;
+	}
 }

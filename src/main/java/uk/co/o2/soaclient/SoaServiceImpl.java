@@ -52,7 +52,6 @@ public class SoaServiceImpl implements SoaService {
 		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
 	}
-
 	public String getPukWithId(String mpn,String soaTranId)throws PUKNotFoundException,NotO2CustomerException, SOAException{
 		String puk =null;
 		URL baseUrl = SubscriberService.class.getResource(WSDL_LOCATION);
@@ -64,7 +63,7 @@ public class SoaServiceImpl implements SoaService {
 			SubscriberProfileType subscriberProfile = port.getSubscriberProfile(mpn);
 
 			if(subscriberProfile.getOperator().equals("nonO2")){
-				throw new NotO2CustomerException("Not a O2 Customer");
+				throw new NotO2CustomerException("Not an O2 Customer");
 			}
 			log.info(soaTranId+ " Calling soa service for "+mpn);
 			puk = subscriberProfile.getPuk();

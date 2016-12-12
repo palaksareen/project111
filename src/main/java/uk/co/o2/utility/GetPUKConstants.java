@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 public class GetPUKConstants {
+	//TODO Remove unnecessary constants
     private static Logger log = Logger.getLogger((Class)GetPUKConstants.class);
     private static ResourceBundle bundle = ResourceBundle.getBundle("application");
     private static long babelfishTimeout = -1;
