@@ -8,6 +8,7 @@ import uk.co.o2.soaclient.rest.SoaConfig;
 @Service
 public class SslCertBean implements InitializingBean{
 
+//	TODO UT Missing, write it down 
 
 	@Autowired
 	SoaConfig soaConfig;

@@ -44,6 +44,7 @@ public class PUKController {
 	}
 
 
+	//TODO make @RequestParam("g-recaptcha-response")  thing optional
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView getPUK(@RequestParam("mpn") String mpn, @RequestParam("g-recaptcha-response") String grecaptcha
 			) {

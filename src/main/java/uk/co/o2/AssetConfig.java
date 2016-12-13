@@ -27,14 +27,14 @@ public class AssetConfig extends WebMvcConfigurerAdapter {
 		return new PukLogger();
 	}
 	
-	@Override
+/*	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
 		for(Entry<String, String> entry:retriveMap(DynamicProperties.getProperty("application.asset.paths")).entrySet()){
 			registry.addResourceHandler(entry.getKey()+"**").addResourceLocations(entry.getValue());
 		}
 		 super.addResourceHandlers(registry);
 	}
-		
+*/		
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new PukInterceptor());

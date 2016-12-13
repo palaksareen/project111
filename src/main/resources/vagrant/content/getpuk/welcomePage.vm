@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<script type="text/javascript">
+	document.domain = "o2.co.uk";
+</script>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<link rel="stylesheet" type="text/css" href="/webcontent/css/mystyle.css">
+
+	<link rel="shortcut icon" href="https://static.o2.co.uk/shared/img/favicon.ico" /> 
+	<title>Search results for <guided-query-param gsname="q" /></title> 
+  
+	<link rel="stylesheet" href="https://static.o2.co.uk/shared/css/fonts.css" type="text/css" />
+
+	<!--[if gt IE 8]><!-->
+		<link rel="stylesheet" href="https://static.o2.co.uk/shared/css/custom-classes.css?ts=020620161100" type="text/css" />
+		<link rel="stylesheet" href="https://static.o2.co.uk/shared/css/global.css?ts=020620161100" type="text/css" />
+		<link rel="stylesheet" href="https://static.o2.co.uk/shared/css/_all-modules.css?ts=020620161100" type="text/css" />
+	<!--<![endif]-->
+
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie-custom-classes.css?ts=020620161100" type="text/css" />
+		<link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie-global.css?ts=020620161100" type="text/css" />
+		<link rel="stylesheet" href="https://static.o2.co.uk/shared/css/_all-modules-ie.css?ts=020620161100" type="text/css" />
+	<![endif]-->
+
+	<!--[if (lt IE 8) & (!IEMobile)]>
+		<link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie7.css?ts=020620161100" type="text/css" />
+	<![endif]-->
+
+<script src="/webcontent/js/puk.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+
+
+
+</head>
+<body>
+<div class="module19Box" id="module19Box">
+
+<div id="dvError">
+#foreach( $error in $errors )
+    <div>
+    	<div id="dvMsg">$error.message</div>
+    	<div id="dvDesc">$error.description</div>
+    </div>
+#end
+</div>
+
+hello
+<div class="grid">
+<div class="grid-row">
+<div class="default-content-container">
+	<div class="text">
+		<p>If you suspect that your handset has become blocked, you may need a PUK Code. PUK stands for Personal Unblocking Key. If you have entered your PIN code incorrectly 3 times your sim card will be blocked and you will be unable to make and receive calls/texts.</p>
+		<p>If the error message indicates that you need a new SIM, please contact customer services. If the error message indicates that you need a PUK code, please enter your mobile number below and click 'Go'.
+	Your PUK number will then be shown to you on screen.</p>
+		<p>Please make sure your SIM is activated before using "Unblock my mobile" service on this page.</p>
+	</div>
+	
+	<form name="PUKForm" method="post" >
+
+		<label for="MPN" style="margin-bottom: 20px;">Enter your mobile number</label>
+		<input type="text" name="mpn" id="MPN" class="mobilenumberField" maxlength="20" value=""/>
+		<input style="width: 320px; display: inherit; margin-top: 20px;" type="submit" id="btnSubmit" alt="Go" value="Get PUK code" title="Go" class="srchGoBtnContent"/> <!-- adding disabled will validate the captcha response-->
+		<input type="hidden" name="viewmode" value="getPuk"/>
+		<div style="visibility: ${showCaptcha}; margin-top:20px;" class="g-recaptcha" data-sitekey=${sitekey} data-callback="recaptchaCallback" ></div>
+	</form>
+
+	
+	</div>
+	</div>
+</div>
+
+<!-- <script type="text/javascript" src="/webcontent/js/iframeResizer.contentWindow.min.js"></script> -->
+  
+</body>
+</html>
+
+	               
+ 
+

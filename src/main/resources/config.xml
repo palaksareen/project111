@@ -17,8 +17,8 @@
 		<property name="locationn" ref="crius" />	<!-- Used by custom class -->
 	</bean>
 
-	<bean id="velocityConfig"
+	<!-- <bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath" value="file:///home/cts1/vagrant/content" />
-	</bean>
+	</bean> -->
 </beans>

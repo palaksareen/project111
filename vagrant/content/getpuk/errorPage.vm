@@ -1,9 +1,0 @@
-Error Page
-<div id="dvError">
-#foreach( $error in $errors )
-    <div>
-    	<div id="dvMsg">$error.message</div>
-    	<div id="dvDesc">$error.description</div>
-    </div>
-#end
-</div>
