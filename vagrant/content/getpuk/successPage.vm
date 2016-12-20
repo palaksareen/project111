@@ -1,16 +1,95 @@
-<html>
-<body>
-<div>
-<div id="dvPuk">
-The PUK code for mobile number $mpn is : $puk
-</div>
-<div>
-To unlock your mobile enter your PUK code using the instructions detailed in your mobile phone user guide.
-Customers using Motorola handsets should key **05* then wait until prompted before entering your PUK code.
-For Panasonic handsets you must follow the PUK code with #.
-Please note, incorrectly entering the PUK code more than 10 times will disable your SIM and you will require a replacement.
-If you experience difficulty with your PUK code or require further assistance please contact Customer Services.
-</div>
-</div>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <script type="text/javascript">
+         document.domain = "o2.co.uk";
+      </script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	  
+      <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/fonts.css" type="text/css" />
+      <!--[if gt IE 8]><!-->
+      <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/custom-classes.css?ts=020620161100" type="text/css" />
+      <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/global.css?ts=020620161100" type="text/css" />
+      <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/_all-modules.css?ts=020620161100" type="text/css" />
+      <!--<![endif]-->
+      <!--[if lt IE 9]>
+      <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie-custom-classes.css?ts=020620161100" type="text/css" />
+      <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie-global.css?ts=020620161100" type="text/css" />
+      <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/_all-modules-ie.css?ts=020620161100" type="text/css" />
+      <![endif]-->
+      <!--[if (lt IE 8) & (!IEMobile)]>
+      <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie7.css?ts=020620161100" type="text/css" />
+      <![endif]-->
+      
+	  
+	  <style>
+		.dvSuccessWrapper{
+			font-size: 14px;
+			background: #EFEFEF;
+			padding:20px 30px;
+			margin-bottom: 20px;
+			color: #808080;
+		}
+	    span.successMsg {
+			left: 5px;
+			position: relative;
+			bottom: 11px;
+		}
+		
+	  </style>
+	  
+	    </style>
+	  
+	  
+	  <script type="text/javascript">
+		
+		$(function() { 
+
+			parent.window.addEventListener('load', function(){
+				setIframeHeight();
+			});
+			
+			parent.window.addEventListener('resize', function(){
+				setIframeHeight();
+			});
+									
+			function getDocHeight(){
+				return Math.max(
+					$(document).height(),
+					$(window).height(),
+					/* For opera: */
+					document.documentElement.clientHeight
+				);
+			}
+			function setIframeHeight(){
+				//console.log("height: " + getDocHeight());
+				window.parent.document.getElementById('pukIframe').height = 'auto';
+				window.parent.document.getElementById('pukIframe').height = getDocHeight();
+			}
+		  
+		});
+		
+	  </script>	  
+	  
+   </head>
+   <body>
+      <div class="module19Box" id="module19Box">
+      <div class="dvSuccessWrapper">
+			<img src="http://static.o2.co.uk/shared/img/modules/tick.png" />
+			<span class="successMsg">Your request has been successful</span>
+      </div>
+      <div class="grid">
+         <div class="grid-row">
+            <div class="default-content-container">
+               <div class="text">
+                  <p>The PUK code for mobile number $mpn is : $puk</p>
+				  <p>To unlock your mobile enter your PUK code using the instructions detailed in your mobile phone user guide.</p>
+				<p>Customers using Motorola handsets should key **05* then wait until prompted before entering your PUK code.</p>
+				<p>For Panasonic handsets you must follow the PUK code with #.</p>
+				<p>Please note, incorrectly entering the PUK code more than 10 times will disable your SIM and you will require a replacement.</p>
+				<p>If you experience difficulty with your PUK code or require further assistance please contact Customer Services.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
 </html>
