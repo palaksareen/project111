@@ -19,6 +19,6 @@
 
 	<bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="file:///home/cts1/vagrant/content" />
+		<property name="resourceLoaderPath" value="file:///D:/projects/Online_PUK/vagrant/content" />
 	</bean>
 </beans>
