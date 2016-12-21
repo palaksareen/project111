@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <configuration>
-	<property name="BASE_PATH" value="/logs/getpuk" />
+	<property name="BASE_PATH" value="d:/logs/getpuk" />
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>${BASE_PATH}/console.log</file>
 		<append>true</append>
 		<encoder>
-			<pattern>%X{RequestId} %-4relative [%thread] %-5level %logger{35} - %msg %n
+			<pattern>%X{RequestId} %-4relative [%thread] %d{"yyyy-MM-dd'T'HH:mm:ss,SSS"} %-5level %logger{35} - %msg %n
 			</pattern>
 		</encoder>
 	</appender>
@@ -22,7 +22,7 @@
 		<file>${BASE_PATH}/getPUK2mis.log</file>
 		<append>true</append>
 		<encoder>
-			<pattern>%X{RequestId} %-4relative [%thread] %-5level %logger{35} %-5level %logger{35} - %msg %n
+			<pattern>%X{RequestId} %-4relative [%thread] %d{"yyyy-MM-dd'T'HH:mm:ss,SSS"} %-5level %logger{35} %-5level %logger{35} - %msg %n
 			</pattern>
 		</encoder>
 	</appender>
