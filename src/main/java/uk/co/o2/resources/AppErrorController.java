@@ -20,6 +20,7 @@ import uk.co.o2.DynamicProperties;
 @Controller
 public class AppErrorController implements ErrorController{
 
+	//TODO Logging is missing 
     private ErrorAttributes errorAttributes;
 
     private final static String ERROR_PATH = "/error";
