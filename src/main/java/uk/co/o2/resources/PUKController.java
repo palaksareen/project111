@@ -64,7 +64,7 @@ public class PUKController {
 			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.NOTO2CUSTOMER));
 		} catch (SOAException e) {
 			log.debug("SOA service is down.");
-			return modelAndView.forErrorPage(Arrays.asList(ErrorCode.SOAFAULT));
+			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.SOAFAULT));
 		} catch (InValidCaptcha e) {
 			log.debug("Invalid captch exception");
 			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.INVALID_CAPTCHA));

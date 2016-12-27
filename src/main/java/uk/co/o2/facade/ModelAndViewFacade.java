@@ -14,7 +14,7 @@ public class ModelAndViewFacade {
 	
 	private final String welcomePage=pukPagesPath+"/welcomePage";
 	private final String successPage=pukPagesPath+"/successPage";
-	private final String errorPage=pukPagesPath+"/errorPage";
+	/*private final String errorPage=pukPagesPath+"/errorPage";*/
 	public ModelAndView forWelcomePage(){
 		ModelAndView mav=new ModelAndView(welcomePage);
 		showCaptcha(mav);
@@ -28,11 +28,11 @@ public class ModelAndViewFacade {
 		return mav;
 	}
 	
-	public ModelAndView forErrorPage(List<?> errorList) {
+	/*public ModelAndView forErrorPage(List<?> errorList) {
 		ModelAndView mav=new ModelAndView(errorPage);
 		mav.addObject("errors", errorList);
 		return mav;
-	}
+	}*/
 	
 	public ModelAndView forWelcomePagewithErorr(List<?> errorList) {
 		ModelAndView mav=new ModelAndView(welcomePage);

@@ -1,5 +1,6 @@
 package uk.co.o2.resources;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import uk.co.o2.DynamicProperties;
+import uk.co.o2.utility.CaptchaModel;
+import uk.co.o2.utility.ErrorCode;
 
 @Controller
 public class AppErrorController implements ErrorController{
@@ -25,7 +28,8 @@ public class AppErrorController implements ErrorController{
 
     private final static String ERROR_PATH = "/error";
     
-    private final static String errorPage=DynamicProperties.getProperty("pukPagesPath")+"/errorPage";
+    //private final static String errorPage=DynamicProperties.getProperty("pukPagesPath")+"/errorPage";
+    private final static String errorPage=DynamicProperties.getProperty("pukPagesPath")+"/welcomePage";
 
     public AppErrorController(ErrorAttributes errorAttributes) {
         this.errorAttributes = errorAttributes;
@@ -33,7 +37,11 @@ public class AppErrorController implements ErrorController{
 
     @RequestMapping(value = ERROR_PATH, produces = "text/html")
     public ModelAndView errorHtml(HttpServletRequest request) {
-        return new ModelAndView(errorPage, getErrorAttributes(request, false));
+        //return new ModelAndView(errorPage, getErrorAttributes(request, false));
+    	ModelAndView mav=new ModelAndView(errorPage, getErrorAttributes(request, false));
+    	mav.addObject("errors", Arrays.asList(ErrorCode.SOAFAULT));
+    	showCaptcha(mav);
+    	return mav;
     }
 
     @RequestMapping(value = ERROR_PATH)
@@ -76,4 +84,15 @@ public class AppErrorController implements ErrorController{
         }
         return HttpStatus.INTERNAL_SERVER_ERROR;
     }
+    
+    private void showCaptcha(ModelAndView mav) {
+		String style=null;
+		if(CaptchaModel.showCaptcha()){
+			style="show";
+			mav.addObject("sitekey",CaptchaModel.siteKey());
+		}
+		else
+			style="hidden";
+		mav.addObject("showCaptcha",style);
+	}
 }
