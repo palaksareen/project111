@@ -9,20 +9,19 @@ import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPFactory;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
+
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.sun.xml.ws.api.message.Headers;
-import com.sun.xml.ws.client.BindingProviderProperties;
-import com.sun.xml.ws.developer.WSBindingProvider;
-
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
 import uk.co.o2.DynamicProperties;
+import uk.co.o2.log.SOAPLogger;
 import uk.co.o2.service.SoaService;
 import uk.co.o2.soa.subscriberdata_2.SubscriberProfileType;
 import uk.co.o2.soa.subscriberservice_2.GetSubscriberProfileFault;
@@ -32,6 +31,10 @@ import uk.co.o2.soaclient.rest.SoaConfig;
 import uk.co.o2.utility.exception.NotO2CustomerException;
 import uk.co.o2.utility.exception.PUKNotFoundException;
 import uk.co.o2.utility.exception.SOAException;
+
+import com.sun.xml.ws.api.message.Headers;
+import com.sun.xml.ws.client.BindingProviderProperties;
+import com.sun.xml.ws.developer.WSBindingProvider;
 
 @Component
 public class SoaServiceImpl implements SoaService {
@@ -44,36 +47,47 @@ public class SoaServiceImpl implements SoaService {
 	@Autowired
 	SoaConfig soaConfig;
 	
+	private SubscriberPort port;
+	
 	public SoaServiceImpl() {
+		
 		CacheManager cm = CacheManager.getInstance();
 		this.cache = cm.getCache("pukCache");
 		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
+
+		URL baseUrl = SubscriberService.class.getResource(WSDL_LOCATION);
+		SubscriberService ss = new SubscriberService(baseUrl, new QName(
+				"http://soa.o2.co.uk/subscriberservice_2", "SubscriberService"));
+		port = ss.getSubscriberPort();
+		BindingProvider bindingProvider = (BindingProvider) port;
+		java.util.List<Handler> handlers = bindingProvider.getBinding().getHandlerChain();
+		handlers.add(new SOAPLogger());
+		bindingProvider.getBinding().setHandlerChain(handlers);
 	}
+	
 	public String getPukWithId(String mpn,String soaTranId)throws PUKNotFoundException,NotO2CustomerException, SOAException{
 		String puk =null;
-		URL baseUrl = SubscriberService.class.getResource(WSDL_LOCATION);
-		SubscriberService ss=new SubscriberService(baseUrl,
-				new QName("http://soa.o2.co.uk/subscriberservice_2","SubscriberService"));
 		try{
-			SubscriberPort port = ss.getSubscriberPort();
 			setHeaders(port,soaTranId);
+			
+			log.info("Calling SOA endpoint " + soaConfig.getServiceEndPoint() + " for MPN : "+ mpn);
 			SubscriberProfileType subscriberProfile = port.getSubscriberProfile(mpn);
-
+			log.info("SOA call Completed..");
+			
 			if(subscriberProfile.getOperator().equals("nonO2")){
 				throw new NotO2CustomerException("Not an O2 Customer");
 			}
-			log.info(soaTranId+ " Calling soa service for "+mpn);
 			puk = subscriberProfile.getPuk();
 			if(puk == null || puk.isEmpty()){
 				throw new PUKNotFoundException("Sorry We are unable to find the PUK, Please try later");
 			}
-		}catch (SOAPException | GetSubscriberProfileFault e) {
+		}catch (GetSubscriberProfileFault | SOAPException e) {
 			if(e instanceof GetSubscriberProfileFault){
 				GetSubscriberProfileFault e1=(GetSubscriberProfileFault) e;
-				log.debug(e1.getFaultInfo().getSOATransactionID()+"\t"+e1.getFaultInfo().getFaultDescription());	
+				log.error(e1.getFaultInfo().getSOATransactionID()+"\t"+e1.getFaultInfo().getFaultDescription());	
 			}
 			
 			throw new SOAException(e.getMessage());

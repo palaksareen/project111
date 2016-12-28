@@ -1,0 +1,58 @@
+package uk.co.o2.log;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Set;
+
+import javax.xml.namespace.QName;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.handler.soap.SOAPHandler;
+import javax.xml.ws.handler.soap.SOAPMessageContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class SOAPLogger implements SOAPHandler<SOAPMessageContext>{
+	
+	public final Log appLogger = LogFactory.getLog("application_log");
+
+	@Override
+	public boolean handleMessage(SOAPMessageContext context) {
+		SOAPMessage soapMessage = context.getMessage();
+		boolean isOutboundMessage = (boolean) context.get(SOAPMessageContext.MESSAGE_OUTBOUND_PROPERTY);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			soapMessage.writeTo(baos);
+			if(isOutboundMessage){
+				appLogger.info("SOAP Request is : \n " + baos.toString());
+			
+			}else{
+				appLogger.info("SOAP Response is : \n " + baos.toString());
+			}
+		} catch (SOAPException | IOException e) {
+			appLogger.error("Error occured during message handler " + e);
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean handleFault(SOAPMessageContext context) {
+		return false;
+	}
+
+	@Override
+	public void close(MessageContext context) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public Set<QName> getHeaders() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}
