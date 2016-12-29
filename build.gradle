@@ -16,6 +16,7 @@ configurations {
     jaxb
 }
 
+
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
@@ -34,7 +35,6 @@ war {
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
 repositories {
 	jcenter()
 	mavenCentral()
@@ -108,5 +108,23 @@ dependencies {
     compile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.6'
     compile group: 'org.easymock', name: 'easymock', version: '3.4'
     //compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '1.4.2.RELEASE'
+    
+    
+    compile "io.dropwizard.metrics:metrics-core:3.1.2"
+    compile "io.dropwizard.metrics:metrics-annotation:3.1.2"
+    compile "io.dropwizard.metrics:metrics-jersey:3.1.2"
+    //compile "io.dropwizard.metrics:metrics-aop:3.1.2"
+    compile "io.dropwizard.metrics:metrics-jvm:3.1.2"
+    compile "io.dropwizard.metrics:metrics-graphite:3.1.2"
+    compile 'com.ryantenney.metrics:metrics-spring:3.1.3'
+    
+    compile "com.yammer.metrics:metrics-core:2.1.3"
+    compile "com.yammer.metrics:metrics-annotation:2.1.3"
+    compile "com.yammer.metrics:metrics-jersey:2.1.3"
+    compile "com.yammer.metrics:metrics-spring:2.1.3"
+    compile 'com.yammer.metrics:metrics-aop:2.0.0-BETA18'
+    
+    compile "com.codahale.metrics:metrics-json:3.0.1"
+
     
 }
