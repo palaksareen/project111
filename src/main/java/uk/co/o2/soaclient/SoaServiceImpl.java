@@ -76,8 +76,15 @@ public class SoaServiceImpl implements SoaService {
 			setHeaders(port,soaTranId);
 			
 			log.info("Calling SOA endpoint " + soaConfig.getServiceEndPoint() + " for MPN : "+ mpn);
+			Long soaRequestTime = System.currentTimeMillis();
+			
 			SubscriberProfileType subscriberProfile = port.getSubscriberProfile(mpn);
+			
+			Long soaOutputTime = System.currentTimeMillis();
 			log.info("SOA call Completed..");
+			
+			String responseTime = String.valueOf(soaOutputTime - soaRequestTime);
+			log.info("SOA response Time: " + responseTime);
 			
 			if(subscriberProfile.getOperator().equals("nonO2")){
 				throw new NotO2CustomerException("Not an O2 Customer");
