@@ -22,7 +22,7 @@ public class SoaGateWayInFaultInterceptor extends LoggingInInterceptor{
 	void handleMessage(Message message) throws Fault {
 		
 		Map<String, List<String>> headers = CastUtils.cast((Map)message.get(Message.PROTOCOL_HEADERS));
-		System.out.println(">>>>>>>>>>>>>>>>"+headers+"<<<<<<<<<<");
+		CONSUMER_LOG.debug(">>>>>>>>>>>>>>>>"+headers+"<<<<<<<<<<");
 		//String transactionId =headers.get("SOATransactionID").get(0);
 		String requestedURI = (String) message.getExchange().get(Message.REQUEST_URI);
 		String responseTime = String.valueOf( System.currentTimeMillis() - Long.parseLong(MDC.get(SoaGatewayRequestDataExtractorInterceptor.SOA_GW_TIMESTAMP_KEY)));
