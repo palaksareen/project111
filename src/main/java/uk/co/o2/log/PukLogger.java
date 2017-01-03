@@ -3,6 +3,7 @@ package uk.co.o2.log;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,6 +13,8 @@ import org.aspectj.lang.annotation.Before;
 public class PukLogger {
 	private final Log log = LogFactory.getLog("application_log");
 	private final Log mis_log = LogFactory.getLog("mis_log");
+	private final Log errorLogger = LogFactory.getLog("console_log");
+	
 	
     public PukLogger () {}
     
@@ -28,13 +31,17 @@ public class PukLogger {
     
     @Before("execution(* uk.co.o2.utility.Validator.validate(..))")
     public void logMethodAccessBeforeValidator(JoinPoint joinPoint) {
-    	log.info(joinPoint.getSignature().getName()+ 
-    			",validating <"+joinPoint.getArgs()[0].toString()+"> MPN");
+    	log.info("validating <"+joinPoint.getArgs()[0].toString()+"> MPN");
     }
 
-    @Before("execution(* uk.co.o2.resources.*.*(..))")
+    @Before("execution(* uk.co.o2.*.*.*(..))")
     public void logMethodAccessBefore(JoinPoint joinPoint) {
-    	log.info(joinPoint.getSignature());
+    	log.info("Entering " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+    }
+    
+    @After("execution(* uk.co.o2.*.*.*(..))")
+    public void logMethodAccessAfter(JoinPoint joinPoint) {
+    	log.info("Exiting " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
     }
     
     @AfterReturning(pointcut="execution(* uk.co.o2.*.*.*(..))",returning="returnVal")
@@ -46,7 +53,8 @@ public class PukLogger {
     
     @AfterThrowing(pointcut="execution(* uk.co.o2.facade.*.*(..))",throwing="excep")
     public void logMethodAccessAfterThrowing(JoinPoint joinPoint, Throwable excep)throws Throwable {
-    		log.info("Exception Thrown "+joinPoint.getSignature()+ ", "+excep);
+    	errorLogger.error(joinPoint.getSignature() + " : Exception details : \n ",excep);
+    	
     }
     
 }
