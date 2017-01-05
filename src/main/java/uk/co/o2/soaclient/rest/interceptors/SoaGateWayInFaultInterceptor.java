@@ -29,7 +29,7 @@ public class SoaGateWayInFaultInterceptor extends LoggingInInterceptor{
 		String requestMethod = MDC.get(SoaGatewayRequestDataExtractorInterceptor.SOA_GW_REQUEST_METHOD);
 		String responsStatus = (String) message.get(Message.RESPONSE_CODE);
 
-		CONSUMER_LOG.debug(requestedURI+"\t"+requestMethod+"\t"+responsStatus +"\t"+responseTime);
+		CONSUMER_LOG.info(requestedURI+"\t"+requestMethod+"\t"+responsStatus +"\t"+responseTime);
         //CONSUMER_LOG.error("${requestedURI} ${requestMethod} ${responsStatus} ${transactionId} ${responseTime}");
 	}
 }

@@ -54,24 +54,28 @@ public class PUKController {
 			}
 			result=facade.getPuk(mpn);
 		} catch (InvalidMPNException e) {
-			log.debug("MPN is not valid.");
+			log.info(e.getMessage() + " : " + ErrorCode.INVALID_MPN.getDescription());
 			return modelAndView.forWelcomePagewithErorr(e.getErrorList());
 		} catch (PUKNotFoundException e) {
-			log.debug("Unable to found the puk for given mpn.");
+			log.info(e.getMessage() + " : " + ErrorCode.PUKNOTFOUND.getDescription());
 			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.PUKNOTFOUND));
 		}catch (NotO2CustomerException e) {
-			log.debug("Not an O2 Customer");
+			log.info(e.getMessage() + " : " + ErrorCode.NOTO2CUSTOMER.getDescription());
 			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.NOTO2CUSTOMER));
 		} catch (SOAException e) {
-			log.debug("SOA service is down.");
+			log.error(e.getMessage() + " : " + ErrorCode.SOAFAULT.getDescription());
 			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.SOAFAULT));
 		} catch (InValidCaptcha e) {
-			log.debug("Invalid captch exception");
+			log.info(e.getMessage() + " : " + ErrorCode.INVALID_CAPTCHA.getDescription());
 			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.INVALID_CAPTCHA));
 		} catch (GoogleServiceException e) {
-			log.debug("Google ReCAPTCHA Service is down.");
-			e.printStackTrace();
+			log.error(e.getMessage() + " : " + ErrorCode.GOOGLE_SERVICE_DOWN.getDescription());
+			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.GOOGLE_SERVICE_DOWN));
+		}catch (Exception e) {
+			log.error(e.getMessage() + " : " + ErrorCode.GENERICFAULT.getDescription());
+			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.GENERICFAULT));
 		}
+		
 		return modelAndView.forSuccessPage(result,mpn);
 	}   
 }

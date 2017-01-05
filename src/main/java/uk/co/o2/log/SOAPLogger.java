@@ -14,6 +14,8 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import uk.co.o2.utility.ErrorCode;
+
 public class SOAPLogger implements SOAPHandler<SOAPMessageContext>{
 	
 	public final Log appLogger = LogFactory.getLog("application_log");
@@ -32,7 +34,7 @@ public class SOAPLogger implements SOAPHandler<SOAPMessageContext>{
 				appLogger.info("SOAP Response is : \n " + baos.toString());
 			}
 		} catch (SOAPException | IOException e) {
-			appLogger.error("Error occured during message handler " + e);
+			appLogger.error(ErrorCode.MSG_HANDLER_ERROR.getMessage() , e.getCause());
 		}
 		
 		return true;

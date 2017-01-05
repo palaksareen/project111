@@ -3,6 +3,7 @@ package uk.co.o2.soaclient;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.when;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,9 +23,9 @@ public class SoaCertBeanTest {
 	
 	
 	
-	@Test
-	public void testProperties(){
-		try {
+	@Test(expected = Exception.class)
+	public void testProperties() throws Exception{
+		
 			when(soaConfig.getSoaKeyStoreCertificateLocation()).thenReturn("some string");
 			when(soaConfig.getKeyStorePassword()).thenReturn("some string");
 			when(soaConfig.getKeyStorePassword()).thenReturn("some string");
@@ -34,9 +35,6 @@ public class SoaCertBeanTest {
 			certBean.afterPropertiesSet();
 
 			assertSame(System.getProperty("javax.net.ssl.keyStore"),"some string");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 }

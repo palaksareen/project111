@@ -31,18 +31,15 @@ public class PukLogger {
     
     @Before("execution(* uk.co.o2.utility.Validator.validate(..))")
     public void logMethodAccessBeforeValidator(JoinPoint joinPoint) {
-    	log.info("validating <"+joinPoint.getArgs()[0].toString()+"> MPN");
+    	log.info(joinPoint.getSignature().getName()+ 
+    			     			",validating <"+joinPoint.getArgs()[0].toString()+"> MPN");
     }
 
-    @Before("execution(* uk.co.o2.*.*.*(..))")
+    @Before("execution(* uk.co.o2.resources.*.*(..))")
     public void logMethodAccessBefore(JoinPoint joinPoint) {
-    	log.info("Entering " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+    	log.info(joinPoint.getSignature());
     }
     
-    @After("execution(* uk.co.o2.*.*.*(..))")
-    public void logMethodAccessAfter(JoinPoint joinPoint) {
-    	log.info("Exiting " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-    }
     
     @AfterReturning(pointcut="execution(* uk.co.o2.*.*.*(..))",returning="returnVal")
     public void logMethodAccessAfter(JoinPoint joinPoint, String returnVal) {

@@ -12,4 +12,8 @@ extends Exception {
     GoogleServiceException(String message, Throwable cause) {
         super(message, cause);
     }
+    
+    public GoogleServiceException(Throwable cause) {
+		super(cause);
+	}
 }

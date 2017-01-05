@@ -82,7 +82,7 @@ public class DynamicProperties extends PropertyResourceConfigurer{
 				}
 				if(ex.size() > in.size()){
 					ex.removeAll(in);
-					log.debug("server contains extra properties which are not required for the application "+ex);
+					log.info("server contains extra properties which are not required for the application "+ex);
 				}
 				configuration = new PropertiesConfiguration(externalPropFile.getAbsolutePath());				
 			}
@@ -90,7 +90,8 @@ public class DynamicProperties extends PropertyResourceConfigurer{
 			configuration.setReloadingStrategy(new FileChangedReloadingStrategy());
 		} catch (Exception e) {
 			StringBuilder msg=new StringBuilder("Reading from property fails.");
-			e.printStackTrace();
+			log.info("Reading from property file fails. ");
+			
 			if(e instanceof MissingPropertyException)
 				msg.append(e.getMessage());
 			BeanInitializationException exception=new BeanInitializationException(msg.toString());

@@ -10,4 +10,8 @@ public class SOAException extends Exception {
     SOAException(String message, Throwable cause) {
         super(message, cause);
     }
+
+	public SOAException(Throwable cause) {
+		super(cause);
+	}
 }

@@ -3,6 +3,7 @@ package uk.co.o2.service;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.when;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -44,7 +45,7 @@ public class PukServiceTest {
 			assertSame(code.getPukCode(), actual.getPukCode());
 			
 		} catch (PUKNotFoundException | NotO2CustomerException | SOAException e) {
-			e.printStackTrace();
+			Assert.fail(e.getMessage());
 		}
 	}
 

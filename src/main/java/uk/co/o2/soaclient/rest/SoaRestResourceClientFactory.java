@@ -4,16 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.security.InvalidKeyException;
 import java.security.KeyStore;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -34,6 +29,7 @@ import org.springframework.stereotype.Service;
 import uk.co.o2.soaclient.rest.interceptors.SoaGateWayInFaultInterceptor;
 import uk.co.o2.soaclient.rest.interceptors.SoaGatewayLoggingInterceptor;
 import uk.co.o2.soaclient.rest.interceptors.SoaGatewayRequestDataExtractorInterceptor;
+import uk.co.o2.utility.ErrorCode;
 
 @Service
 public class SoaRestResourceClientFactory implements ResourceClientFactory  {
@@ -50,11 +46,11 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
     }
     
     @Override
-    public CaptchaValidationResource createCaptchaValidationResource() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+    public CaptchaValidationResource createCaptchaValidationResource(){ 
         return createResource(soaConfig.getReCaptchaServiceUrl(), CaptchaValidationResource.class,null);
     }
 
-    private <T> T createResource(String baseUrl, Class<T> resourceClass, HashMap headers) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+    private <T> T createResource(String baseUrl, Class<T> resourceClass, HashMap headers){
     	
         T proxy = JAXRSClientFactory.create(baseUrl, resourceClass, Arrays.asList(jacksonJsonProvider), false);
         org.apache.cxf.jaxrs.client.Client client = WebClient.client(proxy);
@@ -96,8 +92,7 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
         policy.setReceiveTimeout(0);
 		} catch (Exception e) {
-			log.debug("Exception occured during Storing certificate for soa rest call."+e.getMessage());
-			e.printStackTrace();
+			log.error(ErrorCode.SSL_CERTIFICATE_ERROR.getMessage(), e.getCause());
 		}
     }
 
@@ -128,7 +123,7 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
         httpConduit.setClient(policy);
     }
 
-    private void addHeaders(WebClient client, HashMap headers) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+    private void addHeaders(WebClient client, HashMap headers){
     	
     	String header = soaConfig.username+":"+ soaConfig.password;
         byte[] unencodedByteArray = header.getBytes();

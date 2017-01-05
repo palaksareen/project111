@@ -28,6 +28,7 @@ import uk.co.o2.soa.subscriberservice_2.GetSubscriberProfileFault;
 import uk.co.o2.soa.subscriberservice_2.SubscriberPort;
 import uk.co.o2.soa.subscriberservice_2.SubscriberService;
 import uk.co.o2.soaclient.rest.SoaConfig;
+import uk.co.o2.utility.ErrorCode;
 import uk.co.o2.utility.exception.NotO2CustomerException;
 import uk.co.o2.utility.exception.PUKNotFoundException;
 import uk.co.o2.utility.exception.SOAException;
@@ -87,19 +88,14 @@ public class SoaServiceImpl implements SoaService {
 			log.info("SOA response Time: " + responseTime);
 			
 			if(subscriberProfile.getOperator().equals("nonO2")){
-				throw new NotO2CustomerException("Not an O2 Customer");
+				throw new NotO2CustomerException(ErrorCode.NOTO2CUSTOMER.getMessage());
 			}
 			puk = subscriberProfile.getPuk();
 			if(puk == null || puk.isEmpty()){
-				throw new PUKNotFoundException("Sorry We are unable to find the PUK, Please try later");
+				throw new PUKNotFoundException(ErrorCode.PUKNOTFOUND.getMessage());
 			}
 		}catch (GetSubscriberProfileFault | SOAPException e) {
-			if(e instanceof GetSubscriberProfileFault){
-				GetSubscriberProfileFault e1=(GetSubscriberProfileFault) e;
-				log.error(e1.getFaultInfo().getSOATransactionID()+"\t"+e1.getFaultInfo().getFaultDescription());	
-			}
-			
-			throw new SOAException(e.getMessage());
+			throw new SOAException(e.getCause());
 		}
 		return puk;
 	}

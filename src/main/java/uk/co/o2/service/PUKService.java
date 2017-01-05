@@ -4,6 +4,7 @@ import org.apache.cxf.interceptor.Fault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import uk.co.o2.utility.ErrorCode;
 import uk.co.o2.utility.PUKCode;
 import uk.co.o2.utility.exception.GoogleServiceException;
 import uk.co.o2.utility.exception.NotO2CustomerException;
@@ -29,9 +30,9 @@ public class PUKService {
 	public void varifyCaptcha1( String reCaptchaResponse) throws InValidCaptcha, GoogleServiceException {
 		try {
 			if(! reCaptchaService.verifyCaptchaResponse(reCaptchaResponse))
-				throw new InValidCaptcha("Captcha is not valid","");
+				throw new InValidCaptcha(ErrorCode.INVALID_CAPTCHA.getMessage(),"");
 		} catch (Fault e) {
-			throw new GoogleServiceException("Unable to connect Google Service..");
+			throw new GoogleServiceException(e.getCause());
 		}
 	}
 }

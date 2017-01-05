@@ -10,6 +10,7 @@ import java.util.Arrays;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -58,12 +59,10 @@ public class DynamicPropertiesTest {
 			
 			Mockito.doNothing().when(configuration).setReloadingStrategy(strategy);
 			dynamicProperties.postProcessBeanFactory(beanFactory);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Assert.fail(e.getMessage());
+			
 		}
 
 	}

@@ -28,7 +28,7 @@ public class PukInterceptorTest {
 			interceptor.postHandle(null, null, null, null);
 			Assert.assertNull(MDC.get("RequestId"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			Assert.fail(e.getMessage());
 		}
 	}
 }

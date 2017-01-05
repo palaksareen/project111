@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 import uk.co.o2.soaclient.rest.SoaConfig;
 @Service
 public class SslCertBean implements InitializingBean{
-
-
+	
 	@Autowired
 	SoaConfig soaConfig;
 
@@ -25,7 +24,6 @@ public class SslCertBean implements InitializingBean{
 
 			System.setProperty("https.protocols", soaConfig.getHttps_protocols());
 		}catch (Exception e) {
-			e.printStackTrace();
 			throw new Exception();
 		}
 	}

@@ -1,13 +1,5 @@
 package uk.co.o2.service;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
 import org.apache.cxf.interceptor.Fault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +17,7 @@ public class ReCaptchaService {
     private final CaptchaValidationResource captchaValidationResource;
     
     @Autowired
-    public ReCaptchaService(SoaRestResourceClientFactory soaRestResourceClientFactory) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
+    public ReCaptchaService(SoaRestResourceClientFactory soaRestResourceClientFactory) {
     	this.captchaValidationResource =  soaRestResourceClientFactory.createCaptchaValidationResource();
     }
 
