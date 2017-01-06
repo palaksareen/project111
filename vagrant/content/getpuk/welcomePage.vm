@@ -184,8 +184,11 @@
 				#foreach( $error in $errors )
 					<div class="errorMessage">
 						<img src="http://static.o2.co.uk/shared/img/modules/digital-id/exclamation.png" width="22"/>
-						<span>$error.message</span>
+						<span>Please check the page for the following errors</span>
 					</div>
+					<ul>
+					$error.message
+					</ul>
 				#end
 				</div>
 
@@ -193,11 +196,12 @@
 			</div>
 
 			<div class="text">
-				<p>If you suspect that your handset has become blocked, you may need a PUK Code. PUK stands for Personal Unblocking Key. If you have entered your PIN code incorrectly 3 times your sim card will be blocked and you will be unable to make and receive calls/texts.</p>
+				<p>Most phones are locked with a pin code. If you enter the wrong pin too many times, your sim will be blocked and you won’t be able to make and receive calls or texts. When this happens, you’ll need your PUK (Personal Unblocking Key) code to unblock your sim.</p>
 				<p>If the error message indicates that you need a new SIM, please contact customer services. If the error message indicates that you need a PUK code, please enter your mobile number below and click 'Go'.
 			Your PUK number will then be shown to you on screen.</p>
-				<p>Please make sure your SIM is activated before using "Unblock my mobile" service on this page.</p>
+				<p>To find your PUK code, enter your number below. Or <a href="https://accounts.o2.co.uk/signin">sign in to My O2</a>,  go to <b> My device </b>, then <b>Device details.</b></p>
 			</div>
+			
 			
 			<form name="PUKForm" method="post" class="puk-form" id="pukForm" >
 
@@ -211,9 +215,10 @@
 			<!-- <div class="text">	
 				<p>Altenatively, you can find your PUK code within My O2. Sign in > My device > Device details</p>
 			</div> -->
-			
-			</div>
-			</div>
+		</div>
+		</div>
+		<div class="text" >
+		<p style="margin-left:2em;">If you put in the wrong PUK code 10 times, your sim will be permanently locked and you will need to speak to our <a href="http://www.o2.co.uk/contactus">customer care team</a></p>
 		</div>
    </body>
 </html>

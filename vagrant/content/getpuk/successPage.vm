@@ -75,18 +75,14 @@
       <div class="module19Box" id="module19Box">
       <div class="dvSuccessWrapper">
 			<img src="http://static.o2.co.uk/shared/img/modules/tick.png" />
-			<span class="successMsg">Your request has been successful</span>
+			<span class="successMsg">We have found your puk code</span>
       </div>
       <div class="grid">
          <div class="grid-row">
             <div class="default-content-container">
                <div class="text">
-                  <p>The PUK code for mobile number $mpn is : $puk</p>
-				  <p>To unlock your mobile enter your PUK code using the instructions detailed in your mobile phone user guide.</p>
-				<p>Customers using Motorola handsets should key **05* then wait until prompted before entering your PUK code.</p>
-				<p>For Panasonic handsets you must follow the PUK code with #.</p>
-				<p>Please note, incorrectly entering the PUK code more than 10 times will disable your SIM and you will require a replacement.</p>
-				<p>If you experience difficulty with your PUK code or require further assistance please contact Customer Services.</p>
+                  <p>Your PUK code is  $puk</p>
+				  <p>To unblock your sim, enter the code when prompted by your phone</p>
                </div>
             </div>
          </div>
