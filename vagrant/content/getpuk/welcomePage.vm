@@ -125,16 +125,16 @@
 			});
 			
 			$("#pukForm").submit(function(e) {
-				$("#pukForm").submit();
+				//$("#pukForm").submit();
 			  //alert( "Handler for .submit() called." );
-			  /*var validate = phoneValidate();
+			  var validate = phoneValidate();
 			  if(validate == false){
 				e.preventDefault();
 				setIframeHeight();
 			  }
 			  else{
 				$("#pukForm").submit();
-			  }*/
+			  }
 			});
 			
 			function validateUkPhoneNumber(number){
