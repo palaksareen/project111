@@ -54,8 +54,8 @@ public class PUKController {
 			}
 			result=facade.getPuk(mpn);
 		} catch (InvalidMPNException e) {
-			log.info(e.getMessage() + " : " + ErrorCode.INVALID_MPN.getDescription());
-			return modelAndView.forWelcomePagewithErorr(e.getErrorList());
+			log.info(e.getMessage() + " : " + e.getErrorCode().getDescription());
+			return modelAndView.forWelcomePagewithErorr(Arrays.asList(e.getErrorCode()));
 		} catch (PUKNotFoundException e) {
 			log.info(e.getMessage() + " : " + ErrorCode.PUKNOTFOUND.getDescription());
 			return modelAndView.forWelcomePagewithErorr(Arrays.asList(ErrorCode.PUKNOTFOUND));

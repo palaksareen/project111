@@ -1,24 +1,19 @@
 package uk.co.o2.utility.exception;
 
-import java.util.List;
+
+import uk.co.o2.utility.ErrorCode;
 
 public class InvalidMPNException extends Exception {
 
 	private static final long serialVersionUID = 1;
-	private String mpn;
-	private List errorList;
+	private ErrorCode errorCode;
 
-	public InvalidMPNException(String message, String mpn, List errorList) {
+	public InvalidMPNException(String message, ErrorCode errorCode) {
 		super(message);
-		this.mpn = mpn;
-		this.errorList = errorList;
+		this.errorCode = errorCode;
 	}
-
-	public String getMPN() {
-		return this.mpn;
-	}
-
-	public List getErrorList() {
-		return this.errorList;
+	
+	public ErrorCode getErrorCode() {
+		return this.errorCode;
 	}
 }

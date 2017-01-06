@@ -186,9 +186,6 @@
 						<img src="http://static.o2.co.uk/shared/img/modules/digital-id/exclamation.png" width="22"/>
 						<span>$error.message</span>
 					</div>
-					<ul>
-						<li>$error.description</li>
-					</ul>					
 				#end
 				</div>
 
