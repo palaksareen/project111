@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,25 +15,28 @@ import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.GraphiteReporter;
 import com.codahale.metrics.graphite.PickledGraphite;
+import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 
 import uk.co.o2.DynamicProperties;
 
 @Component
+@EnableMetrics
 public class GrafanaReporter {
 
     private PickledGraphite graphite;
     private GraphiteReporter graphiteReporter;
     private MetricRegistry metricRegistry=new MetricRegistry();
     
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Log logger = LogFactory.getLog("application_log");
     private final String hostName = DynamicProperties.getProperty("kairos.db.hostname");
     private final int port = Integer.parseInt(DynamicProperties.getProperty("kairos.db.port"));
     private final String prefix = DynamicProperties.getProperty("kairos.db.prefix");
     private int period = Integer.parseInt(DynamicProperties.getProperty("kairos.db.period"));
     
-    //@Autowired
-    public GrafanaReporter() {
+    @Autowired
+    public GrafanaReporter(MetricRegistry metricRegistry) {
         
+    	this.metricRegistry = metricRegistry;
         graphite = new PickledGraphite(new InetSocketAddress(hostName, port));
 
         logger.info("Graphite initialised");
