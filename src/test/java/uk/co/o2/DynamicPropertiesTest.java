@@ -44,7 +44,7 @@ public class DynamicPropertiesTest {
 
 			PowerMockito.mockStatic(FileUtils.class);
 
-			when(FileUtils.readLines(mockExternalFile, "UTF-8")).thenReturn(Arrays.asList("reCaptchaServiceUrl=http://localhost:8091/fake/recaptcha/","cache.enabled=false","cache.11enabled=false"));
+			when(FileUtils.readLines(mockExternalFile, "UTF-8")).thenReturn(Arrays.asList("reCaptchaServiceUrl=http://localhost:8091/fake/recaptcha/","cacheEnabled=false","cache.11enabled=false"));
 
 			//PowerMockito.mockStatic(PropertiesConfiguration.class);
 			PropertiesConfiguration configuration = mock(PropertiesConfiguration.class);

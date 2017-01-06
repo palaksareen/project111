@@ -64,7 +64,7 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
     }
 
     private void configureSSL(WebClient client) {
-        String certificateLocation = soaConfig.getSoaKeyStoreCertificateLocation();
+        String certificateLocation = soaConfig.getSoaCertificateLocation();
         String certificatePassword = soaConfig.getSoaKeyStorePassword();
 
         KeyStore keyStore;
@@ -114,8 +114,8 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
     private void setTimeouts(WebClient client) {
         HTTPClientPolicy policy = new HTTPClientPolicy();
-        policy.setConnectionTimeout(soaConfig.getConnectionTimeout());
-        policy.setReceiveTimeout(soaConfig.getReadTimeout());
+        policy.setConnectionTimeout(soaConfig.getSoaRestConnectionTimeout());
+        policy.setReceiveTimeout(soaConfig.getSoaRestReadTimeout());
         policy.setConnection(org.apache.cxf.transports.http.configuration.ConnectionType.CLOSE);
 
         ClientConfiguration config = WebClient.getConfig(client);

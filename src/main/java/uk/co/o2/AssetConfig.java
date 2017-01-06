@@ -29,7 +29,7 @@ public class AssetConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-		for(Entry<String, String> entry:retriveMap(DynamicProperties.getProperty("application.asset.paths")).entrySet()){
+		for(Entry<String, String> entry:retriveMap(DynamicProperties.getProperty("applicationAssetPaths")).entrySet()){
 			registry.addResourceHandler(entry.getKey()+"**").addResourceLocations(entry.getValue());
 		}
 		 super.addResourceHandlers(registry);

@@ -28,10 +28,10 @@ public class GrafanaReporter {
     private MetricRegistry metricRegistry=new MetricRegistry();
     
     private final Log logger = LogFactory.getLog("application_log");
-    private final String hostName = DynamicProperties.getProperty("kairos.db.hostname");
-    private final int port = Integer.parseInt(DynamicProperties.getProperty("kairos.db.port"));
-    private final String prefix = DynamicProperties.getProperty("kairos.db.prefix");
-    private int period = Integer.parseInt(DynamicProperties.getProperty("kairos.db.period"));
+    private final String hostName = DynamicProperties.getProperty("kairosDbHostname");
+    private final int port = Integer.parseInt(DynamicProperties.getProperty("kairosDbPort"));
+    private final String prefix = DynamicProperties.getProperty("kairosDbPrefix");
+    private int period = Integer.parseInt(DynamicProperties.getProperty("kairosDbPeriod"));
     
     @Autowired
     public GrafanaReporter(MetricRegistry metricRegistry) {

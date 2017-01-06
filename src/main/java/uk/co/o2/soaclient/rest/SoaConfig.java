@@ -9,12 +9,15 @@ public class SoaConfig {
 //	@Value("${reCaptchaServiceUrl}")
     private String reCaptchaServiceUrl=DynamicProperties.getProperty("reCaptchaServiceUrl");
     
-    private String https_protocols=DynamicProperties.getProperty("https.protocols");
+    private String https_protocols=DynamicProperties.getProperty("httpsProtocols");
 	
-    private Integer readTimeout=DynamicProperties.getIntegerProperty("soa.readTimeoutMS");;
-    
-    private Integer connectionTimeout=DynamicProperties.getIntegerProperty("soa.connectionTimeoutMS");;
+    private Integer soaSoapReadTimeout=DynamicProperties.getIntegerProperty("soaSoapReadTimeoutMS");;
 
+	private Integer soaSoapConnectionTimeout=DynamicProperties.getIntegerProperty("soaSoapConnectionTimeoutMS");;
+
+    private Integer soaRestReadTimeout=DynamicProperties.getIntegerProperty("soaRestReadTimeoutMS");;
+    
+    private Integer soaRestConnectionTimeout=DynamicProperties.getIntegerProperty("soaRestConnectionTimeoutMS");;
     
 	public String getHttps_protocols() {
 		return https_protocols;
@@ -26,7 +29,7 @@ public class SoaConfig {
 	}
 
 
-	private String serviceEndPoint=DynamicProperties.getProperty("service_end_point");;
+	private String subscriberServiceUrl=DynamicProperties.getProperty("subscriberServiceUrl");;
     // key store
 	public
 	String keyStorePassword=DynamicProperties.getProperty("soaKeyStorePassword");;
@@ -35,48 +38,69 @@ public class SoaConfig {
 	
 	String password=DynamicProperties.getProperty("soaPassword");;
 	
-	boolean certificateEnabled=DynamicProperties.getBooleanProperty("certificateEnabled");;
-    
-	
-	String soaEnableCertificate=DynamicProperties.getProperty("soaEnableCertificate");;
+	//boolean certificateEnabled=DynamicProperties.getBooleanProperty("certificateEnabled");;
+	//String soaEnableCertificate=DynamicProperties.getProperty("soaEnableCertificate");;
 
 	// Trust store
 	String soaTrustedStoreCertificateLocation=DynamicProperties.getProperty("soaTrustedStoreCertificateLocation");;
 
 	String soaTrustedStorePassword=DynamicProperties.getProperty("soaTrustedStorePassword");;
 
-	String soaKeyStoreCertificateLocation=DynamicProperties.getProperty("soaKeyStoreCertificateLocation");;
+	String soaCertificateLocation=DynamicProperties.getProperty("soaCertificateLocation");;
 
 	String soaKeyStorePassword=DynamicProperties.getProperty("soaKeyStorePassword");;
 
 	SoaConfig() {
     }
 
-
-	public String getServiceEndPoint() {
-		return serviceEndPoint;
+	  
+    public Integer getSoaSoapReadTimeout() {
+		return soaSoapReadTimeout;
 	}
 
 
-	public void setServiceEndPoint(String serviceEndPoint) {
-		this.serviceEndPoint = serviceEndPoint;
+	public String getSubscriberServiceUrl() {
+		return subscriberServiceUrl;
 	}
 
 
-	public Integer getReadTimeout() {
-		return readTimeout;
+	public void setSubscriberServiceUrl(String subscriberServiceUrl) {
+		this.subscriberServiceUrl = subscriberServiceUrl;
 	}
 
-	public void setReadTimeout(Integer readTimeout) {
-		this.readTimeout = readTimeout;
+
+	public void setSoaSoapReadTimeout(Integer soaSoapReadTimeout) {
+		this.soaSoapReadTimeout = soaSoapReadTimeout;
 	}
 
-	public Integer getConnectionTimeout() {
-		return connectionTimeout;
+
+	public Integer getSoaSoapConnectionTimeout() {
+		return soaSoapConnectionTimeout;
 	}
 
-	public void setConnectionTimeout(Integer connectionTimeout) {
-		this.connectionTimeout = connectionTimeout;
+
+	public void setSoaSoapConnectionTimeout(Integer soaSoapConnectionTimeout) {
+		this.soaSoapConnectionTimeout = soaSoapConnectionTimeout;
+	}
+
+
+	public Integer getSoaRestReadTimeout() {
+		return soaRestReadTimeout;
+	}
+
+
+	public void setSoaRestReadTimeout(Integer soaRestReadTimeout) {
+		this.soaRestReadTimeout = soaRestReadTimeout;
+	}
+
+
+	public Integer getSoaRestConnectionTimeout() {
+		return soaRestConnectionTimeout;
+	}
+
+
+	public void setSoaRestConnectionTimeout(Integer soaRestConnectionTimeout) {
+		this.soaRestConnectionTimeout = soaRestConnectionTimeout;
 	}
 
 	public String getReCaptchaServiceUrl() {
@@ -118,26 +142,6 @@ public class SoaConfig {
 	}
 
 
-	public boolean isCertificateEnabled() {
-		return certificateEnabled;
-	}
-
-
-	public void setCertificateEnabled(boolean certificateEnabled) {
-		this.certificateEnabled = certificateEnabled;
-	}
-
-
-	public String getSoaEnableCertificate() {
-		return soaEnableCertificate;
-	}
-
-
-	public void setSoaEnableCertificate(String soaEnableCertificate) {
-		this.soaEnableCertificate = soaEnableCertificate;
-	}
-
-
 	public String getSoaTrustedStoreCertificateLocation() {
 		return soaTrustedStoreCertificateLocation;
 	}
@@ -157,19 +161,19 @@ public class SoaConfig {
 		this.soaTrustedStorePassword = soaTrustedStorePassword;
 	}
 
-
-	public String getSoaKeyStoreCertificateLocation() {
-		return soaKeyStoreCertificateLocation;
-	}
-
-
-	public void setSoaKeyStoreCertificateLocation(String soaKeyStoreCertificateLocation) {
-		this.soaKeyStoreCertificateLocation = soaKeyStoreCertificateLocation;
-	}
-
-
+	
 	public String getSoaKeyStorePassword() {
 		return soaKeyStorePassword;
+	}
+
+
+	public String getSoaCertificateLocation() {
+		return soaCertificateLocation;
+	}
+
+
+	public void setSoaCertificateLocation(String soaCertificateLocation) {
+		this.soaCertificateLocation = soaCertificateLocation;
 	}
 
 

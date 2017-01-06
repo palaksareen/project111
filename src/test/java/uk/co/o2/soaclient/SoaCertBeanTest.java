@@ -26,7 +26,7 @@ public class SoaCertBeanTest {
 	@Test(expected = Exception.class)
 	public void testProperties() throws Exception{
 		
-			when(soaConfig.getSoaKeyStoreCertificateLocation()).thenReturn("some string");
+			when(soaConfig.getSoaCertificateLocation()).thenReturn("some string");
 			when(soaConfig.getKeyStorePassword()).thenReturn("some string");
 			when(soaConfig.getKeyStorePassword()).thenReturn("some string");
 			when(soaConfig.getSoaTrustedStoreCertificateLocation()).thenReturn("some string");

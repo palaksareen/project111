@@ -15,7 +15,7 @@ public class SslCertBean implements InitializingBean{
 		try{
 			System.setProperty("javax.net.debug","all");
 
-			System.setProperty("javax.net.ssl.keyStore", soaConfig.getSoaKeyStoreCertificateLocation());
+			System.setProperty("javax.net.ssl.keyStore", soaConfig.getSoaCertificateLocation());
 			System.setProperty("javax.net.ssl.keyStorePassword", soaConfig.getKeyStorePassword());
 
 

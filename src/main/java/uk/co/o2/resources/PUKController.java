@@ -49,7 +49,7 @@ public class PUKController {
 			) {
 		String result="no puk found";
 		try {
-			if(DynamicProperties.getBooleanProperty("googlecaptcha.enabled")){
+			if(DynamicProperties.getBooleanProperty("googleReCaptchaEnabled")){
 				facade.varifyCaptcha1( grecaptcha);
 			}
 			result=facade.getPuk(mpn);

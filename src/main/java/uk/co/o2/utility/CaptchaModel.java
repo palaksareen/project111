@@ -8,6 +8,6 @@ public class CaptchaModel {
 	}
 	
 	public static boolean showCaptcha(){
-		return DynamicProperties.getBooleanProperty("googlecaptcha.enabled");
+		return DynamicProperties.getBooleanProperty("googleReCaptchaEnabled");
 	}
 }

@@ -76,7 +76,7 @@ public class SoaServiceImpl implements SoaService {
 		try{
 			setHeaders(port,soaTranId);
 			
-			log.info("Calling SOA endpoint " + soaConfig.getServiceEndPoint() + " for MPN : "+ mpn);
+			log.info("Calling SOA endpoint " + soaConfig.getSubscriberServiceUrl() + " for MPN : "+ mpn);
 			Long soaRequestTime = System.currentTimeMillis();
 			
 			SubscriberProfileType subscriberProfile = port.getSubscriberProfile(mpn);
@@ -104,7 +104,7 @@ public class SoaServiceImpl implements SoaService {
 	public String getPuk(String mpn) throws PUKNotFoundException,NotO2CustomerException, SOAException{
 		String puk="";
 		
-		if(!DynamicProperties.getBooleanProperty("cache.enabled"))
+		if(!DynamicProperties.getBooleanProperty("cacheEnabled"))
 			return getPukWithId(mpn,UUID.randomUUID().toString()+":"+"puk");
 		
 		if(!cache.isKeyInCache(mpn)){
@@ -120,9 +120,9 @@ public class SoaServiceImpl implements SoaService {
 
 	private void setHeaders(SubscriberPort port,String soaTranId) throws SOAPException {
 		WSBindingProvider provider = (WSBindingProvider)port;
-		provider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT, soaConfig.getConnectionTimeout() * 1000);
-		provider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, soaConfig.getReadTimeout()* 1000);
-		provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, soaConfig.getServiceEndPoint());
+		provider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT, soaConfig.getSoaSoapConnectionTimeout() * 1000);
+		provider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, soaConfig.getSoaSoapReadTimeout()* 1000);
+		provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, soaConfig.getSubscriberServiceUrl());
 		SOAPElement security,soaTransactionId=null;
 		soaTransactionId = getSoaTransationIDHeader(soaTranId);
 		security = getSecurityHeader();
