@@ -80,9 +80,9 @@
       <div class="grid">
          <div class="grid-row">
             <div class="default-content-container">
-               <div class="text">
-                  <p>Your PUK code is  $puk</p>
-				  <p>To unblock your sim, enter the code when prompted by your phone</p>
+			<div class="text">
+				<p id="puk-qa">Your PUK code is  $puk</p>
+				<p>To unblock your sim, enter the code when prompted by your phone</p>
                </div>
             </div>
          </div>
