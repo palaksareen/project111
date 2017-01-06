@@ -108,12 +108,12 @@ public class SoaServiceImpl implements SoaService {
 			return getPukWithId(mpn,UUID.randomUUID().toString()+":"+"puk");
 		
 		if(!cache.isKeyInCache(mpn)){
-			log.debug("Cache missed for "+mpn+" reading from soa call");
+			log.info("Cache missed for "+mpn+" reading from soa call");
 			puk = getPukWithId(mpn,UUID.randomUUID().toString()+":"+"puk");
 			cache.put(new Element(mpn, puk));
 		}else{
-			log.debug("Cache entry found for "+mpn+" reading from cache");
-			puk= (cache.get(mpn) == null ? null : cache.get(mpn).getObjectValue().toString());
+			log.info("Cache entry found for "+mpn+" reading from cache");
+			puk= (cache.get(mpn).getObjectValue().toString());
 		}
 		return puk;
 	}
