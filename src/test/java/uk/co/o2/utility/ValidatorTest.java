@@ -25,19 +25,19 @@ public class ValidatorTest {
 	public void happyPath() throws InvalidMPNException {
 		MockitoAnnotations.initMocks(this);
 
-		doThrow(new InvalidMPNException("Invalid MPN-MPN is null",null,Arrays.asList("MPN_NULL"))).when(validator).validate("");
+		doThrow(new InvalidMPNException(ErrorCode.INVALID_MPN_EMPTY.getMessage(), ErrorCode.INVALID_MPN_EMPTY)).when(validator).validate("");
         validator.validate("ww");
         
-        doThrow(new InvalidMPNException("Invalid MPN",null,Arrays.asList("MPN_NULL"))).when(validator).validate("0770135942");
+        doThrow(new InvalidMPNException(ErrorCode.INVALID_MPN.getMessage(), ErrorCode.INVALID_MPN)).when(validator).validate("0770135942");
         validator.validate("0770135942");
         
-        doThrow(new InvalidMPNException("Invalid MPN",null,Arrays.asList("MPN_NULL"))).when(validator).validate("077013594211");
+        doThrow(new InvalidMPNException(ErrorCode.INVALID_MPN_LONG.getMessage(), ErrorCode.INVALID_MPN_LONG)).when(validator).validate("077013594211");
         validator.validate("077013594211");
         
-        doThrow(new InvalidMPNException("Invalid MPN",null,Arrays.asList("MPN_NULL"))).when(validator).validate("047013594211");
+        doThrow(new InvalidMPNException(ErrorCode.INVALID_MPN.getMessage(), ErrorCode.INVALID_MPN)).when(validator).validate("047013594211");
         validator.validate("047013594211");
         
-        doThrow(new InvalidMPNException("Invalid MPN",null,Arrays.asList("MPN_NULL"))).when(validator).validate("abc");
+        doThrow(new InvalidMPNException(ErrorCode.INVALID_MPN.getMessage(), ErrorCode.INVALID_MPN)).when(validator).validate("abc");
         validator.validate("abc");
         
         

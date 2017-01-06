@@ -80,9 +80,9 @@ public class PUKControllerTest {
 		ModelAndView actual=pukController.getPUK("some mpn","some captch");
 		assertEquals(mav, actual);
 		
-		InvalidMPNException exception=new InvalidMPNException("Invalid MPN-MPN is null",null,Arrays.asList("MPN_NULL"));
+		InvalidMPNException exception=new InvalidMPNException(ErrorCode.INVALID_MPN.getMessage(), ErrorCode.INVALID_MPN);
 		doThrow(exception).when(facade).getPuk("some mpn");
-		when(modelAndView.forWelcomePagewithErorr(exception.getErrorList())).thenReturn(mav);
+		when(modelAndView.forWelcomePagewithErorr(Arrays.asList(exception.getErrorCode()))).thenReturn(mav);
 		actual=pukController.getPUK("some mpn","some captch");
 		assertEquals(mav, actual);
 		

@@ -49,13 +49,15 @@ public class GetPUKManagerImpl {
 
     public void validate(String userInputMPN) throws InvalidMPNException {
         log.debug((Object)("GetPUKManagerImpl,validate,Entered method with: " + userInputMPN));
+        ErrorCode errorCode ;
         ArrayList<String> errors = new ArrayList<String>();
         if (userInputMPN != null) {
             int mpnLength = userInputMPN.length();
             if (mpnLength == 0) {
                 errors.add("MPN_NULL");
                 log.debug((Object)"GetPUKManagerImpl,validate,MPN is null");
-                throw new InvalidMPNException("Invalid MPN", userInputMPN, errors);
+                errorCode = ErrorCode.INVALID_MPN_EMPTY;
+                throw new InvalidMPNException(errorCode.getMessage(), errorCode);
             }
             userInputMPN = userInputMPN.replaceFirst("\\+", "");
             userInputMPN = userInputMPN.replaceAll("\\-", "");
@@ -63,7 +65,8 @@ public class GetPUKManagerImpl {
             if (!userInputMPN.matches("\\d+")) {
                 errors.add("MPN_NOT_NUMERIC");
                 log.debug((Object)("GetPUKManagerImpl,validate,MPN is not numeric " + userInputMPN));
-                throw new InvalidMPNException("Invalid MPN", userInputMPN, errors);
+                errorCode = ErrorCode.INVALID_MPN;
+                throw new InvalidMPNException(errorCode.getMessage(), errorCode);
             }
             if (mpnLength > 10 && GetPUKUtility.specialCharacterCheck((String)userInputMPN)) {
                 if ((userInputMPN = GetPUKUtility.removeChars((String)userInputMPN.trim(), (String[])GetPUKConstants.REMOVABLE_SPECIAL_CHAR_FROM_MPN)).matches("^(44|07)\\d+")) {
@@ -81,7 +84,8 @@ public class GetPUKManagerImpl {
             errors.add("MPN_NULL");
         }
         log.debug((Object)("GetPUKManagerImpl,validate,Invalid MPN '" + userInputMPN + "'"));
-        throw new InvalidMPNException("Invalid MPN", userInputMPN, errors);
+        errorCode = ErrorCode.INVALID_MPN;
+        throw new InvalidMPNException(errorCode.getMessage(), errorCode);
     }
 
     private String convertMPN2BableInputFormat(String userInputMPN) {
