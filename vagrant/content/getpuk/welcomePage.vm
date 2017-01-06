@@ -184,8 +184,11 @@
 				#foreach( $error in $errors )
 					<div class="errorMessage">
 						<img src="http://static.o2.co.uk/shared/img/modules/digital-id/exclamation.png" width="22"/>
-						<span>$error.message</span>
+						<span id="dvMsg">$error.message</span>
 					</div>
+					<ul>
+						<li id="dvDesc">$error.description</li>
+					</ul>					
 				#end
 				</div>
 

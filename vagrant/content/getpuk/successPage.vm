@@ -80,8 +80,9 @@
       <div class="grid">
          <div class="grid-row">
             <div class="default-content-container">
-               <div class="text">
-                  <p>The PUK code for mobile number $mpn is : $puk</p>
+               <div class="text" >
+               
+                  <p id="puk-qa">The PUK code for mobile number $mpn is : $puk</p>
 				  <p>To unlock your mobile enter your PUK code using the instructions detailed in your mobile phone user guide.</p>
 				<p>Customers using Motorola handsets should key **05* then wait until prompted before entering your PUK code.</p>
 				<p>For Panasonic handsets you must follow the PUK code with #.</p>
