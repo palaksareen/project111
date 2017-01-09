@@ -152,7 +152,7 @@
 				}
 				else if(!validateUkPhoneNumber(telVal)){
 					telInvalid = true;
-					$('.telErrorMessage').text('The mobile number you\’ve entered hasn\’t been recognised. Check your number and try again.');
+					$('.telErrorMessage').text("The mobile number you’ve entered hasn’t been recognised. Check your number and try again.");
 				}
 
 				if(telInvalid){
