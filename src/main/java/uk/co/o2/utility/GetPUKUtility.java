@@ -62,18 +62,6 @@ public class GetPUKUtility {
 		return isSplCheckSuccessful;
 	}
 
-	public static String fetchURL(String domainName, String configURL) {
-		String referenceURL = "";
-		referenceURL = configURL.indexOf("http://") > -1 || configURL.indexOf("ftp://") > -1 ? configURL : domainName + configURL;
-		return referenceURL;
-	}
-
-	public static String convertToSpecialEntities(String MPN) {
-		if (MPN != null) {
-			return MPN.replaceAll("&", "&amp;").replaceAll("\"", "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\u02c6", "&circ;").replaceAll("~", "&tilde;").replaceAll("\u20ac", "&euro;");
-		}
-		return MPN;
-	}
 
 	public static String convertMPN2InternationalFormat(String userInputMPN) {
 		userInputMPN = GetPUKUtility.removeChars((String)userInputMPN.trim(), (String[])GetPUKConstants.REMOVABLE_SPECIAL_CHAR_FROM_MPN);

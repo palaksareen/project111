@@ -12,11 +12,9 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 public class GetPUKConstants {
-	//TODO Remove unnecessary constants
     private static Logger log = Logger.getLogger((Class)GetPUKConstants.class);
     private static ResourceBundle bundle = ResourceBundle.getBundle("application");
     private static long babelfishTimeout = -1;
-    private static final String BABELFISH_TIMEOUT_KEY = "babelfishTimeout";
     public static final String RID_KEY = "rID";
     public static final String RAT_KEY = "rAT";
     public static final String MSISDN_KEY = "MSISDN";
@@ -74,7 +72,7 @@ public class GetPUKConstants {
                 babelfishTimeout = Long.parseLong(timeoutString) * 1000;
             }
             catch (NumberFormatException nfe) {
-                long defaultBabelfishTimeout = 6000;
+                //long defaultBabelfishTimeout = 6000;
                 log.warn((Object)"Babelfish timeout net set - defaulting 6000");
                 babelfishTimeout = 6000;
             }
