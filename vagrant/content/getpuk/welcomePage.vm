@@ -138,7 +138,7 @@
 			});
 			
 			function validateUkPhoneNumber(number){
-				var re =  /^(\44|+44|0044|0)7\d{9}$/;
+				var re =  /^(\+44|44|0044|0)7\d{9}$/;
 				return re.test(number);
 			}
 			
@@ -186,10 +186,12 @@
 						<img src="http://static.o2.co.uk/shared/img/modules/digital-id/exclamation.png" width="22"/>
 						<span id="dvMsg" >Please check the page for the following errors </span>
 					</div>
-				#end
-				<ul>
+					
+					<ul>
 					$error.message
-				</ul>
+					</ul>
+				#end
+				
 				</div>
 
 			
