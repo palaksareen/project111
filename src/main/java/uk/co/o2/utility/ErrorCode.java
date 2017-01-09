@@ -7,13 +7,13 @@ public enum ErrorCode {
 	INVALID_MPN_LONG("The phone number entered has too many digits.","Please enter your full 11 digit phone number without hyphens or spaces."),
 	INVALID_MPN_SHORT("The phone number entered is too short.","Please enter your full 11 digit phone number without hyphens or spaces."),
 	PUKNOTFOUND("Sorry we are unable to find the PUK. Please try again after sometime.","Unable to find PUK"),
-	NOTO2CUSTOMER("We are unable to find a PUK code for this phone number", "Please note that we can only provide PUK codes to O2 customers."),
+	NOTO2CUSTOMER("We are unable to find a PUK code for this phone number. Please note that we can only provide PUK codes to O2 customers.", "It is not o2 number"),
 	INVALID_CAPTCHA("Invalid Captacha","Please try with valid captcha."),
-	SOAFAULT("Something went wrong. Please try again after sometime.","Unable to connect to SOA service."),
-	GOOGLE_SERVICE_DOWN("Some internal service is down. Please try again after sometime.","Unable to connect to Google service."),
+	SOAFAULT("Oops, something went wrong. Try again later.","Unable to connect to SOA service."),
+	GOOGLE_SERVICE_DOWN("Oops, something went wrong. Try again later.","Unable to connect to Google service."),
 	GENERICFAULT("Something went wrong. Please try again after sometime.", "Some internal service is down"),
-	SSL_CERTIFICATE_ERROR("Something went wrong. Please try again after sometime.","Exception occured during storing certificate for soa rest call."),
-	MSG_HANDLER_ERROR("Something went wrong. Please try again after sometime." , "Error occured during SOAP message handler.");
+	SSL_CERTIFICATE_ERROR("Oops, something went wrong. Try again later.","Exception occured during storing certificate for soa rest call."),
+	MSG_HANDLER_ERROR("Oops, something went wrong. Try again later." , "Error occured during SOAP message handler.");
 	
 	private final String message;
     private final String description;

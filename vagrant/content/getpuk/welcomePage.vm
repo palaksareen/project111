@@ -148,11 +148,11 @@
 				/*Tel Check*/
 				if(telVal === ''){
 					telInvalid = true;
-					$('.telErrorMessage').text('Contact Number Required.');
+					$('.telErrorMessage').text('Enter your mobile number to find your PUK code.');
 				}
 				else if(!validateUkPhoneNumber(telVal)){
 					telInvalid = true;
-					$('.telErrorMessage').text('Invalid Contact Number.');
+					$('.telErrorMessage').text('The mobile number you\’ve entered hasn\’t been recognised. Check your number and try again.');
 				}
 
 				if(telInvalid){
@@ -184,9 +184,12 @@
 				#foreach( $error in $errors )
 					<div class="errorMessage">
 						<img src="http://static.o2.co.uk/shared/img/modules/digital-id/exclamation.png" width="22"/>
-						<span id="dvMsg" >$error.message</span>
+						<span id="dvMsg" >Please check the page for the following errors </span>
 					</div>
 				#end
+				<ul>
+					$error.message
+				</ul>
 				</div>
 
 			
