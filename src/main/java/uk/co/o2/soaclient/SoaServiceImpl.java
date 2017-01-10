@@ -120,8 +120,8 @@ public class SoaServiceImpl implements SoaService {
 
 	private void setHeaders(SubscriberPort port,String soaTranId) throws SOAPException {
 		WSBindingProvider provider = (WSBindingProvider)port;
-		provider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT, soaConfig.getSoaSoapConnectionTimeout() * 1000);
-		provider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, soaConfig.getSoaSoapReadTimeout()* 1000);
+		provider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT, soaConfig.getSoaSoapConnectionTimeout());
+		provider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, soaConfig.getSoaSoapReadTimeout());
 		provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, soaConfig.getSubscriberServiceUrl());
 		SOAPElement security,soaTransactionId=null;
 		soaTransactionId = getSoaTransationIDHeader(soaTranId);
