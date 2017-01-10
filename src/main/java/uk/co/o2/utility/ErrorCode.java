@@ -7,7 +7,7 @@ public enum ErrorCode {
 	INVALID_MPN_LONG("The mobile number you\'ve entered hasn\'t been recognised. Check your number and try again.","Mobile number entered have too many digits, please enter your full 11 digit number."),
 	INVALID_MPN_SHORT("The mobile number you\'ve entered hasn\'t been recognised. Check your number and try again.","Mobile number entered is too short, please enter your full 11 digit number."),
 	PUKNOTFOUND("Sorry we are unable to find the PUK. Please try again after sometime.","Unable to find PUK"),
-	NOTO2CUSTOMER("We are unable to find a PUK code for this phone number. Please note that we can only provide PUK codes to O2 customers.", "It is not o2 number"),
+	NOTO2CUSTOMER("We can\'t find a PUK code for this mobile number. We can only give PUK codes to O2 customers. If you are an O2 customer, check your number and try again.", "It is not o2 number"),
 	INVALID_CAPTCHA("Invalid Captacha","Please try with valid captcha."),
 	SOAFAULT("Oops, something went wrong. Try again later.","Unable to connect to SOA service."),
 	GOOGLE_SERVICE_DOWN("Oops, something went wrong. Try again later.","Unable to connect to Google service."),

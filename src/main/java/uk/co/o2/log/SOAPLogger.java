@@ -27,11 +27,12 @@ public class SOAPLogger implements SOAPHandler<SOAPMessageContext>{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			soapMessage.writeTo(baos);
+			String message = baos.toString().replaceAll("[\r\n]+", "");
 			if(isOutboundMessage){
-				appLogger.info("SOAP Request is : \n " + baos.toString());
+				appLogger.info("SOAP Request is : \n " + message);
 			
 			}else{
-				appLogger.info("SOAP Response is : \n " + baos.toString());
+				appLogger.info("SOAP Response is : \n " + message);
 			}
 		} catch (SOAPException | IOException e) {
 			appLogger.error(ErrorCode.MSG_HANDLER_ERROR.getMessage() , e.getCause());
