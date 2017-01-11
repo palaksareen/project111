@@ -18,12 +18,12 @@ public class PukLogger {
     public PukLogger () {}
     
     
-    @Before("execution(* uk.co.o2.soaclient.SslCertBean.setSSLProperties(..))")
+    @Before("execution(* uk.co.o2.soaclient.soap.SslCertBean.setSSLProperties(..))")
     public void SSLCertBeanLog(JoinPoint joinPoint) {
     	log.info("Before Storing the Certificate");
     }
     
-    @AfterReturning("execution(* uk.co.o2.soaclient.SslCertBean.setSSLProperties(..))")
+    @AfterReturning("execution(* uk.co.o2.soaclient.soap.SslCertBean.setSSLProperties(..))")
     public void SSLCertBeanLogAfter(JoinPoint joinPoint) {
     	log.info("Certificate Storing is sucessful");
     }

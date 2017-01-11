@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import uk.co.o2.soaclient.rest.SoaConfig;
+import uk.co.o2.soaclient.soap.SslCertBean;
 
 @RunWith(PowerMockRunner.class)
 public class SoaCertBeanTest {

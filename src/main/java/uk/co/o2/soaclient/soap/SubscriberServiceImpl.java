@@ -1,4 +1,4 @@
-package uk.co.o2.soaclient;
+package uk.co.o2.soaclient.soap;
 
 import java.net.URL;
 import java.util.Arrays;

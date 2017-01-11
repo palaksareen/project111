@@ -1,4 +1,4 @@
-package uk.co.o2.soaclient;
+package uk.co.o2.soaclient.soap;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -125,7 +125,7 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
     private void addHeaders(WebClient client, HashMap headers){
     	
-    	String header = soaConfig.username+":"+ soaConfig.password;
+    	String header = soaConfig.getUsername()+":"+ soaConfig.getPassword();
         byte[] unencodedByteArray = header.getBytes();
         byte[] encodedByteArray = Base64.encodeBase64(unencodedByteArray);
         String encodedString = new String(encodedByteArray);
