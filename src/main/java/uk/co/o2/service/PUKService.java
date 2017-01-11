@@ -17,7 +17,7 @@ import uk.co.o2.utility.exception.SOAException;
 public class PUKService {
 	
 	@Autowired
-	SoaService soaService;
+	ISubscriberService soaService;
 	
 	@Autowired
 	private ReCaptchaService reCaptchaService;
@@ -27,9 +27,9 @@ public class PUKService {
 		return new PUKCode(puk);
 	}
 	
-	public void varifyCaptcha1( String reCaptchaResponse) throws InValidCaptcha, GoogleServiceException {
+	public void varifyCaptcha( String reCaptchaDetails) throws InValidCaptcha, GoogleServiceException {
 		try {
-			if(! reCaptchaService.verifyCaptchaResponse(reCaptchaResponse))
+			if(! reCaptchaService.verifyCaptchaResponse(reCaptchaDetails))
 				throw new InValidCaptcha(ErrorCode.INVALID_CAPTCHA.getMessage(),"");
 		} catch (Fault e) {
 			throw new GoogleServiceException(e.getCause());

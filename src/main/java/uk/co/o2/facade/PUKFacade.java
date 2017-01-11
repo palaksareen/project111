@@ -38,7 +38,7 @@ public class PUKFacade {
 
 	
 	// Recaptcha Code :: eShop Version apache CXF
-	public void varifyCaptcha1( String reCaptchaResponse) throws InValidCaptcha, GoogleServiceException {
-		service.varifyCaptcha1(reCaptchaResponse);
+	public void varifyCaptcha( String reCaptchaDetails) throws InValidCaptcha, GoogleServiceException {
+		service.varifyCaptcha(reCaptchaDetails);
 	}
 }

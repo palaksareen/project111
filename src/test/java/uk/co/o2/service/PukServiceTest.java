@@ -26,7 +26,7 @@ import uk.co.o2.utility.exception.SOAException;
 public class PukServiceTest {
 
 	@Mock
-	SoaService soaService;
+	ISubscriberService soaService;
 	
 	@Mock
 	private ReCaptchaService reCaptchaService;
@@ -52,7 +52,7 @@ public class PukServiceTest {
 	@Test(expected=InValidCaptcha.class)
 	public void testCaptcha() throws InValidCaptcha, GoogleServiceException{
 		when(reCaptchaService.verifyCaptchaResponse("some responce")).thenReturn(false);
-		//boolean responce=pukService.varifyCaptcha1("some responce");
-		pukService.varifyCaptcha1("some responce");
+		//boolean responce=pukService.varifyCaptcha("some responce");
+		pukService.varifyCaptcha("some responce");
 	}
 }

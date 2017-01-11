@@ -22,8 +22,8 @@ public class ReCaptchaService {
     }
 
     @Timed
-    public boolean verifyCaptchaResponse(String reCaptchaResponse) throws Fault{
-    	ReCaptchaResponse verifiedReCaptchaResponse = captchaValidationResource.validateReCaptcha(new ReCaptchaToken(reCaptchaResponse));
+    public boolean verifyCaptchaResponse(String reCaptchaDetails) throws Fault{
+    	ReCaptchaResponse verifiedReCaptchaResponse = captchaValidationResource.validateReCaptcha(new ReCaptchaToken(reCaptchaDetails));
     	return verifiedReCaptchaResponse.success;
     }
 }

@@ -49,7 +49,7 @@ public class PukLogger {
     
     @AfterThrowing(pointcut="execution(* uk.co.o2.facade.*.*(..))",throwing="excep")
     public void logMethodAccessAfterThrowing(JoinPoint joinPoint, Throwable excep)throws Throwable {
-    	errorLogger.error(joinPoint.getSignature() + " : Exception details : \n ",excep);
+    	errorLogger.error(joinPoint.getSignature() + " : Exception details : ",excep);
     	
     }
     

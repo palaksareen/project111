@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 import uk.co.o2.DynamicProperties;
 import uk.co.o2.log.SOAPLogger;
-import uk.co.o2.service.SoaService;
+import uk.co.o2.service.ISubscriberService;
 import uk.co.o2.soa.subscriberdata_2.SubscriberProfileType;
 import uk.co.o2.soa.subscriberservice_2.GetSubscriberProfileFault;
 import uk.co.o2.soa.subscriberservice_2.SubscriberPort;
@@ -39,7 +39,7 @@ import com.sun.xml.ws.client.BindingProviderProperties;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
 @Component
-public class SoaServiceImpl implements SoaService {
+public class SubscriberServiceImpl implements ISubscriberService {
 
 	private static final String WSDL_LOCATION = "../../../../../wsdl/subscriberservice_2_0.wsdl";
 
@@ -51,7 +51,7 @@ public class SoaServiceImpl implements SoaService {
 	
 	private SubscriberPort port;
 	
-	public SoaServiceImpl() {
+	public SubscriberServiceImpl() {
 		
 		CacheManager cm = CacheManager.getInstance();
 		this.cache = cm.getCache("pukCache");

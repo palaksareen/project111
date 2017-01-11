@@ -50,7 +50,7 @@ public class PUKController {
 		String result="no puk found";
 		try {
 			if(DynamicProperties.getBooleanProperty("googleReCaptchaEnabled")){
-				facade.varifyCaptcha1( grecaptcha);
+				facade.varifyCaptcha( grecaptcha);
 			}
 			result=facade.getPuk(mpn);
 		} catch (InvalidMPNException e) {

@@ -3,7 +3,6 @@ package uk.co.o2.soaclient;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
