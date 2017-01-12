@@ -29,10 +29,10 @@ public class SOAPLogger implements SOAPHandler<SOAPMessageContext>{
 			soapMessage.writeTo(baos);
 			String message = baos.toString().replaceAll("[\r\n]+", "");
 			if(isOutboundMessage){
-				appLogger.info("SOAP Request is : \n " + message);
+				appLogger.info("SOAP Request is : " + message);
 			
 			}else{
-				appLogger.info("SOAP Response is : \n " + message);
+				appLogger.info("SOAP Response is : " + message);
 			}
 		} catch (SOAPException | IOException e) {
 			appLogger.error(ErrorCode.MSG_HANDLER_ERROR.getMessage() , e.getCause());
