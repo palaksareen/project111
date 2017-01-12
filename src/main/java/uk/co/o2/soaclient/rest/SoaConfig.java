@@ -38,8 +38,6 @@ public class SoaConfig {
 	
 	String password=DynamicProperties.getProperty("soaPassword");;
 	
-	//boolean certificateEnabled=DynamicProperties.getBooleanProperty("certificateEnabled");;
-	//String soaEnableCertificate=DynamicProperties.getProperty("soaEnableCertificate");;
 
 	// Trust store
 	String soaTrustedStoreCertificateLocation=DynamicProperties.getProperty("soaTrustedStoreCertificateLocation");;

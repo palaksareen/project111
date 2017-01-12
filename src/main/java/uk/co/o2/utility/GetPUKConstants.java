@@ -1,9 +1,4 @@
-/*
- * Decompiled with CFR 0_115.
- * 
- * Could not load the following classes:
- *  org.apache.log4j.Logger
- */
+
 package uk.co.o2.utility;
 
 
