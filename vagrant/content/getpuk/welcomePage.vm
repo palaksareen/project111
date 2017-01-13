@@ -152,7 +152,7 @@
 				}
 				else if(!validateUkPhoneNumber(telVal)){
 					telInvalid = true;
-					$('.telErrorMessage').text("The mobile number you’ve entered hasn’t been recognised. Check your number and try again.");
+					$('.telErrorMessage').text("The mobile number you\'ve entered hasn\'t been recognised. Check your number and try again.");
 				}
 
 				if(telInvalid){
@@ -179,6 +179,7 @@
 		<div class="grid">
 		<div class="grid-row">
 		<div class="default-content-container">
+		#if($errors)
 		    <div id="dvError" class="dvError">
 				<div>
 				#foreach( $error in $errors )
@@ -190,17 +191,15 @@
 					<ul>
 					$error.message
 					</ul>
-				#end
 				
+				#end
 				</div>
 
 			
 			</div>
-
+		#end
 			<div class="text">
-				<p>Most phones are locked with a pin code. If you enter the wrong pin too many times, your sim will be blocked and you won’t be able to make and receive calls or texts. When this happens, you’ll need your PUK (Personal Unblocking Key) code to unblock your sim.</p>
-				<p>If the error message indicates that you need a new SIM, please contact customer services. If the error message indicates that you need a PUK code, please enter your mobile number below and click 'Go'.
-				Your PUK number will then be shown to you on screen.</p>
+				<p>Most phones are locked with a pin code. If you enter the wrong pin too many times, your sim will be blocked and you won't be able to make and receive calls or texts. When this happens, you'll need your PUK (Personal Unblocking Key) code to unblock your sim.</p>
 				<p>To find your PUK code, enter your number below. Or <a href="https://accounts.o2.co.uk/signin">sign in to My O2</a>,  go to <b> My device </b>, then <b>Device details.</b></p>
 			</div>
 			
