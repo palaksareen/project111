@@ -45,14 +45,5 @@ public class GetPUKUtilityTest {
 		assertEquals("447701359421", GetPUKUtility.convertMPN2InternationalFormat(inputStr));
 	}
 
-	/*
-
-	public static String convertMPN2InternationalFormat(String userInputMPN) {
-		userInputMPN = GetPUKUtility.removeChars((String)userInputMPN.trim(), (String[])GetPUKConstants.REMOVABLE_SPECIAL_CHAR_FROM_MPN);
-		if (userInputMPN.startsWith("07")) {
-			userInputMPN = userInputMPN.replaceFirst("07", "447");
-		}
-		return userInputMPN;
-	}
-*/
+	
 }

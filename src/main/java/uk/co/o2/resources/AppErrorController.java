@@ -28,7 +28,6 @@ public class AppErrorController implements ErrorController{
 
     private final static String ERROR_PATH = "/error";
     
-    //private final static String errorPage=DynamicProperties.getProperty("pukPagesPath")+"/errorPage";
     private final static String errorPage=DynamicProperties.getProperty("pukPagesPath")+"/welcomePage";
 
     public AppErrorController(ErrorAttributes errorAttributes) {
@@ -37,7 +36,6 @@ public class AppErrorController implements ErrorController{
 
     @RequestMapping(value = ERROR_PATH, produces = "text/html")
     public ModelAndView errorHtml(HttpServletRequest request) {
-        //return new ModelAndView(errorPage, getErrorAttributes(request, false));
     	ModelAndView mav=new ModelAndView(errorPage, getErrorAttributes(request, false));
     	mav.addObject("errors", Arrays.asList(ErrorCode.SOAFAULT));
     	showCaptcha(mav);

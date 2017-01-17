@@ -80,7 +80,6 @@ public class SoaRestResourceClientFactory implements ResourceClientFactory  {
 
         TLSClientParameters tlsClientParameters = new TLSClientParameters();
         tlsClientParameters.setSSLSocketFactory(sslContext.getSocketFactory());
-        //tlsClientParameters.SSLSocketFactory = sslContext.getSocketFactory();
 
         ClientConfiguration clientConfiguration = WebClient.getConfig(client);
         HTTPConduit httpConduit = clientConfiguration.getHttpConduit();

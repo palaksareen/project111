@@ -65,9 +65,6 @@ public class DynamicProperties extends PropertyResourceConfigurer{
 			File externalPropFile=getLocationn().getFile();
 			File internalPropFile = new File(this.getClass().getClassLoader().getResource("getpuk.properties").toURI());
 			if(!externalPropFile.exists()){
-				//copy from source to destination
-				//File srcFile=new File(this.getClass().getClassLoader().getResource("getpuk.properties").toURI());
-				//FileUtils.copyFile(srcFile,externalPropFile);
 				//set new location 
 				this.setLocation(new FileSystemResource(internalPropFile));
 				configuration = new PropertiesConfiguration(internalPropFile);
