@@ -1,0 +1,69 @@
+group 'performance'
+
+apply plugin: 'scala'
+
+
+repositories {
+    mavenCentral()
+}
+
+String getPukUrl = System.getProperty("getPukUrl") ?:'http://localhost:8080/puk'
+def noOfUsers = System.getProperty("noOfUsers") as Integer?:0
+def requestsPerSecond = System.getProperty("rps") as Integer?:0
+def usersRampUpValInSeconds = System.getProperty("usersRampUpValInSeconds")?:10
+def testRuntimeDurationInSeconds = System.getProperty("testRuntimeDurationInSeconds")?:60
+def simulationName = System.getProperty("simulationName")?:"GetPukPerformanceTest"
+def gatlingDataWriters = System.getProperty("gatlingDataWriters")?:"file"
+
+dependencies {
+    
+            compile "org.codehaus.groovy:groovy-all:2.4.7"
+            
+            compile "io.gatling:gatling-app:2.1.7"
+            compile "io.gatling.highcharts:gatling-charts-highcharts:2.1.7"
+            
+    
+}
+
+sourceSets{
+    test{
+        output.classesDir   = "target/test-classes"
+    }
+}
+
+task gatlingTest(dependsOn: ['compileTestScala', 'processTestResources','setUpEnvironmentForPerformance']) << {
+	description = "Run the performance test for GetPuk"
+    if(requestsPerSecond!=0){
+        println "********************** PERF RUN Mode - Requests/Second *****************************"
+    }else{
+        println "********************** PERF RUN Mode - Concurrent Users *****************************"
+    }
+    javaexec {
+        main = 'io.gatling.app.Gatling'
+        classpath = sourceSets.test.output + sourceSets.test.runtimeClasspath
+        args('--simulation',
+                "uk.co.o2.getpuk.simulation.$simulationName",
+                '--results-folder',
+                'build/reports/gatling',
+                '-rd',
+                "Gatling performance test for the GetPuk Rest Api(s)",
+                '-m'
+             )
+        environment(
+            [
+                'getPukUrl': getPukUrl,
+                'noOfUsers': noOfUsers,
+                'testRuntimeDurationInSeconds': testRuntimeDurationInSeconds,
+                'usersRampUpValInSeconds': usersRampUpValInSeconds,
+                'rps': requestsPerSecond,
+                'gatlingDataWriters':gatlingDataWriters,
+            ]
+        )
+    }
+}
+
+task setUpEnvironmentForPerformance << {
+    if((requestsPerSecond>0 && noOfUsers>0) || (requestsPerSecond<=0 && noOfUsers<=0)){
+        throw new RuntimeException("Please mention one of the approaches (i.e. requestsPerSecond or noOfUsers).")
+    }
+}

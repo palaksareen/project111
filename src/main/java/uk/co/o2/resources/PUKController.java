@@ -45,7 +45,7 @@ public class PUKController {
 
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView getPUK(@RequestParam("mpn") String mpn, @RequestParam("g-recaptcha-response") String grecaptcha
+	public ModelAndView getPUK(@RequestParam("mpn") String mpn, @RequestParam(name="g-recaptcha-response",required=false) String grecaptcha
 			) {
 		String result="no puk found";
 		try {
