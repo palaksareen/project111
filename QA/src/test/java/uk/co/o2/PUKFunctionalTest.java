@@ -41,7 +41,7 @@ public class PUKFunctionalTest {
 	    driver.findElement(By.id("btnSubmit")).click();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		String msg=driver.findElement(By.id("puk-qa")).getText();
-		Assert.assertEquals(msg, "The PUK code for mobile number 447704610259 is : 9989");
+		Assert.assertEquals(msg, "Your PUK code is 9989");
 	}
 	
 	@Test
@@ -50,9 +50,9 @@ public class PUKFunctionalTest {
 		driver.findElement(By.id("MPN")).sendKeys("447704610200");
 		recaptchaCall();
 		driver.findElement(By.id("btnSubmit")).click();
-		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		String msg=driver.findElement(By.id("dvMsg")).getText();
-		Assert.assertEquals(msg, "Not a O2 customer");
+		Assert.assertEquals(msg, "We can't find a PUK code for this mobile number. We can only give PUK codes to O2 customers. If you are an O2 customer, check your number and try again.");
 	}
 
 	@Test
@@ -62,10 +62,9 @@ public class PUKFunctionalTest {
 		recaptchaCall();
 
 		driver.findElement(By.id("btnSubmit")).click();
-		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-		String msg=driver.findElement(By.id("dvMsg")).getText();
-		String desc=driver.findElement(By.id("dvDesc")).getText();
-		Assert.assertEquals(msg, "The phone number entered has too many digits.");
-		Assert.assertEquals(desc, "Please enter your full 11 digit phone number without hyphens or spaces.");
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		String msg=driver.findElement(By.id("spanError")).getText();
+		//String desc=driver.findElement(By.id("dvDesc")).getText();
+		Assert.assertEquals(msg, "The mobile number you've entered hasn't been recognised. Check your number and try again.");
 	}
 }

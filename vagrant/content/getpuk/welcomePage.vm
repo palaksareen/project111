@@ -186,11 +186,13 @@
 				#foreach( $error in $errors )
 					<div class="errorMessage">
 						<img src="http://static.o2.co.uk/shared/img/modules/digital-id/exclamation.png" width="22"/>
-						<span id="dvMsg" >Please check the page for the following errors </span>
+						<span>Please check the page for the following errors </span>
 					</div>
 					
 					<ul>
+					<span id="dvMsg">
 					$error.message
+					</span>
 					</ul>
 				
 				#end
@@ -201,7 +203,7 @@
 		#end
 			<div class="text">
 				<p>Most phones are locked with a pin code. If you enter the wrong pin too many times, your sim will be blocked and you won't be able to make and receive calls or texts. When this happens, you'll need your PUK (Personal Unblocking Key) code to unblock your sim.</p>
-				<p>To find your PUK code, enter your number below. Or <a href="https://accounts.o2.co.uk/signin">sign in to My O2</a>,  go to <b> My device </b>, then <b>Device details.</b></p>
+				<p>To find your PUK code, enter your number below. Or <a href="https://accounts.o2.co.uk/signin">sign in to My O2</a>,  go to <b> My device</b>, then <b>Device details.</b></p>
 			</div>
 			
 			
@@ -209,7 +211,7 @@
 
 				<label for="MPN" class="margin-bottom-20">Enter your mobile number</label>
 				<input type="text" name="mpn" id="MPN" class="mobilenumberField margin-bottom-20" maxlength="20" value=""/>
-				<span class="errorMsg telErrorMessage margin-bottom-20"></span>
+				<span id="spanError" class="errorMsg telErrorMessage margin-bottom-20"></span>
 				<input class="get-puk-submit margin-bottom-20" type="submit" id="btnSubmit" alt="Go" value="Get PUK code" title="Go" class="srchGoBtnContent" /> <!-- adding disabled will validate the captcha response-->
 				<input type="hidden" name="viewmode" value="getPuk"/>
 				<div style="visibility: ${showCaptcha};" class="g-recaptcha" data-sitekey=${sitekey} data-callback="recaptchaCallback" ></div>
@@ -220,8 +222,10 @@
 			</div>
 		</div>
 		
+		<div class="default-content-container">
 		<div class="text" >
-		<p style="margin-left:2em;">If you put in the wrong PUK code 10 times, your sim will be permanently locked and you will need to speak to our <a href="http://www.o2.co.uk/contactus">customer care team</a></p>
+		<p style="margin-left:2em;">If you put in the wrong PUK code 10 times, your sim will be permanently locked and you will need to speak to our <a href="http://www.o2.co.uk/contactus">customer care team</a>.</p>
+		</div>
 		</div>
    </body>
 </html>
