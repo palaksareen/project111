@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.codahale.metrics.annotation.Timed;
+
 import uk.co.o2.DynamicProperties;
 import uk.co.o2.facade.ModelAndViewFacade;
 import uk.co.o2.facade.PUKFacade;
@@ -43,7 +45,7 @@ public class PUKController {
 		return modelAndView.forWelcomePage();
 	}
 
-
+	@Timed
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView getPUK(@RequestParam("mpn") String mpn, @RequestParam(name="g-recaptcha-response",required=false) String grecaptcha
 			) {

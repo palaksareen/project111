@@ -101,6 +101,7 @@ public class SubscriberServiceImpl implements ISubscriberService {
 	}
 
 	//@Cacheable(cacheNames="pukCache")
+	@Timed
 	public String getPuk(String mpn) throws PUKNotFoundException,NotO2CustomerException, SOAException{
 		String puk="";
 		
