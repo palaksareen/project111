@@ -17,6 +17,7 @@ public class Validator {
             }
             userInputMPN = userInputMPN.replaceFirst("\\+", "");
             userInputMPN = userInputMPN.replaceAll("\\-", "");
+            userInputMPN = userInputMPN.trim();
             if (!userInputMPN.matches("\\d+")) {
                 errorCode = ErrorCode.INVALID_MPN;
                 throw new InvalidMPNException(errorCode.getMessage(), errorCode);                
