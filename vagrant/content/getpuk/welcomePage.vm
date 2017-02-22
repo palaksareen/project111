@@ -239,7 +239,7 @@
 
             <div class="default-content-container">
                 <div class="text">
-                    <p style="margin-left:2em;">If you put in the wrong PUK code 10 times, your sim will be permanently locked and you will need to speak to our <a href="http://www.o2.co.uk/contactus">customer care team</a>.</p>
+                    <p>If you put in the wrong PUK code 10 times, your sim will be permanently locked and you will need to speak to our <a href="http://www.o2.co.uk/contactus">customer care team</a>.</p>
                 </div>
             </div>
         </div>
