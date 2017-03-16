@@ -3,7 +3,7 @@
     <script type="text/javascript">
         document.domain = "o2.co.uk";
     </script>
-
+	
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
@@ -22,175 +22,8 @@
     <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie7.css?ts=020620161100" type="text/css" />
     <![endif]-->
 
-
-    <style>
-        @media (min-width: 320px) and (max-width: 574px) {
-            #rc-imageselect, .g-recaptcha {
-                display: inline;
-            }
-
-            #rc-imageselect {
-                max-width: 100%;
-            }
-
-            .g-recaptcha > div > div {
-                width: 100% !important;
-                height: 78px;
-                transform: scale(0.77);
-                /*the code to rescale the captcha obtained in this page webkit-transform:scale(0.77);*/
-                text-align: center;
-                position: relative;
-            }
-        }
-
-        .module19Box {
-        }
-
-        .get-puk-submit {
-            display: inherit;
-        }
-
-        .margin-bottom-20 {
-            margin-bottom: 20px !important;
-        }
-
-        .margin-bottom-10 {
-            margin-bottom: 10px !important;
-        }
-
-        .module19Box input[type=text], .module19Box input[type=submit] {
-            width: 278px;
-        }
-
-        .dvError {
-            background: #FFC1C0;
-            padding: 12px 12px 8px 12px;
-            color: #bf271e;
-            margin-bottom: 20px;
-        }
-
-        .errorMsg {
-            color: #bf271e;
-            font-size: 14px;
-        }
-
-        .errorMessage {
-            color: #bf271e;
-            font-size: 15px;
-            font-weight: bold;
-            padding-bottom: 5px;
-        }
-
-            .errorMessage span {
-                left: 5px;
-                position: relative;
-                bottom: 4px;
-            }
-
-        .dvError ul li {
-            color: #D4214B;
-            font-size: 15px;
-            margin-left: 24px;
-        }
-
-        .module19Box input[type=text] {
-            border-radius: 0px;
-            border-color: #d8d8d8;
-        }
-
-        @media screen and (min-width: 575px) {
-            .module19Box input[type=text], .module19Box input[type=submit] {
-                width: 320px;
-            }
-        }
-
-        @media screen and (min-width: 815px) {
-        }
-    </style>
-
-
-    <script type="text/javascript">
-
-        $(function () {
-
-            parent.window.addEventListener('load', function () {
-                setIframeHeight();
-            });
-
-            parent.window.addEventListener('resize', function () {
-                setIframeHeight();
-            });
-
-            $(window).load(function () {
-                setIframeHeight();
-            });
-
-            function getDocHeight() {
-                return Math.max(
-                    $(document).height(),
-                    $(window).height(),
-                    /* For opera: */
-                    document.documentElement.clientHeight
-                );
-            }
-            function setIframeHeight() {
-                //console.log("height: " + getDocHeight());
-                window.parent.document.getElementById('pukIframe').height = '100%';
-                window.parent.document.getElementById('pukIframe').height = getDocHeight();
-            }
-
-            $('.puk-form input[name=mpn]').on('keydown blur', function () {
-                $('.telErrorMessage').css('display', 'none');
-                $('#MPN').css('border-color', '#d8d8d8');
-                setIframeHeight();
-            });
-
-            $("#pukForm").submit(function (e) {
-                var validate = phoneValidate();
-                if (validate == false) {
-                    e.preventDefault();
-                    setIframeHeight();
-                }
-                else {
-                    $("#pukForm")[0].submit();
-                }
-            });
-
-            function validateUkPhoneNumber(number) {
-                var re = /^(\+44|44|0044|0)7\d{9}$/;
-                return re.test(number);
-            }
-
-            function phoneValidate() {
-                var telVal = $.trim($('.puk-form input[name=mpn]').val());
-                telInvalid = false;
-                /*Tel Check*/
-                if (telVal === '') {
-                    telInvalid = true;
-                    $('.telErrorMessage').text('Enter your mobile number to find your PUK code.');
-                }
-                else if (!validateUkPhoneNumber(telVal)) {
-                    telInvalid = true;
-                    $('.telErrorMessage').text("The mobile number you\'ve entered hasn\'t been recognised. Check your number and try again.");
-                }
-
-                if (telInvalid) {
-                    $('.telErrorMessage').css('display', 'block');
-                    $('.dvError').css('display', 'none');
-                    $('#MPN').css('border-color', '#dd5858');
-                    return false;
-                }
-                else {
-                    $('.telErrorMessage').css('display', 'none');
-                    return true;
-                }
-            }
-
-
-        });
-
-    </script>
-
+	<link rel="stylesheet" type="text/css" href="_asset/css/welcome.css" />
+	<script src="_asset/js/welcome.js"></script>
 
 </head>
 <body>
@@ -236,7 +69,7 @@
                     </div> -->
                 </div>
             </div>
-
+			
             <div class="default-content-container">
                 <div class="text">
                     <p>If you put in the wrong PUK code 10 times, your sim will be permanently locked and you will need to speak to our <a href="http://www.o2.co.uk/contactus">customer care team</a>.</p>
