@@ -20,9 +20,48 @@
       <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie7.css?ts=020620161100" type="text/css" />
       <![endif]-->
       
-	  <link rel="stylesheet" type="text/css" href="_asset/css/success.css" />
-	  <script src="_asset/js/success.js"></script>
 	  
+	  <style>
+	  		.dvSuccessWrapper{
+			font-size: 14px;
+			background: #EFEFEF;
+			padding:20px 30px;
+			margin-bottom: 20px;
+			color: #808080;
+		}
+	    span.successMsg {
+			left: 5px;
+			position: relative;
+			bottom: 11px;
+		}
+	  </style>
+	  <script type="text/javascript">
+	  $(function() { 
+
+			parent.window.addEventListener('load', function(){
+				setIframeHeight();
+			});
+			
+			parent.window.addEventListener('resize', function(){
+				setIframeHeight();
+			});
+									
+			function getDocHeight(){
+				return Math.max(
+					$(document).height(),
+					$(window).height(),
+					/* For opera: */
+					document.documentElement.clientHeight
+				);
+			}
+			function setIframeHeight(){
+				//console.log("height: " + getDocHeight());
+				window.parent.document.getElementById('pukIframe').height = 'auto';
+				window.parent.document.getElementById('pukIframe').height = getDocHeight();
+			}
+		  
+		});
+	  </script>
    </head>
    <body>
       <div class="module19Box" id="module19Box">

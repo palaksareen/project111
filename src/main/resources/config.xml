@@ -20,7 +20,7 @@
 
 	<bean id="googleCaptch" name="googleCaptch-path" class="java.lang.String">
 		<constructor-arg
-			value="file:///${CATALINA_HOME}/appdata/getpuk/puk_recaptcha.properties" />
+			value="file:///data/external_properties/puk_recaptcha.properties" />
 	</bean>
 
 
@@ -33,6 +33,6 @@
 	<bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath"
-			value="file:///${CATALINA_HOME}/appdata/getpuk/vagrant/content" />
+			value="file:///data/getpuk_content/vagrant" />
 	</bean>
 </beans>
