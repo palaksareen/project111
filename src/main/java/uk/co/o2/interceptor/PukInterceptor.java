@@ -23,6 +23,9 @@ public class PukInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(
 			HttpServletRequest request, HttpServletResponse response,Object handler, ModelAndView modelAndView)
 					throws Exception {
+		response.setHeader("Server", "NA");
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("X-Frame-Options", "SAMEORIGIN");
 		MDC.clear();
 	}
 }
