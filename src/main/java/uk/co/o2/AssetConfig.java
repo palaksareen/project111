@@ -16,39 +16,40 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import uk.co.o2.interceptor.PukInterceptor;
 import uk.co.o2.log.PukLogger;
+
 @Configuration
 @EnableAspectJAutoProxy
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"uk.co.o2.utility"})
 @ImportResource("classpath:config.xml")
 public class AssetConfig extends WebMvcConfigurerAdapter {
-	@Bean   
-	public PukLogger myLogger(){
-		return new PukLogger();
-	}
-	
-	@Override
-	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-		for(Entry<String, String> entry:retriveMap(DynamicProperties.getProperty("applicationAssetPaths")).entrySet()){
-			registry.addResourceHandler(entry.getKey()+"**").addResourceLocations(entry.getValue());
-		}
-		 super.addResourceHandlers(registry);
-	}
-		
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new PukInterceptor());
-	}
+    @Bean
+    public PukLogger myLogger() {
+        return new PukLogger();
+    }
 
-	public Map<String,String> retriveMap(String input){
-		Map<String, String> map=new WeakHashMap<>(input.length());
-		String[] rawExternalPaths=input.split(";");
+    @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        for (Entry<String, String> entry : retriveMap(DynamicProperties.getProperty("applicationAssetPaths")).entrySet()) {
+            registry.addResourceHandler(entry.getKey() + "**").addResourceLocations(entry.getValue());
+        }
+        super.addResourceHandlers(registry);
+    }
 
-		String a="";
-		for(String path:rawExternalPaths){
-			a=path.substring(path.lastIndexOf("/",(path.lastIndexOf("/")-1)));
-			map.put(a, path);
-		}
-		return map;
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new PukInterceptor());
+    }
+
+    public Map<String, String> retriveMap(String input) {
+        Map<String, String> map = new WeakHashMap<>(input.length());
+        String[] rawExternalPaths = input.split(";");
+
+        String a = "";
+        for (String path : rawExternalPaths) {
+            a = path.substring(path.lastIndexOf("/", (path.lastIndexOf("/") - 1)));
+            map.put(a, path);
+        }
+        return map;
+    }
 }
