@@ -1,243 +1,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Cache-control" content="no-cache"/>
-    <script type="text/javascript">
-        document.domain = "o2.co.uk";
-    </script>
-	
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/fonts.css" type="text/css" />
-    <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/custom-classes.css?ts=020620161100" type="text/css" />
-    <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/global.css?ts=020620161100" type="text/css" />
-    <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/_all-modules.css?ts=020620161100" type="text/css" />
-    <!--<![endif]-->
-    <!--[if lt IE 9]>
-    <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie-custom-classes.css?ts=020620161100" type="text/css" />
-    <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie-global.css?ts=020620161100" type="text/css" />
-    <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/_all-modules-ie.css?ts=020620161100" type="text/css" />
-    <![endif]-->
-    <!--[if (lt IE 8) & (!IEMobile)]>
-    <link rel="stylesheet" href="https://static.o2.co.uk/shared/css/ie7.css?ts=020620161100" type="text/css" />
-    <![endif]-->
-<style>
- @media (min-width: 320px) and (max-width: 574px) {
-            #rc-imageselect, .g-recaptcha {
-                display: inline;
-            }
-
-            #rc-imageselect {
-                max-width: 100%;
-            }
-
-            .g-recaptcha > div > div {
-                width: 100% !important;
-                height: 78px;
-                transform: scale(0.77);
-                /*the code to rescale the captcha obtained in this page webkit-transform:scale(0.77);*/
-                text-align: center;
-                position: relative;
-            }
-        }
-
-        .module19Box {
-        }
-
-        .get-puk-submit {
-            display: inherit;
-        }
-
-        .margin-bottom-20 {
-            margin-bottom: 20px !important;
-        }
-
-        .margin-bottom-10 {
-            margin-bottom: 10px !important;
-        }
-
-        .module19Box input[type=text], .module19Box input[type=submit] {
-            width: 278px;
-        }
-
-        .dvError {
-            background: #FFC1C0;
-            padding: 12px 12px 8px 12px;
-            color: #bf271e;
-            margin-bottom: 20px;
-        }
-
-        .errorMsg {
-            color: #bf271e;
-            font-size: 14px;
-        }
-
-        .errorMessage {
-            color: #bf271e;
-            font-size: 15px;
-            font-weight: bold;
-            padding-bottom: 5px;
-        }
-
-            .errorMessage span {
-                left: 5px;
-                position: relative;
-                bottom: 4px;
-            }
-
-        .dvError ul li {
-            color: #D4214B;
-            font-size: 15px;
-            margin-left: 24px;
-        }
-
-        .module19Box input[type=text] {
-            border-radius: 0px;
-            border-color: #d8d8d8;
-        }
-
-        @media screen and (min-width: 575px) {
-            .module19Box input[type=text], .module19Box input[type=submit] {
-                width: 320px;
-            }
-        }
-
-        @media screen and (min-width: 815px) {
-        }
-</style>
-<script type="text/javascript">
-$(function () {
-
-            parent.window.addEventListener('load', function () {
-                setIframeHeight();
-            });
-
-            parent.window.addEventListener('resize', function () {
-                setIframeHeight();
-            });
-
-            $(window).load(function () {
-                setIframeHeight();
-            });
-
-            function getDocHeight() {
-                return Math.max(
-                    $(document).height(),
-                    $(window).height(),
-                    /* For opera: */
-                    document.documentElement.clientHeight
-                );
-            }
-            function setIframeHeight() {
-                //console.log("height: " + getDocHeight());
-                window.parent.document.getElementById('pukIframe').height = '100%';
-                window.parent.document.getElementById('pukIframe').height = getDocHeight();
-            }
-
-            $('.puk-form input[name=mpn]').on('keydown blur', function () {
-                $('.telErrorMessage').css('display', 'none');
-                $('#MPN').css('border-color', '#d8d8d8');
-                setIframeHeight();
-            });
-
-            $("#pukForm").submit(function (e) {
-                var validate = phoneValidate();
-                if (validate == false) {
-                    e.preventDefault();
-                    setIframeHeight();
-                }
-                else {
-                    $("#pukForm")[0].submit();
-                }
-            });
-
-            function validateUkPhoneNumber(number) {
-                var re = /^(\+44|44|0044|0)7\d{9}$/;
-                return re.test(number);
-            }
-
-            function phoneValidate() {
-                var telVal = $.trim($('.puk-form input[name=mpn]').val());
-                telInvalid = false;
-                /*Tel Check*/
-                if (telVal === '') {
-                    telInvalid = true;
-                    $('.telErrorMessage').text('Enter your mobile number to find your PUK code.');
-                }
-                else if (!validateUkPhoneNumber(telVal)) {
-                    telInvalid = true;
-                    $('.telErrorMessage').text("The mobile number you\'ve entered hasn\'t been recognised. Check your number and try again.");
-                }
-
-                if (telInvalid) {
-                    $('.telErrorMessage').css('display', 'block');
-                    $('.dvError').css('display', 'none');
-                    $('#MPN').css('border-color', '#dd5858');
-                    return false;
-                }
-                else {
-                    $('.telErrorMessage').css('display', 'none');
-                    return true;
-                }
-            }
-
-
-        });
-</script>
-	
-
-</head>
-<body>
-    <div class="module19Box" id="module19Box">
-
-        <div class="grid">
+   <head>
+      <base target="_parent">
+      #parse("getpuk/head.vm")
+   </head>
+   <body>
+      <div class="module19Box" id="module19Box">
+         <div class="grid">
             <div class="grid-row">
-                <div class="default-content-container">
-                    #if($errors)
-
-                    <div id="dvError" class="dvError">
-                        <div>
-                            #foreach( $error in $errors )
-                            <div class="errorMessage">
-                                <ul>
-                                    <img src="https://static.o2.co.uk/shared/img/modules/digital-id/exclamation.png" width="22" />
-                                    <span id="dvMsg">
-                                        $error.message
-                                    </span>
-                                </ul>
-                            </div>
-                            #end
-                        </div>
-                    </div>
-                    #end
-                    <div class="text">
-                        <p>Most phones are locked with a pin code. If you enter the wrong pin too many times, your sim will be blocked and you won't be able to make and receive calls or texts. When this happens, you'll need your PUK (Personal Unblocking Key) code to unblock your sim.</p>
-                        <p>To find your PUK code, enter your number below. Or <a href="https://accounts.o2.co.uk/signin">sign in to My O2</a>,  go to <b> My device</b>, then <b>Device details.</b></p>
-                    </div>
-
-
-                    <form name="PUKForm" method="post" class="puk-form" id="pukForm">
-
-                        <label for="MPN" class="margin-bottom-20">Enter your mobile number</label>
-                        <input type="text" name="mpn" id="MPN" class="mobilenumberField margin-bottom-20" maxlength="20" value="" />
-                        <span id="spanError" class="errorMsg telErrorMessage margin-bottom-20"></span>
-                        <input class="get-puk-submit margin-bottom-20" type="submit" id="btnSubmit" alt="Go" value="Get PUK code" title="Go" class="srchGoBtnContent" /> <!-- adding disabled will validate the captcha response-->
-                        <input type="hidden" name="viewmode" value="getPuk" />
-                        <div style="visibility: ${showCaptcha};" class="g-recaptcha" data-sitekey=${sitekey} data-callback="recaptchaCallback"></div>
-                    </form>
-                    <!-- <div class="text">
-                    <p>Altenatively, you can find your PUK code within My O2. Sign in > My device > Device details</p>
-                    </div> -->
-                </div>
+               <div class="default-content-container">
+                  #parse("getpuk/serverError.vm")
+                  <div class="text">
+                     <p>Most phones are locked with a pin code. If you enter the wrong pin too many times, your sim will be blocked and you won't be able to make and receive calls or texts. When this happens, you'll need your PUK (Personal Unblocking Key) code to unblock your sim.</p>
+                     <p>To find your PUK code, enter your number below. Or <a href="https://accounts.o2.co.uk/signin">sign in to My O2</a>,  go to <b> My device</b>, then <b>Device details.</b></p>
+                  </div>
+                  <form name="PUKForm" method="post" class="puk-form" id="pukForm">
+                     <label for="MPN" class="margin-bottom-20">Enter your mobile number</label>
+                     <input type="text" name="mpn" id="MPN" class="mobilenumberField margin-bottom-20" maxlength="20" value="" />
+                     <span id="spanError" class="errorMsg telErrorMessage margin-bottom-20"></span>
+                     <input class="get-puk-submit margin-bottom-20" type="submit" id="btnSubmit" alt="Go" value="Get PUK code" title="Go" class="srchGoBtnContent" /> <!-- adding disabled will validate the captcha response-->
+                     <input type="hidden" name="viewmode" value="getPuk" />
+                     <div style="visibility: ${showCaptcha};" class="g-recaptcha" data-sitekey=${sitekey} data-callback="recaptchaCallback"></div>
+                  </form>
+               </div>
             </div>
-			
             <div class="default-content-container">
-                <div class="text">
-                    <p>If you put in the wrong PUK code 10 times, your sim will be permanently locked and you will need to speak to our <a href="http://www.o2.co.uk/contactus">customer care team</a>.</p>
-                </div>
+               <div class="text">
+                  <p>If you put in the wrong PUK code 10 times, your sim will be permanently locked and you will need to speak to our <a href="http://www.o2.co.uk/contactus">customer care team</a>.</p>
+               </div>
             </div>
-        </div>
-    </div>
-</body>
+         </div>
+      </div>
+   </body>
 </html>
