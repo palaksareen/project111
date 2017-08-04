@@ -32,7 +32,7 @@ task deployToTomcat(type: Copy) {
 }
 
 war {
-	baseName = 'puk'
+	baseName = 'getpuk'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
