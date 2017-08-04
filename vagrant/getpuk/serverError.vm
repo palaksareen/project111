@@ -1,0 +1,17 @@
+#if($errors)
+
+<div id="dvError" class="dvError">
+    <div>
+        #foreach( $error in $errors )
+        <div class="errorMessage">
+            <ul>
+                <img src="//static.o2.co.uk/shared/img/modules/digital-id/exclamation.png" width="22"/>
+                <span id="dvMsg">
+                                        $error.message
+                                    </span>
+            </ul>
+        </div>
+        #end
+    </div>
+</div>
+#end
